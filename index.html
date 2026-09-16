@@ -14,26 +14,6 @@
 html,body{height:100%;overflow:hidden;overscroll-behavior:none;background:#000}
 body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#fff;display:flex;justify-content:center;align-items:center;position:relative;overflow:hidden;font-feature-settings:"tnum" on,"lnum" on;-webkit-font-smoothing:antialiased;letter-spacing:-0.01em;touch-action:manipulation}
 
-#updateSim{position:fixed;inset:0;z-index:11000;background:#000;display:flex;align-items:center;justify-content:center;padding:20px;transition:opacity .6s ease,visibility .6s ease;overflow-y:auto}
-#updateSim.hide{opacity:0;visibility:hidden}
-.updBg{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%, rgba(230,36,41,.5), transparent 55%),radial-gradient(ellipse at 20% 100%, rgba(255,184,0,.15), transparent 55%),linear-gradient(180deg,#1a0207 0%,#0a0205 50%,#000 100%)}
-.updCard{position:relative;z-index:2;width:100%;max-width:440px;background:linear-gradient(160deg,rgba(28,28,38,.96),rgba(12,12,20,.98));border:1px solid rgba(230,36,41,.35);border-radius:24px;padding:28px 24px 22px;box-shadow:0 30px 100px rgba(0,0,0,.9),0 0 60px rgba(230,36,41,.2);max-height:92vh;display:flex;flex-direction:column;animation:updSlide .6s cubic-bezier(.2,.9,.3,1)}
-@keyframes updSlide{from{opacity:0;transform:translateY(30px) scale(.95)}to{opacity:1;transform:translateY(0) scale(1)}}
-.updCard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#E62429,#FFB800,#E62429,transparent);box-shadow:0 0 20px rgba(230,36,41,.7)}
-.updHeader{display:flex;align-items:center;gap:14px;margin-bottom:18px}
-.updIcon{width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,#E62429,#8B0F14);display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0}
-.updTitleBox h2{font-size:20px;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px}
-.updTitleBox .ver{font-size:11.5px;color:#FFB800;font-weight:800;letter-spacing:2px;display:inline-flex;align-items:center;gap:6px}
-.updTitleBox .ver .old{color:#8a8a95;text-decoration:line-through;opacity:.7}
-.updBody{color:#c8c8d0;font-size:13px;line-height:1.7;margin-bottom:20px;overflow-y:auto;flex:1}
-.updBody h3{font-size:12px;color:#E62429;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin:14px 0 8px}
-.updBody ul{list-style:none}
-.updBody li{padding:6px 0 6px 22px;position:relative;font-size:12.5px;color:#b8b8c0}
-.updBody li::before{content:'▸';position:absolute;left:4px;top:6px;color:#FFB800}
-.updBody li b{color:#fff}
-.updBtn{width:100%;padding:16px;border:none;background:linear-gradient(135deg,#E62429,#8B0F14);color:#fff;font-weight:900;font-size:14px;letter-spacing:2.5px;text-transform:uppercase;border-radius:14px;cursor:pointer;box-shadow:0 4px 0 rgba(90,10,15,.7);transition:.15s;font-family:inherit}
-.updBtn:active{transform:translateY(2px);box-shadow:0 2px 0 rgba(90,10,15,.7)}
-
 .authOverlay{position:fixed;inset:0;z-index:10000;background:#050208;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;visibility:hidden;transition:opacity .4s,visibility .4s}
 .authOverlay.show{opacity:1;visibility:visible}
 .authBg{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%, rgba(230,36,41,.4), transparent 55%),linear-gradient(180deg,#1a0207 0%,#0a0205 50%,#000 100%)}
@@ -306,13 +286,10 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
 @keyframes floatUp{0%{transform:translate(-50%,-50%) scale(.5);opacity:0}15%{transform:translate(-50%,-60%) scale(1.25);opacity:1}100%{transform:translate(-50%,-180px) scale(1);opacity:0}}
 .pt{position:absolute;border-radius:50%;pointer-events:none;z-index:55;animation:ptBurst .9s cubic-bezier(.2,.8,.3,1) forwards}
 @keyframes ptBurst{0%{transform:translate(-50%,-50%) scale(1.4);opacity:1}100%{transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) scale(0);opacity:0}}
-.ripple{position:absolute;border-radius:50%;pointer-events:none;z-index:50;border:2px solid rgba(255,184,0,.8);transform:translate(-50%,-50%);animation:rippleOut .65s cubic-bezier(.2,.8,.3,1) forwards}
-@keyframes rippleOut{from{width:0;height:0;opacity:1}to{width:220px;height:220px;opacity:0}}
 
 #toast{position:absolute;top:80px;left:50%;transform:translateX(-50%) translateY(-20px);background:linear-gradient(135deg,#E62429,#8B0F14);color:#fff;padding:12px 24px;border-radius:13px;font-size:12.5px;font-weight:800;opacity:0;transition:.3s;z-index:300;pointer-events:none;text-transform:uppercase}
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 #toast.ok{background:linear-gradient(135deg,#FFB800,#B88000);color:#0a0500}
-#toast.err{background:linear-gradient(135deg,#8B0F14,#4A0508)}
 
 .rewardPopup{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(.7);background:linear-gradient(160deg,rgba(42,21,16,.98),rgba(26,10,8,.99));border:2px solid #FFB800;border-radius:22px;padding:26px 30px;text-align:center;z-index:500;opacity:0;pointer-events:none;transition:.4s cubic-bezier(.3,1.6,.6,1);min-width:260px}
 .rewardPopup.show{opacity:1;pointer-events:auto;transform:translate(-50%,-50%) scale(1)}
@@ -337,31 +314,6 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
 </head>
 <body>
 
-<!-- UPDATE SIMULATOR -->
-<div id="updateSim">
-  <div class="updBg"></div>
-  <div class="updCard">
-    <div class="updHeader">
-      <div class="updIcon">🚀</div>
-      <div class="updTitleBox">
-        <h2>Update Available</h2>
-        <div class="ver"><span class="old">v4.3</span> <span style="color:#FFB800">→</span> <span style="color:#FFB800">v5.0</span></div>
-      </div>
-    </div>
-    <div class="updBody">
-      <h3>What's New</h3>
-      <ul>
-        <li><b>Cloud Save</b> — Progress saved to server</li>
-        <li><b>Email Login</b> — Login from any device</li>
-        <li><b>Real Accounts</b> — Register with email</li>
-        <li><b>Global Sync</b> — Same account, any device</li>
-      </ul>
-    </div>
-    <button class="updBtn" id="updStartBtn">⚡ CONTINUE</button>
-  </div>
-</div>
-
-<!-- AUTH SCREEN -->
 <div class="authOverlay" id="authOverlay">
   <div class="authBg"></div>
   <div class="authCard">
@@ -384,7 +336,6 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
   </div>
 </div>
 
-<!-- INTRO -->
 <div id="intro" style="display:none">
   <div class="marvel-bg"></div>
   <div class="marvel-box"><span>MARVEL</span></div>
@@ -393,14 +344,12 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
   <div class="intro-skip" id="introSkip">SKIP →</div>
 </div>
 
-<!-- BACKGROUND -->
 <div id="bgStage">
   <div class="bg-layer bg-base"></div>
   <div class="bg-layer bg-grid"></div>
   <div class="bg-layer bg-vignette"></div>
 </div>
 
-<!-- APP -->
 <div id="app">
   <header>
     <div class="logo">
@@ -493,26 +442,18 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
   <div id="toast"></div>
 </div>
 
-<!-- Loading -->
 <div class="loadingOverlay" id="loadingOverlay">
   <div class="loadingSpinner"></div>
   <div class="loadingText" id="loadingText">LOADING...</div>
 </div>
 
-<!-- Hidden file input -->
 <input type="file" id="avatarInputGlobal" accept="image/*" style="display:none">
 
 <script>
-/* ═══════════════════════════════════════════════════════════
-   SUPABASE CONFIG
-   ═══════════════════════════════════════════════════════════ */
 const SUPABASE_URL = 'https://zrjgknagwhgbhzsnvdvk.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_2ScJc7_7nBoETJGmpCr19w_m8erpN00';
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-/* ═══════════════════════════════════════════════════════════
-   GLOBAL VARIABLES
-   ═══════════════════════════════════════════════════════════ */
 let currentUser = null;
 let isGuest = false;
 let state = null;
@@ -521,8 +462,6 @@ const ENERGY_COST = 5;
 const GOLD_UNLOCK_COST = 50000;
 const GOLD_PER_SECOND = 0.002;
 const GOLD_TO_CREDIT = 500;
-const CONVERT_COOLDOWN_MS = 5 * 60 * 1000;
-const CONVERT_DAILY_LIMIT = 10;
 const TICKET_PRICE = 10000;
 const DICE_TICKET_COST = 1;
 const CHECKERS_TICKET_COST = 1;
@@ -534,17 +473,10 @@ const isLowEnd = isMobile;
 const GOLD_THRESHOLD = { reactor:8, vibranium:6, legion:5, infinity:4, mjolnir:3 };
 const GOLD_BASE = 5;
 const GOLD_STEP = 1;
-const UPDATE_VERSION = 'v5.0';
 
-/* ═══════════════════════════════════════════════════════════
-   DOM HELPERS
-   ═══════════════════════════════════════════════════════════ */
 const $ = s => document.querySelector(s);
 const $$ = s => document.querySelectorAll(s);
 
-/* ═══════════════════════════════════════════════════════════
-   GAME DATA
-   ═══════════════════════════════════════════════════════════ */
 const ICONS = {
   miner: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M14.5 3.5 L20.5 9.5"/><path d="M3.5 20.5 L14.5 9.5 L15.5 10.5 L4.5 21.5 Z"/><path d="M20.5 3.5 C 15 1, 10 1.5, 6 4.5" stroke-width="2"/><circle cx="20.5" cy="9.5" r="1.6" fill="currentColor"/></svg>`,
   reactor: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg>`,
@@ -580,9 +512,6 @@ const WEEKLY_MISSIONS = [
   { id:'w2', icon:'💎', title:'Credit Hunter', desc:'Earn 5,000 credits', need:5000, reward:1600, goldReward:1, ticketReward:2, prog:s=>s.stats.weekEarned||0 },
 ];
 
-/* ═══════════════════════════════════════════════════════════
-   AUDIO
-   ═══════════════════════════════════════════════════════════ */
 let actx = null;
 function ensureAudio(){ if(!actx){ try{ actx = new (window.AudioContext||window.webkitAudioContext)(); }catch{} } if(actx && actx.state==='suspended') actx.resume(); }
 function tone(f, d=0.06, t='sine', v=0.05, delay=0){ if(!actx) return; try{ const s = actx.currentTime + delay; const o = actx.createOscillator(); const g = actx.createGain(); o.type=t; o.frequency.setValueAtTime(f, s); g.gain.setValueAtTime(v, s); g.gain.exponentialRampToValueAtTime(0.0001, s+d); o.connect(g); g.connect(actx.destination); o.start(s); o.stop(s+d); }catch{} }
@@ -600,9 +529,6 @@ const SFX = {
   login(){ [659,880,1046].forEach((f,i)=>tone(f,.15,'sine',.06,i*.08)); },
 };
 
-/* ═══════════════════════════════════════════════════════════
-   DEFAULT STATE
-   ═══════════════════════════════════════════════════════════ */
 function defaultState(){
   const now = Date.now();
   return {
@@ -614,7 +540,7 @@ function defaultState(){
     lastDailyReset: now, lastWeeklyReset: now,
     stats:{ todayClicks:0, todayCrits:0, todayMaxCombo:0, todayUpgrades:0, weekClicks:0, weekEarned:0, weekUpgrades:0, weekMaxCombo:0 },
     streak:0, lastStreakClaim:0, lastSeen: now,
-    introSeen: false, updateSeen: null,
+    introSeen: false,
     goldUnlocked: false, goldEnginePending: 0, goldEngineLastTick: 0,
     goldLastConvert: 0, goldDailyConverts: 0, goldDailyResetAt: 0,
     diceRolls: [], diceTicketsSpent: 0,
@@ -625,24 +551,16 @@ function defaultState(){
   };
 }
 
-/* ═══════════════════════════════════════════════════════════
-   UTILITIES
-   ═══════════════════════════════════════════════════════════ */
 function fmt(n){ n = Math.floor(n); if(n<1000) return n.toString(); if(n<1e6) return (n/1e3).toFixed(1).replace(/\.?0+$/,'')+'K'; if(n<1e9) return (n/1e6).toFixed(1).replace(/\.?0+$/,'')+'M'; if(n<1e12) return (n/1e9).toFixed(2)+'B'; return (n/1e12).toFixed(2)+'T'; }
 function rankOf(score){ let r = RANKS[0]; for(const x of RANKS) if(score>=x.min) r=x; return r.name; }
 function costOf(h){ const lv = state.upgrades[h.key]||0; return Math.floor(h.baseCost * Math.pow(h.growth, lv)); }
 function goldCostOf(h){ const lv = state.upgrades[h.key]||0; const th = GOLD_THRESHOLD[h.key]; if(!th || lv < th) return 0; return GOLD_BASE + (lv - th) * GOLD_STEP; }
-function fmtTime(ms){ if(ms <= 0) return '00:00'; const t = Math.floor(ms/1000); const m = Math.floor(t/60), s = t%60; return String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0'); }
 
-/* ═══════════════════════════════════════════════════════════
-   SUPABASE AUTH FUNCTIONS
-   ═══════════════════════════════════════════════════════════ */
 async function registerAccount(email, password, username){
   try{
     const { data, error } = await supabase.auth.signUp({ email, password });
     if(error) throw error;
     if(!data.user) throw new Error('Registration failed');
-    
     const { error: pErr } = await supabase.from('profiles').insert({
       id: data.user.id,
       username: username,
@@ -650,9 +568,7 @@ async function registerAccount(email, password, username){
     });
     if(pErr) throw pErr;
     return { success:true, user: data.user };
-  }catch(err){
-    return { success:false, error: err.message };
-  }
+  }catch(err){ return { success:false, error: err.message }; }
 }
 
 async function loginAccount(email, password){
@@ -660,9 +576,7 @@ async function loginAccount(email, password){
     const { data, error } = await supabase.auth.signInWithPassword({ email, password });
     if(error) throw error;
     return { success:true, user: data.user };
-  }catch(err){
-    return { success:false, error: err.message };
-  }
+  }catch(err){ return { success:false, error: err.message }; }
 }
 
 async function logoutAccount(){
@@ -688,9 +602,6 @@ function loginAsGuest(){
   localStorage.setItem('marvels_guest', '1');
 }
 
-/* ═══════════════════════════════════════════════════════════
-   SERVER LOAD / SAVE
-   ═══════════════════════════════════════════════════════════ */
 async function loadProgressFromServer(){
   if(isGuest){
     try{
@@ -700,12 +611,10 @@ async function loadProgressFromServer(){
     }catch{ return defaultState(); }
   }
   if(!currentUser) return defaultState();
-  
   try{
     setSyncStatus('syncing');
     const { data, error } = await supabase.from('profiles').select('*').eq('id', currentUser.id).single();
     if(error) throw error;
-    
     const s = defaultState();
     s.score = Number(data.score) || 0;
     s.gold = Number(data.gold) || 0;
@@ -726,8 +635,6 @@ async function loadProgressFromServer(){
     s.customName = data.custom_name || null;
     s.avatar = data.avatar_url || null;
     s.lastSeen = data.last_seen ? new Date(data.last_seen).getTime() : Date.now();
-    
-    // Offline progress
     if(s.goldUnlocked){
       const elapsed = Math.min((Date.now() - s.lastSeen)/1000, 86400);
       s.goldEnginePending += elapsed * GOLD_PER_SECOND;
@@ -738,7 +645,6 @@ async function loadProgressFromServer(){
       if(rate > 0) s.score += Math.floor(rate * elapsed2 * 0.4);
       s.energy = Math.min(s.energy + s.regen * elapsed2, s.energyMax);
     }
-    
     setSyncStatus('synced');
     setTimeout(()=>setSyncStatus('off'), 2000);
     return s;
@@ -756,7 +662,6 @@ async function saveProgressToServer(){
     return;
   }
   if(!currentUser) return;
-  
   try{
     setSyncStatus('syncing');
     const { error } = await supabase.from('profiles').update({
@@ -805,10 +710,7 @@ async function resetServerProgress(){
       last_seen: new Date().toISOString(),
     }).eq('id', currentUser.id);
     return true;
-  }catch(err){
-    console.error('Reset error:', err);
-    return false;
-  }
+  }catch(err){ console.error(err); return false; }
 }
 
 async function uploadAvatarToStorage(file){
@@ -820,10 +722,7 @@ async function uploadAvatarToStorage(file){
     if(error) throw error;
     const { data } = supabase.storage.from('avatars').getPublicUrl(path);
     return data.publicUrl;
-  }catch(err){
-    console.error('Avatar upload error:', err);
-    return null;
-  }
+  }catch(err){ console.error(err); return null; }
 }
 
 function normalizeState(s){
@@ -848,9 +747,6 @@ function startAutoSync(){
   syncInterval = setInterval(()=>{ if(state && !isGuest && currentUser) saveProgressToServer(); }, 15000);
 }
 
-/* ═══════════════════════════════════════════════════════════
-   UI: AUTH SCREEN
-   ═══════════════════════════════════════════════════════════ */
 let authTab = 'login';
 $$('.authTab').forEach(t=>{
   t.onclick = ()=>{
@@ -875,13 +771,10 @@ $('#authSubmit').onclick = async ()=>{
   const email = $('#authEmail').value.trim();
   const pass = $('#authPass').value;
   const username = $('#authUsername').value.trim();
-  
   if(!email || !email.includes('@')){ showAuthMsg('ENTER VALID EMAIL', 'error'); SFX.err(); return; }
   if(pass.length < 6){ showAuthMsg('PASSWORD 6+ CHARS', 'error'); SFX.err(); return; }
-  
   $('#authSubmit').disabled = true;
   $('#authSubmit').textContent = '⏳ PLEASE WAIT...';
-  
   if(authTab === 'register'){
     if(username.length < 3){ showAuthMsg('USERNAME 3+ CHARS', 'error'); SFX.err(); $('#authSubmit').disabled = false; $('#authSubmit').textContent = 'CREATE ACCOUNT'; return; }
     const res = await registerAccount(email, pass, username);
@@ -906,50 +799,35 @@ $('#authSubmit').onclick = async ()=>{
 
 $('#authGuest').onclick = ()=>{ loginAsGuest(); bootGame(true); };
 
-/* ═══════════════════════════════════════════════════════════
-   BOOT GAME
-   ═══════════════════════════════════════════════════════════ */
 async function bootGame(fromAuth = false){
   const overlay = $('#loadingOverlay');
   if(fromAuth){
     overlay.classList.add('show');
     $('#loadingText').textContent = 'LOADING PROFILE...';
   }
-  
-  // Reset input fields
   if(fromAuth){
     $('#authSubmit').disabled = false;
     $('#authSubmit').textContent = authTab === 'login' ? 'LOGIN' : 'CREATE ACCOUNT';
   }
-  
   if(!isGuest){
     currentUser = await checkSession();
     if(!currentUser && fromAuth){
-      // Maybe registration didn't log in immediately
       const { data: { user } } = await supabase.auth.getUser();
       currentUser = user;
     }
   }
-  
   state = await loadProgressFromServer();
   checkResets();
-  
   overlay.classList.remove('show');
   $('#authOverlay').classList.remove('show');
   render();
   updatePlayerUI();
-  
   if(!isGuest && currentUser) startAutoSync();
-  
-  // Show intro
   const intro = document.getElementById('intro');
   intro.style.display = 'flex';
   const introTime = isLowEnd ? 2000 : 3500;
-  if(state.introSeen && state.updateSeen === UPDATE_VERSION){
-    setTimeout(hideIntro, 200);
-  } else {
-    setTimeout(hideIntro, introTime);
-  }
+  if(state.introSeen){ setTimeout(hideIntro, 200); }
+  else { setTimeout(hideIntro, introTime); }
 }
 
 function hideIntro(){
@@ -962,17 +840,6 @@ function hideIntro(){
 
 $('#introSkip').onclick = hideIntro;
 
-/* ═══════════════════════════════════════════════════════════
-   UPDATE SIMULATOR
-   ═══════════════════════════════════════════════════════════ */
-$('#updStartBtn').onclick = ()=>{
-  $('#updateSim').classList.add('hide');
-  setTimeout(()=>{ $('#updateSim').style.display = 'none'; }, 700);
-};
-
-/* ═══════════════════════════════════════════════════════════
-   GAME LOGIC
-   ═══════════════════════════════════════════════════════════ */
 function checkResets(){
   const now = Date.now();
   if(now - state.lastDailyReset > 24*3600*1000){
@@ -991,10 +858,6 @@ function checkResets(){
     state.stats.weekEarned = 0;
     state.stats.weekUpgrades = 0;
     state.stats.weekMaxCombo = 0;
-  }
-  if(state.goldDailyResetAt && now >= state.goldDailyResetAt){
-    state.goldDailyConverts = 0;
-    state.goldDailyResetAt = 0;
   }
 }
 
@@ -1060,20 +923,17 @@ function updateBadges(){
   else badge.classList.add('hidden');
 }
 
-/* STRIKE */
 let comboCount = 0, lastTapTime = 0, comboResetTimer = null;
 
 function strike(e){
   ensureAudio();
   if(!state) return;
-  if(state.energy < ENERGY_COST){ showToast('NOT ENOUGH ENERGY', false); SFX.err(); return; }
-  
+  if(state.energy < ENERGY_COST){ showToast('NOT ENOUGH ENERGY'); SFX.err(); return; }
   const now = performance.now();
   if(now - lastTapTime < 800) comboCount++; else comboCount = 1;
   lastTapTime = now;
   if(comboCount > state.maxCombo) state.maxCombo = comboCount;
   if(comboCount > (state.stats.todayMaxCombo||0)) state.stats.todayMaxCombo = comboCount;
-  
   const comboMult = Math.min(1 + comboCount*0.04, 5);
   let dmg = state.perClick;
   let fx = 'normal';
@@ -1082,38 +942,31 @@ function strike(e){
   if(Math.random()*100 < megaC){ dmg *= 3; fx='mega'; state.stats.todayCrits = (state.stats.todayCrits||0)+1; }
   else if(Math.random()*100 < critC){ dmg *= 2; fx='crit'; state.stats.todayCrits = (state.stats.todayCrits||0)+1; }
   dmg = Math.floor(dmg * comboMult);
-  
   state.energy = Math.max(0, state.energy - ENERGY_COST);
   state.score += dmg;
   state.totalClicks++;
   state.stats.todayClicks = (state.stats.todayClicks||0) + 1;
   state.stats.weekClicks = (state.stats.weekClicks||0) + 1;
   state.stats.weekEarned = (state.stats.weekEarned||0) + dmg;
-  
   const rect = $('#coinArea').getBoundingClientRect();
   const x = (e.clientX ?? rect.left+rect.width/2) - rect.left;
   const y = (e.clientY ?? rect.top+rect.height/2) - rect.top;
-  
   spawnFloaty(x, y, '+'+fmt(dmg), fx);
   spawnParticles(x, y, fx);
-  
   const scoreEl = $('#score');
   scoreEl.classList.add('pop');
   setTimeout(()=>scoreEl.classList.remove('pop'), 100);
-  
   if(comboCount >= 5){
-    const tier = comboCount >= 30 ? 'x3' : comboCount >= 18 ? 'x3' : '';
+    const tier = comboCount >= 30 ? 'x3' : '';
     const cb = $('#comboBadge');
     cb.textContent = 'COMBO ×'+comboCount;
     cb.className = 'comboBadge show ' + tier;
     clearTimeout(comboResetTimer);
     comboResetTimer = setTimeout(()=>cb.classList.remove('show'), 800);
   }
-  
   if(fx==='mega') SFX.mega();
   else if(fx==='crit') SFX.crit();
   else SFX.tap(comboCount);
-  
   if(navigator.vibrate && !isLowEnd && comboCount%5===0) navigator.vibrate(6);
   renderFast();
   checkAchievements();
@@ -1153,7 +1006,6 @@ function spawnParticles(x, y, type){
   }
 }
 
-/* HEROES */
 function renderHeroes(){
   let html = '<div class="heroGrid">';
   for(const h of HEROES){
@@ -1210,7 +1062,6 @@ function buyHero(key){
   saveProgressToServer();
 }
 
-/* MISSIONS */
 let currentMissionTab = 'daily';
 function renderMissions(){
   const tabs = `
@@ -1295,7 +1146,6 @@ function claimStreak(){
   saveProgressToServer();
 }
 
-/* ACHIEVEMENTS */
 function renderAchievements(){
   const ACHV = [
     { id:'a1', icon:'🥇', name:'First Contact', check:s=>s.totalClicks>=1 },
@@ -1340,7 +1190,6 @@ function checkAchievements(){
   }
 }
 
-/* MINI GAMES */
 function renderMiniGames(){
   const tickets = state.tickets || 0;
   $('#sheetBody').innerHTML = `
@@ -1384,7 +1233,6 @@ function buyTicket(){
   saveProgressToServer();
 }
 
-/* DICE */
 function renderDiceFace(el, val){
   const layouts = { 1:[0,0,0,0,1,0,0,0,0], 2:[1,0,0,0,0,0,0,0,1], 3:[1,0,0,0,1,0,0,0,1], 4:[1,0,1,0,0,0,1,0,1], 5:[1,0,1,0,1,0,1,0,1], 6:[1,0,1,1,0,1,1,0,1] };
   const p = layouts[val];
@@ -1475,7 +1323,6 @@ function rollDice(){
   }, 90);
 }
 
-/* CHECKERS */
 let checkersState = null;
 function openCheckersLobby(){
   $('#sheetBody').innerHTML = `
@@ -1696,7 +1543,6 @@ function checkGameOver(){
   return false;
 }
 
-/* PING PONG */
 let pongState = null, pongRafId = null, pongHandlers = null;
 
 function openPongLobby(){
@@ -1877,7 +1723,6 @@ function endPongMatch(){
   stopPong();
 }
 
-/* GOLD ENGINE */
 function updateGoldPageLive(){
   if(!state.goldUnlocked) return;
   const pending = state.goldEnginePending || 0;
@@ -1959,13 +1804,11 @@ function collectGold(){
   saveProgressToServer();
 }
 
-/* SETTINGS */
 function renderSettings(){
   const displayName = state.customName || (currentUser ? currentUser.email?.split('@')[0] : 'Guest');
   const initial = displayName.substring(0,2).toUpperCase();
   const since = currentUser?.created_at ? new Date(currentUser.created_at).toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' }) : 'Today';
   const avatarStyle = state.avatar ? `background-image:url('${state.avatar}');background-size:cover;background-position:center;` : '';
-  
   $('#sheetBody').innerHTML = `
     <div class="settingsHero">
       <div class="settingsAvatarWrap">
@@ -2015,8 +1858,6 @@ function renderSettings(){
     </div>
     <div style="text-align:center;margin-top:20px;font-size:10.5px;color:#5a5a65;letter-spacing:2px">BUILT BY PARHAM.KH</div>
   `;
-  
-  // Avatar
   const avatarMenu = document.getElementById('avatarMenu');
   const editBadge = document.getElementById('avatarEditBadge');
   const uploadBtn = document.getElementById('avatarUploadBtn');
@@ -2026,7 +1867,6 @@ function renderSettings(){
   if(uploadBtn) uploadBtn.onclick = (e)=>{ e.stopPropagation(); avatarMenu.classList.remove('show'); $('#avatarInputGlobal').click(); };
   if(removeBtn) removeBtn.onclick = (e)=>{ e.stopPropagation(); avatarMenu.classList.remove('show'); removeAvatar(); };
   if(editNameBtn) editNameBtn.onclick = (e)=>{ e.stopPropagation(); editPlayerName(); };
-  
   document.addEventListener('click', function closeMenu(e){
     if(avatarMenu && avatarMenu.classList.contains('show')){
       if(!avatarMenu.contains(e.target) && e.target !== editBadge){
@@ -2035,8 +1875,6 @@ function renderSettings(){
       }
     }
   });
-  
-  // Actions
   const setLogout = document.getElementById('setLogout');
   if(setLogout) setLogout.onclick = async ()=>{
     if(!confirm('Logout?')) return;
@@ -2082,14 +1920,11 @@ function editPlayerName(){
   saveProgressToServer();
 }
 
-/* AVATAR */
 async function handleAvatarFile(file){
   if(!state) return;
   if(!file.type.startsWith('image/')){ showToast('ONLY IMAGES'); SFX.err(); return; }
   if(file.size > 5*1024*1024){ showToast('MAX 5MB'); SFX.err(); return; }
-  
   if(isGuest){
-    // Guest: base64 to localStorage
     const reader = new FileReader();
     reader.onload = (ev)=>{
       const img = new Image();
@@ -2111,8 +1946,6 @@ async function handleAvatarFile(file){
     reader.readAsDataURL(file);
     return;
   }
-  
-  // Logged user: upload to storage
   showToast('UPLOADING...');
   const url = await uploadAvatarToStorage(file);
   if(url){
@@ -2142,7 +1975,6 @@ $('#avatarInputGlobal').onchange = (e)=>{
   e.target.value = '';
 };
 
-/* SHEETS */
 function openSheet(view){
   const titles = {
     heroes:'<span class="accent">⚡</span> HEROES',
@@ -2169,7 +2001,6 @@ function closeSheet(){
   stopPong();
 }
 
-/* UI HELPERS */
 let popupTimer;
 function popReward(icon, title, amount, sub){
   $('#rpIcon').textContent = icon;
@@ -2191,16 +2022,13 @@ function showToast(msg, ok=false){
   toastTimer = setTimeout(()=>t.classList.remove('show'), 1800);
 }
 
-/* GAME LOOP */
 let lastTick = performance.now();
 let tickCounter = 0;
-let lastSave = 0;
 
 function tick(now){
   const dt = Math.min((now - lastTick)/1000, 1);
   lastTick = now;
   if(!state){ requestAnimationFrame(tick); return; }
-  
   if(state.goldUnlocked){
     state.goldEnginePending = (state.goldEnginePending || 0) + dt * GOLD_PER_SECOND;
   }
@@ -2209,16 +2037,13 @@ function tick(now){
   }
   const auto = (state.upgrades.legion||0)*2;
   if(auto > 0) state.score += auto*dt;
-  
   tickCounter++;
   const skip = isLowEnd ? 10 : 5;
   if(tickCounter % skip === 0) renderFast();
   if(tickCounter % 120 === 0) render();
-  
   requestAnimationFrame(tick);
 }
 
-/* EVENTS */
 $('#coin').addEventListener('pointerdown', (e)=>{ e.preventDefault(); strike(e); });
 $('#coin').addEventListener('touchstart', (e)=>{
   e.preventDefault();
@@ -2249,16 +2074,9 @@ $('#sheetClose').onclick = closeSheet;
 $('#settingsBtn').onclick = ()=>{ $$('.navItem').forEach(x=>x.classList.remove('active')); openSheet('settings'); };
 $('#goldBtn').onclick = ()=>{ $$('.navItem').forEach(x=>x.classList.remove('active')); openSheet('gold'); };
 
-/* ═══════════════════════════════════════════════════════════
-   BOOT SEQUENCE
-   ═══════════════════════════════════════════════════════════ */
 (async function boot(){
-  // Auto-hide update simulator
-  setTimeout(()=>{ $('#updateSim').classList.add('hide'); setTimeout(()=>{ $('#updateSim').style.display = 'none'; }, 700); }, 100);
-  
   const sessionUser = await checkSession();
   const guestSaved = localStorage.getItem('marvels_guest') === '1';
-  
   if(sessionUser){
     currentUser = sessionUser;
     isGuest = false;
@@ -2268,15 +2086,11 @@ $('#goldBtn').onclick = ()=>{ $$('.navItem').forEach(x=>x.classList.remove('acti
     currentUser = null;
     await bootGame(false);
   } else {
-    // Show auth
     $('#authOverlay').classList.add('show');
     setTimeout(()=>$('#authEmail').focus(), 500);
   }
-  
   lastTick = performance.now();
   requestAnimationFrame(tick);
-  
-  // Save on unload
   window.addEventListener('beforeunload', ()=>{ if(state && !isGuest) saveProgressToServer(); });
   document.addEventListener('visibilitychange', ()=>{ if(document.hidden && state && !isGuest) saveProgressToServer(); });
 })();
