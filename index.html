@@ -450,9 +450,12 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
 <input type="file" id="avatarInputGlobal" accept="image/*" style="display:none">
 
 <script>
+// ═══════════════════════════════════════════════════════════
+// SUPABASE CONFIG - Using "sb" to avoid name conflict
+// ═══════════════════════════════════════════════════════════
 const SUPABASE_URL = 'https://zrjgknagwhgbhzsnvdvk.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_2ScJc7_7nBoETJGmpCr19w_m8erpN00';
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 let currentUser = null;
 let isGuest = false;
@@ -555,12 +558,15 @@ function rankOf(score){ let r = RANKS[0]; for(const x of RANKS) if(score>=x.min)
 function costOf(h){ const lv = state.upgrades[h.key]||0; return Math.floor(h.baseCost * Math.pow(h.growth, lv)); }
 function goldCostOf(h){ const lv = state.upgrades[h.key]||0; const th = GOLD_THRESHOLD[h.key]; if(!th || lv < th) return 0; return GOLD_BASE + (lv - th) * GOLD_STEP; }
 
+// ═══════════════════════════════════════════════════════════
+// AUTH FUNCTIONS
+// ═══════════════════════════════════════════════════════════
 async function registerAccount(email, password, username){
   try{
-    const { data, error } = await supabase.auth.signUp({ email, password });
+    const { data, error } = await sb.auth.signUp({ email, password });
     if(error) throw error;
     if(!data.user) throw new Error('Registration failed');
-    const { error: pErr } = await supabase.from('profiles').insert({
+    const { error: pErr } = await sb.from('profiles').insert({
       id: data.user.id,
       username: username,
       display_name: username,
@@ -572,7 +578,7 @@ async function registerAccount(email, password, username){
 
 async function loginAccount(email, password){
   try{
-    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+    const { data, error } = await sb.auth.signInWithPassword({ email, password });
     if(error) throw error;
     return { success:true, user: data.user };
   }catch(err){ return { success:false, error: err.message }; }
@@ -581,7 +587,7 @@ async function loginAccount(email, password){
 async function logoutAccount(){
   try{
     await saveProgressToServer();
-    await supabase.auth.signOut();
+    await sb.auth.signOut();
     currentUser = null;
     isGuest = false;
     localStorage.removeItem('marvels_guest');
@@ -590,7 +596,7 @@ async function logoutAccount(){
 
 async function checkSession(){
   try{
-    const { data: { session } } = await supabase.auth.getSession();
+    const { data: { session } } = await sb.auth.getSession();
     return session?.user || null;
   }catch{ return null; }
 }
@@ -601,6 +607,9 @@ function loginAsGuest(){
   localStorage.setItem('marvels_guest', '1');
 }
 
+// ═══════════════════════════════════════════════════════════
+// SERVER LOAD/SAVE
+// ═══════════════════════════════════════════════════════════
 async function loadProgressFromServer(){
   if(isGuest){
     try{
@@ -612,7 +621,7 @@ async function loadProgressFromServer(){
   if(!currentUser) return defaultState();
   try{
     setSyncStatus('syncing');
-    const { data, error } = await supabase.from('profiles').select('*').eq('id', currentUser.id).single();
+    const { data, error } = await sb.from('profiles').select('*').eq('id', currentUser.id).single();
     if(error) throw error;
     const s = defaultState();
     s.score = Number(data.score) || 0;
@@ -663,7 +672,7 @@ async function saveProgressToServer(){
   if(!currentUser) return;
   try{
     setSyncStatus('syncing');
-    const { error } = await supabase.from('profiles').update({
+    const { error } = await sb.from('profiles').update({
       score: Math.floor(state.score),
       gold: Math.floor(state.gold || 0),
       tickets: state.tickets || 0,
@@ -696,7 +705,7 @@ async function saveProgressToServer(){
 async function resetServerProgress(){
   if(!currentUser) return false;
   try{
-    await supabase.from('profiles').update({
+    await sb.from('profiles').update({
       score:0, gold:0, tickets:0, total_clicks:0, per_click:1,
       energy:1000, energy_max:1000, regen:10,
       upgrades: {"miner":0,"reactor":0,"vibranium":0,"legion":0,"infinity":0,"mjolnir":0},
@@ -717,9 +726,9 @@ async function uploadAvatarToStorage(file){
   try{
     const ext = (file.name.split('.').pop() || 'jpg').toLowerCase();
     const path = `${currentUser.id}/${Date.now()}.${ext}`;
-    const { error } = await supabase.storage.from('avatars').upload(path, file, { upsert:true, contentType: file.type });
+    const { error } = await sb.storage.from('avatars').upload(path, file, { upsert:true, contentType: file.type });
     if(error) throw error;
-    const { data } = supabase.storage.from('avatars').getPublicUrl(path);
+    const { data } = sb.storage.from('avatars').getPublicUrl(path);
     return data.publicUrl;
   }catch(err){ console.error(err); return null; }
 }
@@ -746,6 +755,9 @@ function startAutoSync(){
   syncInterval = setInterval(()=>{ if(state && !isGuest && currentUser) saveProgressToServer(); }, 15000);
 }
 
+// ═══════════════════════════════════════════════════════════
+// AUTH UI
+// ═══════════════════════════════════════════════════════════
 let authTab = 'login';
 $$('.authTab').forEach(t=>{
   t.onclick = ()=>{
@@ -811,7 +823,7 @@ async function bootGame(fromAuth = false){
   if(!isGuest){
     currentUser = await checkSession();
     if(!currentUser && fromAuth){
-      const { data: { user } } = await supabase.auth.getUser();
+      const { data: { user } } = await sb.auth.getUser();
       currentUser = user;
     }
   }
@@ -839,6 +851,9 @@ function hideIntro(){
 
 $('#introSkip').onclick = hideIntro;
 
+// ═══════════════════════════════════════════════════════════
+// GAME LOGIC
+// ═══════════════════════════════════════════════════════════
 function checkResets(){
   const now = Date.now();
   if(now - state.lastDailyReset > 24*3600*1000){
@@ -1095,7 +1110,7 @@ function renderMissions(){
   $('#sheetBody').innerHTML = tabs + content;
   $$('#sheetBody [data-mtab]').forEach(t=>{ t.onclick = ()=>{ currentMissionTab = t.dataset.mtab; renderMissions(); }; });
   $$('#sheetBody [data-claim]').forEach(b=>{ b.onclick = ()=> claimMission(b.dataset.claim, b.dataset.type); });
-  const sb = document.getElementById('streakBtn'); if(sb) sb.onclick = claimStreak;
+  const sbEl = document.getElementById('streakBtn'); if(sbEl) sbEl.onclick = claimStreak;
 }
 
 function claimMission(id, type){
