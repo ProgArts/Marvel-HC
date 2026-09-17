@@ -2117,6 +2117,27 @@ $('#goldBtn').onclick = ()=>{ $$('.navItem').forEach(x=>x.classList.remove('acti
   window.addEventListener('beforeunload', ()=>{ if(state && !isGuest) saveProgressToServer(); });
   document.addEventListener('visibilitychange', ()=>{ if(document.hidden && state && !isGuest) saveProgressToServer(); });
 })();
+  (async function boot(){
+  // ...
+})();
+
+/* ═══════════════════════════════════════════════════════════
+   PWA — Service Worker Registration
+   ═══════════════════════════════════════════════════════════ */
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/Marvel-HC/sw.js')
+      .then((reg) => console.log('✓ SW registered:', reg.scope))
+      .catch((err) => console.warn('✗ SW failed:', err));
+  });
+}
+
+let deferredPrompt = null;
+// ... بقیه کد PWA
+
+</script>
+</body>
+</html>
 </script>
 </body>
 </html>
