@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="theme-color" content="#000">
 <title>Marvels : Hard Comeback</title>
-  <!-- PWA -->
+
+<!-- PWA -->
 <link rel="manifest" href="/Marvel-HC/manifest.json">
 <meta name="theme-color" content="#E62429">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -14,6 +15,7 @@
 <link rel="apple-touch-icon" href="/Marvel-HC/icons/icon-192.png">
 <link rel="icon" type="image/png" sizes="192x192" href="/Marvel-HC/icons/icon-192.png">
 <link rel="icon" type="image/png" sizes="512x512" href="/Marvel-HC/icons/icon-512.png">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -102,21 +104,28 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
 
 .coinArea{flex:1;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;min-height:0;padding:10px 0}
 .hexGrid{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none}
-.hexRing{position:absolute;border-radius:50%}
-.hexRing.r1{width:290px;height:290px;border:1px solid rgba(230,36,41,.5);animation:ringRotate 30s linear infinite}
+.hexRing{position:absolute;border-radius:50%;will-change:transform}
+.hexRing.r1{width:290px;height:290px;border:1px solid rgba(230,36,41,.5);box-shadow:0 0 45px rgba(230,36,41,.3),inset 0 0 45px rgba(230,36,41,.18);animation:ringRotate 30s linear infinite}
+.hexRing.r1::before{content:'';position:absolute;top:0;left:50%;transform:translate(-50%,-50%);width:10px;height:10px;border-radius:50%;background:#E62429;box-shadow:0 0 20px #E62429}
+.hexRing.r1::after{content:'';position:absolute;bottom:0;left:50%;transform:translate(-50%,50%);width:8px;height:8px;border-radius:50%;background:#FFB800;box-shadow:0 0 20px #FFB800}
 .hexRing.r2{width:348px;height:348px;border:1px dashed rgba(255,184,0,.32);animation:ringRotate 50s linear infinite reverse}
+.hexRing.r3{width:398px;height:398px;border:1px dotted rgba(230,36,41,.22);animation:ringRotate 80s linear infinite}
 @keyframes ringRotate{to{transform:rotate(360deg)}}
 .bracket{position:absolute;width:30px;height:30px;border:2px solid #E62429;pointer-events:none}
 .bracket.tl{top:20px;left:20px;border-right:none;border-bottom:none}
 .bracket.tr{top:20px;right:20px;border-left:none;border-bottom:none}
 .bracket.bl{bottom:20px;left:20px;border-right:none;border-top:none}
 .bracket.br{bottom:20px;right:20px;border-left:none;border-top:none}
-.coinGlow{position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle, rgba(255,184,0,.55) 0%, rgba(230,36,41,.14) 45%, transparent 70%);animation:glowPulse 3.2s ease-in-out infinite;pointer-events:none;filter:blur(16px)}
+.coinGlow{position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle, rgba(255,184,0,.55) 0%, rgba(255,184,0,.22) 22%, rgba(230,36,41,.14) 45%, transparent 70%);animation:glowPulse 3.2s ease-in-out infinite;pointer-events:none;filter:blur(16px);will-change:transform,opacity}
 @keyframes glowPulse{0%,100%{transform:scale(1);opacity:.85}50%{transform:scale(1.15);opacity:1}}
-#coin{width:250px;height:250px;position:relative;cursor:pointer;display:flex;align-items:center;justify-content:center;filter:drop-shadow(0 25px 50px rgba(0,0,0,.9)) drop-shadow(0 0 70px rgba(255,184,0,.65));touch-action:manipulation}
+#coin{width:250px;height:250px;position:relative;cursor:pointer;display:flex;align-items:center;justify-content:center;filter:drop-shadow(0 25px 50px rgba(0,0,0,.9)) drop-shadow(0 0 70px rgba(255,184,0,.65)) drop-shadow(0 0 140px rgba(230,36,41,.45));touch-action:manipulation;will-change:transform}
 #coin svg{width:100%;height:100%;display:block;pointer-events:none}
+.orbit{position:absolute;inset:0;pointer-events:none;z-index:-1}
+.orbitDot{position:absolute;width:7px;height:7px;border-radius:50%;background:#FFB800;box-shadow:0 0 14px #FFB800;top:50%;left:50%;animation:orbit 8s linear infinite;will-change:transform}
+@keyframes orbit{from{transform:rotate(0deg) translateX(158px) rotate(0deg)}to{transform:rotate(360deg) translateX(158px) rotate(-360deg)}}
 .comboBadge{position:absolute;top:14px;left:50%;transform:translateX(-50%) translateY(-20px);font-weight:800;font-size:26px;color:#FFB800;text-shadow:0 0 30px rgba(255,184,0,.9);opacity:0;transition:.2s;pointer-events:none;z-index:80;letter-spacing:3px;text-transform:uppercase}
 .comboBadge.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.comboBadge.x2{color:#fff}
 .comboBadge.x3{color:#E62429}
 .hint{position:absolute;bottom:-30px;left:50%;transform:translateX(-50%);font-size:10.5px;color:#8a8a95;letter-spacing:2.5px;font-weight:700;text-transform:uppercase;animation:hintPulse 2.4s ease-in-out infinite;white-space:nowrap}
 @keyframes hintPulse{0%,100%{opacity:.4}50%{opacity:1}}
@@ -313,10 +322,29 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
 @keyframes spin{to{transform:rotate(360deg)}}
 .loadingText{font-size:13px;font-weight:800;color:#FFB800;text-transform:uppercase;letter-spacing:2px}
 
+/* ═══════════════════════════════════════════════════════════
+   BLOG POPUP
+   ═══════════════════════════════════════════════════════════ */
+#blogPopup{position:fixed;inset:0;z-index:11500;background:rgba(0,0,0,.85);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;visibility:hidden;transition:opacity .4s,visibility .4s}
+#blogPopup.show{opacity:1;visibility:visible}
+.blogCard{position:relative;width:100%;max-width:400px;background:linear-gradient(160deg,rgba(30,30,40,.98),rgba(12,12,20,.99));border:1px solid rgba(255,184,0,.4);border-radius:24px;padding:32px 26px 26px;box-shadow:0 30px 100px rgba(0,0,0,.95),0 0 60px rgba(255,184,0,.25);transform:translateY(30px) scale(.95);transition:.5s cubic-bezier(.2,.9,.3,1);text-align:center;overflow:hidden}
+#blogPopup.show .blogCard{transform:translateY(0) scale(1)}
+.blogCard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,#FFB800,#E62429,#FFB800,transparent);box-shadow:0 0 20px rgba(255,184,0,.8)}
+.blogIcon{width:80px;height:80px;margin:0 auto 18px;background:linear-gradient(135deg,#E62429,#8B0F14);border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:40px;box-shadow:0 0 40px rgba(230,36,41,.8),inset 0 2px 0 rgba(255,255,255,.25);position:relative;overflow:hidden}
+.blogIcon::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:linear-gradient(45deg,transparent,rgba(255,255,255,.35),transparent);animation:updIconShine 3s ease-in-out infinite}
+.blogTitle{font-size:22px;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:#fff;margin-bottom:10px;text-shadow:0 0 25px rgba(255,184,0,.5);line-height:1.3}
+.blogTitle .accent{color:#FFB800;text-shadow:0 0 25px rgba(255,184,0,.9)}
+.blogDesc{font-size:13px;color:#c8c8d0;line-height:1.7;margin-bottom:24px;font-weight:500}
+.blogBtnPrimary{display:block;width:100%;padding:16px;border:none;background:linear-gradient(135deg,#FFB800,#E62429);color:#fff;font-weight:900;font-size:14px;letter-spacing:2px;text-transform:uppercase;border-radius:14px;cursor:pointer;box-shadow:0 4px 0 rgba(139,15,20,.7),0 6px 25px rgba(255,184,0,.5);transition:.15s;font-family:inherit;text-decoration:none;text-align:center}
+.blogBtnPrimary:active{transform:translateY(2px);box-shadow:0 2px 0 rgba(139,15,20,.7),0 3px 15px rgba(255,184,0,.5)}
+.blogBtnGhost{display:block;width:100%;padding:13px;margin-top:10px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);color:#c8c8d0;font-weight:800;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;border-radius:14px;cursor:pointer;transition:.15s;font-family:inherit}
+.blogBtnGhost:hover,.blogBtnGhost:active{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.25);color:#fff}
+
 @media (max-width: 600px), (hover: none) {
   #coin{filter:drop-shadow(0 15px 30px rgba(0,0,0,.8)) drop-shadow(0 0 40px rgba(255,184,0,.5)) !important}
   .hexRing.r1{animation-duration:50s !important}
   .hexRing.r2{animation-duration:80s !important}
+  .hexRing.r3{display:none}
   .coinGlow{animation-duration:5.5s !important;filter:blur(20px) !important}
 }
 </style>
@@ -353,6 +381,17 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
   <div class="intro-skip" id="introSkip">SKIP →</div>
 </div>
 
+<!-- BLOG POPUP -->
+<div id="blogPopup">
+  <div class="blogCard">
+    <div class="blogIcon">📰</div>
+    <div class="blogTitle">سایت <span class="accent">بلاگ</span>مون رو<br>سر زدی...؟</div>
+    <div class="blogDesc">جدیدترین اخبار، آموزش‌ها و محتوای اختصاصی<br>منتظرتونه!</div>
+    <a href="https://progarts.github.io/Blog/" target="_blank" rel="noopener" class="blogBtnPrimary">🚀 VISIT BLOG</a>
+    <button class="blogBtnGhost" id="blogClose">✕ MAYBE LATER</button>
+  </div>
+</div>
+
 <div id="bgStage">
   <div class="bg-layer bg-base"></div>
   <div class="bg-layer bg-grid"></div>
@@ -365,7 +404,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
       <div class="logoBox" id="headerAvatar">M</div>
       <div class="name">
         <div class="n1">MARVEL<b>·</b>HC</div>
-        <div class="n2" id="headerPlayerName">by <b>Parham.KH</b></div>
+        <div class="n2" id="headerPlayerName"></div>
       </div>
     </div>
     <div class="headerRight">
@@ -395,6 +434,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
     <div class="hexGrid">
       <div class="hexRing r1"></div>
       <div class="hexRing r2"></div>
+      <div class="hexRing r3"></div>
     </div>
     <div class="bracket tl"></div>
     <div class="bracket tr"></div>
@@ -402,15 +442,24 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
     <div class="bracket br"></div>
     <div class="comboBadge" id="comboBadge">COMBO</div>
     <div id="coin">
+      <div class="orbit">
+        <div class="orbitDot" style="animation-delay:0s"></div>
+        <div class="orbitDot" style="animation-delay:-4s;background:#E62429;box-shadow:0 0 14px #E62429"></div>
+      </div>
       <svg viewBox="0 0 240 240">
         <defs>
-          <radialGradient id="coinGrad" cx="35%" cy="30%" r="80%"><stop offset="0%" stop-color="#FFF8D0"/><stop offset="45%" stop-color="#FFB800"/><stop offset="75%" stop-color="#B88000"/><stop offset="100%" stop-color="#5A3800"/></radialGradient>
-          <linearGradient id="rimGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FFF8D0"/><stop offset="70%" stop-color="#8B5A00"/><stop offset="100%" stop-color="#3A2000"/></linearGradient>
+          <radialGradient id="coinGrad" cx="35%" cy="30%" r="80%"><stop offset="0%" stop-color="#FFF8D0"/><stop offset="18%" stop-color="#FFE27A"/><stop offset="45%" stop-color="#FFB800"/><stop offset="75%" stop-color="#B88000"/><stop offset="100%" stop-color="#5A3800"/></radialGradient>
+          <linearGradient id="rimGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FFF8D0"/><stop offset="30%" stop-color="#FFB800"/><stop offset="70%" stop-color="#8B5A00"/><stop offset="100%" stop-color="#3A2000"/></linearGradient>
           <radialGradient id="starGrad" cx="50%" cy="50%" r="60%"><stop offset="0%" stop-color="#8B0F14"/><stop offset="100%" stop-color="#4A0508"/></radialGradient>
         </defs>
         <circle cx="120" cy="120" r="118" fill="url(#rimGrad)"/>
+        <circle cx="120" cy="120" r="114" fill="none" stroke="#3A2000" stroke-width="1.5" opacity=".6"/>
+        <g opacity=".6"><g id="notches"></g></g>
         <circle cx="120" cy="120" r="106" fill="url(#coinGrad)"/>
-        <g transform="translate(120 122)"><path d="M 0 -68 L 18 -20 L 68 -20 L 28 10 L 44 58 L 0 30 L -44 58 L -28 10 L -68 -20 L -18 -20 Z" fill="url(#starGrad)" stroke="#2A0003" stroke-width="2"/></g>
+        <circle cx="120" cy="120" r="102" fill="none" stroke="#fff" stroke-width="1" opacity=".3"/>
+        <circle cx="120" cy="120" r="90" fill="none" stroke="#5A3800" stroke-width="2" opacity=".4"/>
+        <g transform="translate(120 122)"><path d="M 0 -68 L 18 -20 L 68 -20 L 28 10 L 44 58 L 0 30 L -44 58 L -28 10 L -68 -20 L -18 -20 Z" fill="url(#starGrad)" stroke="#2A0003" stroke-width="2" stroke-linejoin="round"/></g>
+        <ellipse cx="82" cy="62" rx="40" ry="17" fill="#fff" opacity=".22" transform="rotate(-28 82 62)"/>
       </svg>
     </div>
     <div class="hint">TAP TO STRIKE</div>
@@ -460,7 +509,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
 
 <script>
 // ═══════════════════════════════════════════════════════════
-// SUPABASE CONFIG - Using "sb" to avoid name conflict
+// SUPABASE CONFIG
 // ═══════════════════════════════════════════════════════════
 const SUPABASE_URL = 'https://zrjgknagwhgbhzsnvdvk.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_2ScJc7_7nBoETJGmpCr19w_m8erpN00';
@@ -559,6 +608,7 @@ function defaultState(){
     pongWins: { amateur:0, hard:0, insane:0 },
     avatar: null,
     customName: null,
+    blogPopupSeen: false,
   };
 }
 
@@ -567,9 +617,6 @@ function rankOf(score){ let r = RANKS[0]; for(const x of RANKS) if(score>=x.min)
 function costOf(h){ const lv = state.upgrades[h.key]||0; return Math.floor(h.baseCost * Math.pow(h.growth, lv)); }
 function goldCostOf(h){ const lv = state.upgrades[h.key]||0; const th = GOLD_THRESHOLD[h.key]; if(!th || lv < th) return 0; return GOLD_BASE + (lv - th) * GOLD_STEP; }
 
-// ═══════════════════════════════════════════════════════════
-// AUTH FUNCTIONS
-// ═══════════════════════════════════════════════════════════
 async function registerAccount(email, password, username){
   try{
     const { data, error } = await sb.auth.signUp({ email, password });
@@ -616,9 +663,6 @@ function loginAsGuest(){
   localStorage.setItem('marvels_guest', '1');
 }
 
-// ═══════════════════════════════════════════════════════════
-// SERVER LOAD/SAVE
-// ═══════════════════════════════════════════════════════════
 async function loadProgressFromServer(){
   if(isGuest){
     try{
@@ -764,9 +808,6 @@ function startAutoSync(){
   syncInterval = setInterval(()=>{ if(state && !isGuest && currentUser) saveProgressToServer(); }, 15000);
 }
 
-// ═══════════════════════════════════════════════════════════
-// AUTH UI
-// ═══════════════════════════════════════════════════════════
 let authTab = 'login';
 $$('.authTab').forEach(t=>{
   t.onclick = ()=>{
@@ -856,13 +897,38 @@ function hideIntro(){
   intro.classList.add('hide');
   state.introSeen = true;
   saveProgressToServer();
+  // Show blog popup once after intro
+  setTimeout(()=>{
+    if(state && !state.blogPopupSeen){
+      document.getElementById('blogPopup').classList.add('show');
+    }
+  }, 600);
 }
 
 $('#introSkip').onclick = hideIntro;
 
-// ═══════════════════════════════════════════════════════════
-// GAME LOGIC
-// ═══════════════════════════════════════════════════════════
+// Blog popup close handler
+$('#blogClose').onclick = ()=>{
+  const popup = document.getElementById('blogPopup');
+  popup.classList.remove('show');
+  if(state){
+    state.blogPopupSeen = true;
+    saveProgressToServer();
+  }
+};
+
+// Close popup when clicking on overlay (outside card)
+document.getElementById('blogPopup').onclick = (e)=>{
+  if(e.target.id === 'blogPopup'){
+    const popup = document.getElementById('blogPopup');
+    popup.classList.remove('show');
+    if(state){
+      state.blogPopupSeen = true;
+      saveProgressToServer();
+    }
+  }
+};
+
 function checkResets(){
   const now = Date.now();
   if(now - state.lastDailyReset > 24*3600*1000){
@@ -1865,6 +1931,14 @@ function renderSettings(){
       `}
     </div>
     <div class="settingsSection">
+      <h3>Support</h3>
+      <a href="https://progarts.github.io/Blog/" target="_blank" rel="noopener" class="settingsItem" style="text-decoration:none">
+        <div class="siIcon">📰</div>
+        <div class="siBody"><div class="siTitle">Our Blog</div><div class="siDesc">Visit our blog site</div></div>
+        <div class="siArrow">›</div>
+      </a>
+    </div>
+    <div class="settingsSection">
       <h3>Tutorial</h3>
       <div class="tutorialBox">
         <div class="tutorialStep"><div class="tsNum">1</div><div class="tsBody">Tap the <b>golden coin</b> to earn credits.</div></div>
@@ -2117,9 +2191,6 @@ $('#goldBtn').onclick = ()=>{ $$('.navItem').forEach(x=>x.classList.remove('acti
   window.addEventListener('beforeunload', ()=>{ if(state && !isGuest) saveProgressToServer(); });
   document.addEventListener('visibilitychange', ()=>{ if(document.hidden && state && !isGuest) saveProgressToServer(); });
 })();
-  (async function boot(){
-  // ...
-})();
 
 /* ═══════════════════════════════════════════════════════════
    PWA — Service Worker Registration
@@ -2133,11 +2204,70 @@ if ('serviceWorker' in navigator) {
 }
 
 let deferredPrompt = null;
-// ... بقیه کد PWA
 
-</script>
-</body>
-</html>
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  showInstallBanner();
+});
+
+function showInstallBanner() {
+  if (sessionStorage.getItem('install_banner_shown') === '1') return;
+  sessionStorage.setItem('install_banner_shown', '1');
+
+  const banner = document.createElement('div');
+  banner.id = 'installBanner';
+  banner.style.cssText = `
+    position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(120%);
+    background:linear-gradient(135deg,rgba(30,30,40,.98),rgba(15,15,25,.99));
+    border:1px solid rgba(255,184,0,.5);border-radius:16px;padding:14px 18px;
+    box-shadow:0 20px 60px rgba(0,0,0,.9),0 0 30px rgba(255,184,0,.3);
+    z-index:9999;display:flex;align-items:center;gap:12px;
+    max-width:340px;width:calc(100% - 40px);
+    transition:transform .4s cubic-bezier(.2,.9,.3,1);
+    font-family:'Inter',sans-serif;
+  `;
+  banner.innerHTML = `
+    <div style="width:44px;height:44px;border-radius:11px;background:linear-gradient(135deg,#E62429,#8B0F14);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;box-shadow:0 0 20px rgba(230,36,41,.7)">📱</div>
+    <div style="flex:1;min-width:0">
+      <div style="font-size:12.5px;font-weight:800;color:#fff;margin-bottom:2px">INSTALL MARVELS HC</div>
+      <div style="font-size:10.5px;color:#8a8a95;font-weight:600">Add to home screen</div>
+    </div>
+    <button id="installBtn" style="padding:9px 16px;border:none;border-radius:10px;background:linear-gradient(135deg,#FFB800,#E62429);color:#fff;font-weight:900;font-size:11px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;font-family:inherit;flex-shrink:0">INSTALL</button>
+    <button id="installClose" style="background:transparent;border:none;color:#5a5a65;font-size:16px;cursor:pointer;padding:4px;flex-shrink:0">✕</button>
+  `;
+  document.body.appendChild(banner);
+
+  requestAnimationFrame(() => {
+    banner.style.transform = 'translateX(-50%) translateY(0)';
+  });
+
+  document.getElementById('installBtn').onclick = async () => {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    await deferredPrompt.userChoice;
+    deferredPrompt = null;
+    banner.style.transform = 'translateX(-50%) translateY(150%)';
+    setTimeout(() => banner.remove(), 400);
+  };
+
+  document.getElementById('installClose').onclick = () => {
+    banner.style.transform = 'translateX(-50%) translateY(150%)';
+    setTimeout(() => banner.remove(), 400);
+  };
+
+  setTimeout(() => {
+    if (document.getElementById('installBanner')) {
+      banner.style.transform = 'translateX(-50%) translateY(150%)';
+      setTimeout(() => banner.remove(), 400);
+    }
+  }, 15000);
+}
+
+window.addEventListener('appinstalled', () => {
+  console.log('✓ PWA installed');
+  deferredPrompt = null;
+});
 </script>
 </body>
 </html>
