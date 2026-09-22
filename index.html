@@ -1,2273 +1,439 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-<meta name="theme-color" content="#000">
-<title>Marvels : Hard Comeback</title>
-
-<!-- PWA -->
-<link rel="manifest" href="/Marvel-HC/manifest.json">
-<meta name="theme-color" content="#E62429">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Marvels HC">
-<link rel="apple-touch-icon" href="/Marvel-HC/icons/icon-192.png">
-<link rel="icon" type="image/png" sizes="192x192" href="/Marvel-HC/icons/icon-192.png">
-<link rel="icon" type="image/png" sizes="512x512" href="/Marvel-HC/icons/icon-512.png">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#050208">
+<title>Marvels HC — بسته شد</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
 <style>
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none}
-html,body{height:100%;overflow:hidden;overscroll-behavior:none;background:#000}
-body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#fff;display:flex;justify-content:center;align-items:center;position:relative;overflow:hidden;font-feature-settings:"tnum" on,"lnum" on;-webkit-font-smoothing:antialiased;letter-spacing:-0.01em;touch-action:manipulation}
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+  }
 
-.authOverlay{position:fixed;inset:0;z-index:10000;background:#050208;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;visibility:hidden;transition:opacity .4s,visibility .4s}
-.authOverlay.show{opacity:1;visibility:visible}
-.authBg{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%, rgba(230,36,41,.4), transparent 55%),linear-gradient(180deg,#1a0207 0%,#0a0205 50%,#000 100%)}
-.authCard{position:relative;z-index:2;width:100%;max-width:400px;background:linear-gradient(160deg,rgba(30,30,40,.95),rgba(12,12,20,.98));border:1px solid rgba(230,36,41,.3);border-radius:24px;padding:32px 26px 24px;box-shadow:0 30px 80px rgba(0,0,0,.9);transform:translateY(30px) scale(.95);transition:.5s cubic-bezier(.2,.9,.3,1)}
-.authOverlay.show .authCard{transform:translateY(0) scale(1)}
-.authLogo{width:64px;height:64px;margin:0 auto 14px;background:linear-gradient(135deg,#E62429,#8B0F14);border-radius:14px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:32px;box-shadow:0 0 40px rgba(230,36,41,.7)}
-.authCard h1{font-size:26px;font-weight:900;text-align:center;letter-spacing:2px;margin-bottom:6px}
-.authSub{text-align:center;font-size:12px;color:#8a8a95;margin-bottom:24px;line-height:1.6}
-.authTabs{display:flex;gap:6px;margin-bottom:18px;background:rgba(0,0,0,.4);padding:4px;border-radius:12px}
-.authTab{flex:1;padding:11px;text-align:center;border-radius:9px;font-size:11.5px;font-weight:800;color:#7a7a85;cursor:pointer;transition:.2s;letter-spacing:1.5px;text-transform:uppercase}
-.authTab.active{background:linear-gradient(135deg,#E62429,#8B0F14);color:#fff}
-.authInput{width:100%;padding:14px 16px;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.1);border-radius:12px;color:#fff;font-size:16px;margin-bottom:12px;outline:none;font-family:inherit;transition:.2s}
-.authInput::placeholder{color:#5a5a65;font-size:12px;letter-spacing:1px}
-.authInput:focus{border-color:#E62429;box-shadow:0 0 20px rgba(230,36,41,.3)}
-.authBtn{width:100%;padding:15px;border:none;background:linear-gradient(135deg,#E62429,#8B0F14);color:#fff;font-weight:900;font-size:13.5px;letter-spacing:2.5px;text-transform:uppercase;border-radius:12px;cursor:pointer;box-shadow:0 4px 0 rgba(90,10,15,.7);transition:.15s;font-family:inherit}
-.authBtn:active{transform:translateY(2px);box-shadow:0 2px 0 rgba(90,10,15,.7)}
-.authBtn:disabled{opacity:.6;cursor:not-allowed}
-.authMsg{text-align:center;font-size:12px;font-weight:700;min-height:18px;margin-top:12px}
-.authMsg.error{color:#FF3B42}
-.authMsg.success{color:#4CDC6E}
-.authSkip{text-align:center;font-size:11.5px;color:#5a5a65;margin-top:18px}
-.authSkip span{color:#FFB800;cursor:pointer;font-weight:800;text-decoration:underline}
-.authHint{font-size:10.5px;color:#5a5a65;text-align:center;margin-top:8px;line-height:1.6}
+  html, body {
+    height: 100%;
+    overflow: hidden;
+    background: #050208;
+    font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
 
-#intro{position:fixed;inset:0;z-index:9999;background:#0a0000;display:flex;align-items:center;justify-content:center;overflow:hidden;transition:opacity .6s,visibility .6s}
-#intro.hide{opacity:0;visibility:hidden}
-.marvel-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%, #C41E22 0%, #8B0F14 45%, #4A0508 80%, #1a0203 100%)}
-.marvel-box{position:relative;z-index:2;background:#fff;padding:clamp(10px, 2vw, 22px) clamp(28px, 6vw, 70px);animation:boxSlide 1.2s cubic-bezier(.2,.9,.3,1) forwards}
-@keyframes boxSlide{from{opacity:0;transform:scale(.6) translateY(40px)}to{opacity:1;transform:scale(1) translateY(0)}}
-.marvel-box span{font-weight:900;font-size:clamp(32px, 8vw, 90px);display:block;line-height:1;color:#000}
-.marvel-credit{position:absolute;bottom:12%;left:50%;transform:translateX(-50%);font-size:clamp(11px, 1.5vw, 14px);letter-spacing:5px;color:rgba(255,255,255,.85);text-transform:uppercase;z-index:3;text-align:center;animation:creditFade 1s ease-out 1s forwards;opacity:0}
-@keyframes creditFade{from{opacity:0;letter-spacing:12px}to{opacity:1;letter-spacing:5px}}
-.marvel-credit b{display:block;font-weight:700;color:#fff;font-size:1.4em;margin-top:4px;letter-spacing:6px}
-.intro-loading{position:absolute;bottom:6%;left:50%;transform:translateX(-50%);width:min(260px, 60vw);height:3px;background:rgba(255,255,255,.15);border-radius:99px;overflow:hidden;z-index:3}
-.intro-loading .fill{height:100%;width:0;background:linear-gradient(90deg,#fff,#FFB800,#fff);animation:loadFill 2s cubic-bezier(.4,.2,.2,1) 1s forwards}
-@keyframes loadFill{to{width:100%}}
-.intro-skip{position:absolute;bottom:24px;right:24px;font-size:12px;letter-spacing:3px;color:rgba(255,255,255,.55);cursor:pointer;z-index:4;border:1px solid rgba(255,255,255,.2);padding:8px 16px;border-radius:99px}
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    position: relative;
+    padding: 20px;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: -0.01em;
+  }
 
-#bgStage{position:fixed;inset:0;z-index:0;pointer-events:none}
-.bg-layer{position:absolute;inset:0}
-.bg-base{background:radial-gradient(ellipse at 50% -10%, rgba(230,36,41,.5) 0%, transparent 55%),radial-gradient(ellipse at 20% 110%, rgba(255,184,0,.18) 0%, transparent 55%),linear-gradient(180deg,#0a0a12 0%,#05050a 40%,#000 100%)}
-.bg-grid{opacity:.12;background-image:linear-gradient(rgba(230,36,41,.4) 1px, transparent 1px),linear-gradient(90deg, rgba(230,36,41,.4) 1px, transparent 1px);background-size:64px 64px;mask-image:radial-gradient(ellipse at 50% 60%, #000 20%, transparent 80%);-webkit-mask-image:radial-gradient(ellipse at 50% 60%, #000 20%, transparent 80%)}
-.bg-vignette{background:radial-gradient(ellipse at 50% 50%, transparent 30%, rgba(0,0,0,.9) 100%)}
+  /* ─── Background Layers ─── */
+  .bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
 
-#app{position:relative;z-index:5;width:100%;max-width:440px;height:100%;max-height:900px;display:flex;flex-direction:column;overflow:hidden}
-header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px 8px;gap:8px;z-index:10}
-.logo{display:flex;align-items:center;gap:9px}
-.logoBox{width:32px;height:32px;background:linear-gradient(135deg,#E62429,#8B0F14);border-radius:7px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:17px;box-shadow:0 0 25px rgba(230,36,41,.7);background-size:cover;background-position:center}
-.logo .name{display:flex;flex-direction:column;gap:1px;min-width:0}
-.logo .name .n1{color:#fff;font-size:12.5px;letter-spacing:1.5px;font-weight:800}
-.logo .name .n1 b{color:#E62429}
-.logo .name .n2{color:#8a8a95;font-size:9px;letter-spacing:1px;font-weight:700;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:130px}
-.logo .name .n2 b{color:#FFB800}
-.headerRight{display:flex;gap:6px;align-items:center}
-.rankBadge{display:flex;align-items:center;gap:5px;background:linear-gradient(135deg,rgba(255,184,0,.12),rgba(255,184,0,.03));border:1px solid rgba(255,184,0,.35);padding:6px 10px;border-radius:99px;font-size:10px;font-weight:800;color:#FFB800}
-.rankBadge .dot{width:6px;height:6px;border-radius:50%;background:#FFB800;box-shadow:0 0 10px #FFB800;animation:pulseDot 1.6s ease-in-out infinite}
-@keyframes pulseDot{0%,100%{opacity:1}50%{opacity:.4}}
-.hIconBtn{width:34px;height:34px;border-radius:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:15px;color:#fff;transition:.2s;position:relative}
-.hIconBtn:active{transform:scale(.92)}
-.hIconBtn.goldBtn{background:linear-gradient(135deg, rgba(255,184,0,.28), rgba(255,184,0,.08));border-color:rgba(255,184,0,.55);color:#FFB800}
-.syncDot{position:absolute;bottom:4px;right:4px;width:8px;height:8px;border-radius:50%;background:#5a5a65;transition:.3s}
-.syncDot.syncing{background:#FFB800;animation:pulseDot .8s ease-in-out infinite}
-.syncDot.synced{background:#4CDC6E}
-.syncDot.offline{background:#FF3B42}
+  .bg-base {
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(230, 36, 41, 0.45) 0%, transparent 55%),
+      radial-gradient(ellipse at 80% 100%, rgba(255, 184, 0, 0.15) 0%, transparent 55%),
+      linear-gradient(180deg, #0a0a12 0%, #05050a 40%, #000 100%);
+  }
 
-.scoreBox{text-align:center;padding:6px 20px 0}
-.scoreLabel{font-size:10.5px;color:#8a8a95;letter-spacing:3px;font-weight:700;margin-bottom:6px}
-.balance{display:inline-flex;align-items:center;justify-content:center;gap:14px}
-.balance .coinMini{width:38px;height:38px;filter:drop-shadow(0 0 15px rgba(255,184,0,.85))}
-.balance .amount{font-size:54px;font-weight:900;line-height:1;color:#fff;letter-spacing:-2px;font-variant-numeric:tabular-nums;text-shadow:0 0 30px rgba(255,184,0,.55);transition:transform .1s,color .15s}
-.balance .amount.pop{transform:scale(1.09);color:#FFB800}
-.miniStats{display:flex;justify-content:center;gap:10px;margin-top:18px;padding:0 20px}
-.miniStat{display:inline-flex;align-items:center;gap:5px;background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.1);padding:5px 12px;border-radius:99px;font-size:11.5px;font-weight:800}
-.miniStat.gold{border-color:rgba(255,184,0,.4);color:#FFB800}
-.miniStat.miner{border-color:rgba(76,220,110,.4);color:#4CDC6E}
-.miniStat b{color:#fff;font-weight:900}
+  .bg-grid {
+    opacity: 0.10;
+    background-image:
+      linear-gradient(rgba(230, 36, 41, 0.4) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(230, 36, 41, 0.4) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse at 50% 60%, #000 20%, transparent 80%);
+    -webkit-mask-image: radial-gradient(ellipse at 50% 60%, #000 20%, transparent 80%);
+    animation: gridMove 20s linear infinite;
+  }
 
-.coinArea{flex:1;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;min-height:0;padding:10px 0}
-.hexGrid{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none}
-.hexRing{position:absolute;border-radius:50%;will-change:transform}
-.hexRing.r1{width:290px;height:290px;border:1px solid rgba(230,36,41,.5);box-shadow:0 0 45px rgba(230,36,41,.3),inset 0 0 45px rgba(230,36,41,.18);animation:ringRotate 30s linear infinite}
-.hexRing.r1::before{content:'';position:absolute;top:0;left:50%;transform:translate(-50%,-50%);width:10px;height:10px;border-radius:50%;background:#E62429;box-shadow:0 0 20px #E62429}
-.hexRing.r1::after{content:'';position:absolute;bottom:0;left:50%;transform:translate(-50%,50%);width:8px;height:8px;border-radius:50%;background:#FFB800;box-shadow:0 0 20px #FFB800}
-.hexRing.r2{width:348px;height:348px;border:1px dashed rgba(255,184,0,.32);animation:ringRotate 50s linear infinite reverse}
-.hexRing.r3{width:398px;height:398px;border:1px dotted rgba(230,36,41,.22);animation:ringRotate 80s linear infinite}
-@keyframes ringRotate{to{transform:rotate(360deg)}}
-.bracket{position:absolute;width:30px;height:30px;border:2px solid #E62429;pointer-events:none}
-.bracket.tl{top:20px;left:20px;border-right:none;border-bottom:none}
-.bracket.tr{top:20px;right:20px;border-left:none;border-bottom:none}
-.bracket.bl{bottom:20px;left:20px;border-right:none;border-top:none}
-.bracket.br{bottom:20px;right:20px;border-left:none;border-top:none}
-.coinGlow{position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle, rgba(255,184,0,.55) 0%, rgba(255,184,0,.22) 22%, rgba(230,36,41,.14) 45%, transparent 70%);animation:glowPulse 3.2s ease-in-out infinite;pointer-events:none;filter:blur(16px);will-change:transform,opacity}
-@keyframes glowPulse{0%,100%{transform:scale(1);opacity:.85}50%{transform:scale(1.15);opacity:1}}
-#coin{width:250px;height:250px;position:relative;cursor:pointer;display:flex;align-items:center;justify-content:center;filter:drop-shadow(0 25px 50px rgba(0,0,0,.9)) drop-shadow(0 0 70px rgba(255,184,0,.65)) drop-shadow(0 0 140px rgba(230,36,41,.45));touch-action:manipulation;will-change:transform}
-#coin svg{width:100%;height:100%;display:block;pointer-events:none}
-.orbit{position:absolute;inset:0;pointer-events:none;z-index:-1}
-.orbitDot{position:absolute;width:7px;height:7px;border-radius:50%;background:#FFB800;box-shadow:0 0 14px #FFB800;top:50%;left:50%;animation:orbit 8s linear infinite;will-change:transform}
-@keyframes orbit{from{transform:rotate(0deg) translateX(158px) rotate(0deg)}to{transform:rotate(360deg) translateX(158px) rotate(-360deg)}}
-.comboBadge{position:absolute;top:14px;left:50%;transform:translateX(-50%) translateY(-20px);font-weight:800;font-size:26px;color:#FFB800;text-shadow:0 0 30px rgba(255,184,0,.9);opacity:0;transition:.2s;pointer-events:none;z-index:80;letter-spacing:3px;text-transform:uppercase}
-.comboBadge.show{opacity:1;transform:translateX(-50%) translateY(0)}
-.comboBadge.x2{color:#fff}
-.comboBadge.x3{color:#E62429}
-.hint{position:absolute;bottom:-30px;left:50%;transform:translateX(-50%);font-size:10.5px;color:#8a8a95;letter-spacing:2.5px;font-weight:700;text-transform:uppercase;animation:hintPulse 2.4s ease-in-out infinite;white-space:nowrap}
-@keyframes hintPulse{0%,100%{opacity:.4}50%{opacity:1}}
+  @keyframes gridMove {
+    from { background-position: 0 0; }
+    to { background-position: 64px 64px; }
+  }
 
-.energyBox{padding:10px 22px 12px}
-.energyRow{display:flex;align-items:center;gap:10px}
-.energyIcon{width:20px;height:20px;display:flex;align-items:center;justify-content:center;color:#FFB800}
-.energyText{font-size:11px;color:#8a8a95;font-weight:700;min-width:78px}
-.energyText b{color:#fff}
-.energyBar{flex:1;height:15px;background:rgba(255,255,255,.04);border-radius:99px;overflow:hidden;border:1px solid rgba(255,184,0,.32)}
-.energyFill{height:100%;width:100%;background:linear-gradient(90deg,#8B0F14,#E62429,#FF4B52,#FFB800,#FFE27A);border-radius:99px;box-shadow:0 0 25px rgba(230,36,41,.9);transition:width .2s linear}
+  .bg-vignette {
+    background: radial-gradient(ellipse at 50% 50%, transparent 30%, rgba(0, 0, 0, 0.9) 100%);
+  }
 
-.bottomNav{display:flex;justify-content:space-around;align-items:center;padding:10px 4px calc(12px + env(safe-area-inset-bottom));background:linear-gradient(180deg,rgba(10,5,8,.85),rgba(5,2,4,.99));border-top:1px solid rgba(230,36,41,.25);z-index:20;position:relative}
-.navItem{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;padding:6px 2px;border-radius:14px;cursor:pointer;transition:.2s;color:#5a5a65;font-size:9.5px;font-weight:700;text-transform:uppercase;position:relative}
-.navItem .navIcon{font-size:18px;filter:grayscale(.7) opacity(.55);position:relative}
-.navItem.active{color:#E62429}
-.navItem.active .navIcon{filter:drop-shadow(0 0 12px rgba(230,36,41,1)) grayscale(0) opacity(1);transform:scale(1.15)}
-.navBadge{position:absolute;top:-3px;right:-6px;min-width:15px;height:15px;padding:0 4px;background:#E62429;color:#fff;border-radius:99px;font-size:8px;font-weight:900;display:flex;align-items:center;justify-content:center;border:1.5px solid #000}
-.navBadge.hidden{display:none}
+  /* ─── Floating Orbs ─── */
+  .orb {
+    position: fixed;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 1;
+    filter: blur(60px);
+    opacity: 0.5;
+  }
 
-.sheetOverlay{position:absolute;inset:0;background:rgba(0,0,0,.75);z-index:90;opacity:0;pointer-events:none;transition:.3s}
-.sheetOverlay.show{opacity:1;pointer-events:auto}
-.sheet{position:absolute;bottom:0;left:0;right:0;max-height:82%;background:linear-gradient(180deg,rgba(21,21,28,.99),rgba(10,10,16,1));border-radius:26px 26px 0 0;border-top:1px solid rgba(230,36,41,.5);z-index:100;transform:translateY(100%);transition:transform .35s cubic-bezier(.2,.9,.3,1);display:flex;flex-direction:column;overflow:hidden}
-.sheet.show{transform:translateY(0)}
-.sheet::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#E62429,#FFB800,#E62429,transparent)}
-.sheetHeader{display:flex;align-items:center;justify-content:space-between;padding:16px 20px 12px;border-bottom:1px solid rgba(255,255,255,.08);position:relative}
-.sheetHeader .dragHandle{position:absolute;top:6px;left:50%;transform:translateX(-50%);width:44px;height:4px;border-radius:99px;background:#5a5a65;opacity:.4}
-.sheetTitle{font-size:14.5px;font-weight:800;display:flex;align-items:center;gap:10px;text-transform:uppercase}
-.sheetTitle .accent{color:#E62429}
-.sheetClose{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;color:#fff}
-.sheetBody{padding:16px 18px 22px;overflow-y:auto;flex:1}
-.sheetBody::-webkit-scrollbar{width:0}
+  .orb-1 {
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(230, 36, 41, 0.6), transparent 70%);
+    top: -80px;
+    left: -80px;
+    animation: float1 12s ease-in-out infinite;
+  }
 
-.heroGrid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
-.heroCard{background:linear-gradient(160deg, rgba(30,30,40,.75), rgba(15,15,25,.92));border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:13px 11px;cursor:pointer;transition:.15s;position:relative;display:flex;flex-direction:column;gap:9px}
-.heroCard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--accent,#E62429),transparent)}
-.heroCard:active{transform:scale(.97)}
-.heroCard.disabled{opacity:.5}
-.heroCard.maxed{border-color:rgba(255,184,0,.6)}
-.heroCard .hIcon{width:52px;height:52px;border-radius:13px;background:rgba(255,255,255,.05);display:flex;align-items:center;justify-content:center;color:var(--accent,#E62429)}
-.heroCard .hIcon svg{width:30px;height:30px}
-.heroCard .hName{font-size:12.5px;font-weight:800;text-transform:uppercase}
-.heroCard .hDesc{font-size:10.5px;color:#8a8a95;min-height:30px}
-.heroCard .hFooter{display:flex;align-items:center;justify-content:space-between;margin-top:auto}
-.heroCard .hLvl{font-size:9.5px;font-weight:800;color:#8a8a95;background:rgba(255,255,255,.06);padding:3px 8px;border-radius:99px}
-.heroCard .hPrice{background:rgba(255,184,0,.12);border:1px solid rgba(255,184,0,.35);padding:4px 9px;border-radius:99px;font-size:11px;font-weight:800;color:#FFB800}
-.heroCard.maxed .hPrice{background:rgba(76,220,110,.15);border-color:rgba(76,220,110,.5);color:#4CDC6E}
+  .orb-2 {
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, rgba(255, 184, 0, 0.4), transparent 70%);
+    bottom: -60px;
+    right: -60px;
+    animation: float2 15s ease-in-out infinite;
+  }
 
-.missionCard{background:linear-gradient(160deg, rgba(30,30,40,.75), rgba(15,15,25,.92));border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:13px;margin-bottom:10px;display:flex;align-items:center;gap:12px;position:relative}
-.missionCard::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,#E62429,#FFB800)}
-.missionCard.done::before{background:linear-gradient(180deg,#4CDC6E,#2A8A42)}
-.missionCard.done{border-color:rgba(76,220,110,.4)}
-.missionCard .mIcon{width:46px;height:46px;border-radius:12px;background:rgba(255,255,255,.05);display:flex;align-items:center;justify-content:center;font-size:22px}
-.missionCard .mBody{flex:1;min-width:0}
-.missionCard .mTitle{font-size:12.5px;font-weight:800;text-transform:uppercase;margin-bottom:4px}
-.missionCard .mDesc{font-size:11px;color:#8a8a95}
-.missionCard .mBar{height:6px;background:rgba(255,255,255,.04);border-radius:99px;margin-top:8px;overflow:hidden}
-.missionCard .mFill{height:100%;background:linear-gradient(90deg,#8B0F14,#E62429,#FFB800);border-radius:99px;transition:width .4s}
-.missionCard.done .mFill{background:linear-gradient(90deg,#2A8A42,#4CDC6E)}
-.missionCard .mClaim{padding:8px 13px;border-radius:10px;background:linear-gradient(135deg,#E62429,#8B0F14);color:#fff;font-weight:800;font-size:11px;border:none;cursor:pointer;text-transform:uppercase;font-family:inherit}
+  @keyframes float1 {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(40px, 30px); }
+  }
 
-.statsGrid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
-.statCard{background:linear-gradient(160deg, rgba(30,30,40,.75), rgba(15,15,25,.92));border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:15px 11px;text-align:center}
-.statCard .stIcon{font-size:22px;margin-bottom:7px}
-.statCard .stValue{font-size:19px;font-weight:900}
-.statCard .stLabel{font-size:10px;color:#8a8a95;margin-top:6px;font-weight:700;text-transform:uppercase}
+  @keyframes float2 {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(-30px, -40px); }
+  }
 
-.settingsHero{background:linear-gradient(160deg, rgba(230,36,41,.15), rgba(255,184,0,.08));border:1px solid rgba(230,36,41,.35);border-radius:20px;padding:22px 18px;text-align:center;margin-bottom:16px;position:relative}
-.settingsAvatarWrap{position:relative;width:88px;height:88px;margin:0 auto 14px;display:inline-block}
-.settingsAvatar{width:100%;height:100%;border-radius:50%;background:linear-gradient(135deg,#E62429,#8B0F14);border:3px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:38px;position:relative;overflow:hidden;background-size:cover;background-position:center}
-.avatarEditBadge{position:absolute;bottom:-2px;right:-2px;width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#FFB800,#E62429);display:flex;align-items:center;justify-content:center;font-size:14px;border:2.5px solid #0a0508;z-index:3;cursor:pointer}
-.avatarEditBadge:active{transform:scale(.9)}
-.avatarMenu{position:absolute;top:100%;left:50%;transform:translateX(-50%);margin-top:6px;background:rgba(20,20,30,.99);border:1px solid rgba(255,184,0,.4);border-radius:12px;padding:6px;z-index:20;box-shadow:0 10px 40px rgba(0,0,0,.85);min-width:150px;display:none}
-.avatarMenu.show{display:block}
-.avatarMenuBtn{display:block;width:100%;padding:10px 14px;border:none;background:transparent;color:#fff;font-weight:800;font-size:11.5px;text-transform:uppercase;cursor:pointer;border-radius:8px;font-family:inherit;text-align:left}
-.avatarMenuBtn:hover,.avatarMenuBtn:active{background:rgba(255,184,0,.15)}
-.avatarMenuBtn.danger{color:#FF3B42}
-.settingsNameRow{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:4px}
-.settingsName{font-size:22px;font-weight:900;word-break:break-word;max-width:220px}
-.editNameBtn{width:30px;height:30px;border-radius:8px;background:rgba(255,184,0,.15);border:1px solid rgba(255,184,0,.4);display:flex;align-items:center;justify-content:center;font-size:13px;cursor:pointer;color:#FFB800}
-.editNameBtn:active{transform:scale(.9)}
-.settingsRank{display:inline-block;font-size:11px;font-weight:800;color:#FFB800;background:rgba(255,184,0,.12);border:1px solid rgba(255,184,0,.4);padding:5px 12px;border-radius:99px}
-.settingsSince{font-size:10.5px;color:#8a8a95;margin-top:8px}
-.settingsSection{margin-bottom:18px}
-.settingsSection h3{font-size:12px;color:#E62429;font-weight:800;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:6px}
-.settingsSection h3::before{content:'';width:3px;height:12px;background:#E62429;border-radius:2px}
-.settingsItem{display:flex;align-items:center;gap:12px;background:linear-gradient(160deg, rgba(30,30,40,.75), rgba(15,15,25,.92));border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:13px;margin-bottom:9px;cursor:pointer}
-.settingsItem:active{transform:scale(.98)}
-.settingsItem .siIcon{width:42px;height:42px;border-radius:12px;background:rgba(255,255,255,.05);display:flex;align-items:center;justify-content:center;font-size:19px}
-.settingsItem .siBody{flex:1;min-width:0}
-.settingsItem .siTitle{font-size:13px;font-weight:800;text-transform:uppercase;margin-bottom:3px}
-.settingsItem .siDesc{font-size:11px;color:#8a8a95}
-.settingsItem .siArrow{color:#5a5a65}
-.settingsItem.danger{border-color:rgba(230,36,41,.4)}
-.settingsItem.danger .siTitle{color:#FF3B42}
-.tutorialBox{background:linear-gradient(160deg, rgba(30,30,40,.75), rgba(15,15,25,.92));border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px}
-.tutorialStep{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05)}
-.tutorialStep:last-child{border-bottom:none}
-.tutorialStep .tsNum{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#E62429,#8B0F14);display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:900;flex-shrink:0}
-.tutorialStep .tsBody{flex:1;font-size:12px;color:#c8c8d0;line-height:1.6}
-.tutorialStep .tsBody b{color:#FFB800}
+  /* ─── Main Card ─── */
+  .card {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 440px;
+    background: linear-gradient(160deg, rgba(30, 30, 40, 0.95), rgba(12, 12, 20, 0.98));
+    border: 1px solid rgba(230, 36, 41, 0.35);
+    border-radius: 28px;
+    padding: 44px 32px 36px;
+    text-align: center;
+    box-shadow:
+      0 30px 80px rgba(0, 0, 0, 0.9),
+      0 0 60px rgba(230, 36, 41, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    animation: cardIn 0.9s cubic-bezier(0.2, 0.9, 0.3, 1) both;
+    overflow: hidden;
+  }
 
-.ticketBar{display:flex;align-items:center;justify-content:space-between;background:linear-gradient(135deg,rgba(122,180,255,.15),rgba(122,180,255,.04));border:1px solid rgba(122,180,255,.4);border-radius:14px;padding:12px 16px;margin-bottom:14px}
-.ticketBar .tbLabel{font-size:11.5px;font-weight:800;color:#7ab4ff;text-transform:uppercase}
-.ticketBar .tbCount{font-size:26px;font-weight:900;color:#fff;display:flex;align-items:center;gap:6px}
-.ticketBar .tbCount span{font-size:18px}
-.gamesMenu{display:flex;flex-direction:column;gap:12px}
-.gameCardMenu{background:linear-gradient(160deg, rgba(30,30,40,.75), rgba(15,15,25,.92));border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:16px;display:flex;gap:14px;align-items:center;cursor:pointer;position:relative}
-.gameCardMenu:active{transform:scale(.98)}
-.gameCardMenu .gmIcon{width:70px;height:70px;border-radius:18px;background:linear-gradient(135deg,rgba(230,36,41,.2),rgba(230,36,41,.05));border:1px solid rgba(230,36,41,.4);display:flex;align-items:center;justify-content:center;font-size:38px;flex-shrink:0}
-.gameCardMenu .gmBody{flex:1}
-.gameCardMenu .gmName{font-size:16.5px;font-weight:900;text-transform:uppercase;margin-bottom:4px}
-.gameCardMenu .gmDesc{font-size:11.5px;color:#8a8a95;margin-bottom:8px}
-.gameCardMenu .gmCost{display:inline-flex;background:rgba(122,180,255,.15);border:1px solid rgba(122,180,255,.4);padding:4px 10px;border-radius:99px;font-size:11.5px;font-weight:900;color:#7ab4ff}
-.buyTicketCard{background:linear-gradient(160deg,rgba(255,184,0,.08),rgba(255,184,0,.02));border:1px solid rgba(255,184,0,.35);border-radius:14px;padding:14px;text-align:center;margin-top:14px;cursor:pointer}
-.buyTicketCard .btTitle{font-size:13.5px;font-weight:900;color:#FFB800;text-transform:uppercase;margin-bottom:6px}
-.buyTicketCard .btPrice{font-size:20px;font-weight:900;color:#fff}
-.buyTicketCard .btPrice span{font-size:14px;opacity:.7}
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #E62429, #FFB800, #E62429, transparent);
+    box-shadow: 0 0 20px rgba(230, 36, 41, 0.8);
+  }
 
-.diceWrap{display:flex;gap:16px;justify-content:center;margin:20px 0}
-.die{width:90px;height:90px;background:linear-gradient(135deg,#fff5c2,#ffd85a,#f5a623);border-radius:18px;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);padding:10px;gap:4px;border:3px solid #a86b00}
-.die.rolling{animation:dieRoll .4s ease-in-out}
-@keyframes dieRoll{0%,100%{transform:rotate(0) scale(1)}25%{transform:rotate(-20deg) scale(1.1)}50%{transform:rotate(20deg) scale(.95)}}
-.pip{border-radius:50%;background:#1a1730}
-.pip.empty{background:transparent}
-.diceStatus{text-align:center;font-size:16px;font-weight:900;color:#FFB800;text-transform:uppercase;margin:16px 0;min-height:24px}
-.diceRollBtn{width:100%;padding:15px;border:none;border-radius:14px;background:linear-gradient(135deg,#E62429,#8B0F14);color:#fff;font-weight:900;font-size:13.5px;text-transform:uppercase;cursor:pointer;font-family:inherit}
-.diceRollBtn:disabled{opacity:.5;cursor:not-allowed}
-.diceHistory{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:12px}
-.diceHistory .dh{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:6px 10px;font-size:11.5px;font-weight:800;color:#8a8a95}
-.diceHistory .dh.active{background:rgba(255,184,0,.15);border-color:rgba(255,184,0,.4);color:#FFB800}
+  @keyframes cardIn {
+    from {
+      opacity: 0;
+      transform: translateY(40px) scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
 
-.checkersLobby{display:flex;flex-direction:column;gap:12px}
-.difficultyCard{background:linear-gradient(160deg, rgba(30,30,40,.75), rgba(15,15,25,.92));border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:16px;cursor:pointer;position:relative}
-.difficultyCard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--c,#4CDC6E),transparent)}
-.difficultyCard:active{transform:scale(.98)}
-.difficultyCard .dcIcon{font-size:32px;margin-bottom:8px}
-.difficultyCard .dcName{font-size:15.5px;font-weight:900;text-transform:uppercase;margin-bottom:4px}
-.difficultyCard .dcDesc{font-size:11.5px;color:#8a8a95}
-.difficultyCard .dcReward{display:inline-flex;background:rgba(255,184,0,.12);border:1px solid rgba(255,184,0,.4);padding:4px 10px;border-radius:99px;font-size:11.5px;font-weight:900;color:#FFB800;margin-top:10px}
-.boardWrap{display:flex;flex-direction:column;align-items:center;gap:14px}
-.checkersHeader{display:flex;justify-content:space-between;align-items:center;width:100%;max-width:360px;background:rgba(30,30,40,.75);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:10px 14px}
-.chPlayer{display:flex;flex-direction:column;align-items:center;flex:1}
-.chPlayer .chIcon{font-size:20px}
-.chPlayer .chLabel{font-size:9.5px;color:#8a8a95;font-weight:800;text-transform:uppercase}
-.chPlayer .chCount{font-size:18px;font-weight:900;color:#fff}
-.chPlayer.turn .chCount{color:#4CDC6E}
-.checkersBoard{width:100%;max-width:360px;aspect-ratio:1;background:#0a0a12;border:3px solid #8B5A00;border-radius:14px;padding:6px;display:grid;grid-template-columns:repeat(8,1fr);grid-template-rows:repeat(8,1fr)}
-.sq{position:relative;display:flex;align-items:center;justify-content:center;cursor:pointer}
-.sq.dark{background:#2a1810}
-.sq.light{background:#f0d9b5}
-.sq .piece{width:78%;height:78%;border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative}
-.sq .piece.p1{background:radial-gradient(circle at 35% 30%, #ff6b6b, #E62429, #8B0F14);border:2px solid #4A0508}
-.sq .piece.p2{background:radial-gradient(circle at 35% 30%, #666, #2a2a2a, #000);border:2px solid #1a1a1a}
-.sq .piece.king::after{content:'♛';position:absolute;color:#FFD700;font-size:14px}
-.sq.selected{background:rgba(255,184,0,.5) !important}
-.sq.valid-move{background:rgba(76,220,110,.4) !important}
-.sq.valid-move::before{content:'';position:absolute;width:26%;height:26%;border-radius:50%;background:rgba(76,220,110,.95)}
-.sq.capture-move{background:rgba(255,51,85,.45) !important}
-.sq.capture-move::before{content:'';position:absolute;width:26%;height:26%;border-radius:50%;background:rgba(255,51,85,.95)}
-.checkersStatus{font-size:13px;font-weight:900;color:#FFB800;text-transform:uppercase;text-align:center;min-height:20px}
-.checkersBtn{width:100%;max-width:360px;padding:14px;border:none;border-radius:12px;background:linear-gradient(135deg,#E62429,#8B0F14);color:#fff;font-weight:900;font-size:13px;text-transform:uppercase;cursor:pointer;font-family:inherit}
+  /* ─── Logo ─── */
+  .logo {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 20px;
+    background: linear-gradient(135deg, #E62429, #8B0F14);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 40px;
+    color: #fff;
+    box-shadow:
+      0 0 40px rgba(230, 36, 41, 0.7),
+      0 0 80px rgba(230, 36, 41, 0.3),
+      inset 0 2px 0 rgba(255, 255, 255, 0.25);
+    position: relative;
+    overflow: hidden;
+    animation: logoPulse 3s ease-in-out infinite;
+  }
 
-.pongLobby{display:flex;flex-direction:column;gap:12px}
-.pongCanvasWrap{position:relative;width:100%;max-width:400px;aspect-ratio:2/3;background:#000;border:2px solid rgba(230,36,41,.5);border-radius:16px;overflow:hidden;touch-action:none;margin:0 auto}
-.pongCanvasWrap canvas{width:100%;height:100%;display:block;touch-action:none}
-.pongScores{position:absolute;top:8px;left:0;right:0;display:flex;justify-content:space-between;padding:0 24px;pointer-events:none;font-size:42px;font-weight:900;color:rgba(255,255,255,.25)}
-.pongBtn{width:100%;max-width:400px;padding:14px;border:none;border-radius:12px;background:linear-gradient(135deg,#E62429,#8B0F14);color:#fff;font-weight:900;font-size:13.5px;text-transform:uppercase;cursor:pointer;font-family:inherit;margin:14px auto 0;display:block}
-.pongWinner{position:absolute;inset:0;background:rgba(0,0,0,.85);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;z-index:10;padding:20px;text-align:center}
-.pongWinner .pwTitle{font-size:32px;font-weight:900;text-transform:uppercase}
-.pongWinner .pwTitle.win{color:#4CDC6E}
-.pongWinner .pwTitle.lose{color:#FF3B42}
-.pongWinner .pwSub{font-size:13px;color:#c8c8d0}
+  .logo::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+    animation: shine 3s ease-in-out infinite;
+  }
 
-.floaty{position:absolute;font-weight:900;font-size:26px;color:#FFB800;pointer-events:none;z-index:60;text-shadow:0 0 20px rgba(255,184,0,1);animation:floatUp 1s cubic-bezier(.2,.8,.2,1) forwards}
-@keyframes floatUp{0%{transform:translate(-50%,-50%) scale(.5);opacity:0}15%{transform:translate(-50%,-60%) scale(1.25);opacity:1}100%{transform:translate(-50%,-180px) scale(1);opacity:0}}
-.pt{position:absolute;border-radius:50%;pointer-events:none;z-index:55;animation:ptBurst .9s cubic-bezier(.2,.8,.3,1) forwards}
-@keyframes ptBurst{0%{transform:translate(-50%,-50%) scale(1.4);opacity:1}100%{transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) scale(0);opacity:0}}
+  @keyframes logoPulse {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 40px rgba(230, 36, 41, 0.7), 0 0 80px rgba(230, 36, 41, 0.3), inset 0 2px 0 rgba(255, 255, 255, 0.25); }
+    50% { transform: scale(1.05); box-shadow: 0 0 60px rgba(230, 36, 41, 0.9), 0 0 120px rgba(230, 36, 41, 0.5), inset 0 2px 0 rgba(255, 255, 255, 0.25); }
+  }
 
-#toast{position:absolute;top:80px;left:50%;transform:translateX(-50%) translateY(-20px);background:linear-gradient(135deg,#E62429,#8B0F14);color:#fff;padding:12px 24px;border-radius:13px;font-size:12.5px;font-weight:800;opacity:0;transition:.3s;z-index:300;pointer-events:none;text-transform:uppercase}
-#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-#toast.ok{background:linear-gradient(135deg,#FFB800,#B88000);color:#0a0500}
+  @keyframes shine {
+    0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+  }
 
-.rewardPopup{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(.7);background:linear-gradient(160deg,rgba(42,21,16,.98),rgba(26,10,8,.99));border:2px solid #FFB800;border-radius:22px;padding:26px 30px;text-align:center;z-index:500;opacity:0;pointer-events:none;transition:.4s cubic-bezier(.3,1.6,.6,1);min-width:260px}
-.rewardPopup.show{opacity:1;pointer-events:auto;transform:translate(-50%,-50%) scale(1)}
-.rewardPopup .rpIcon{font-size:56px;margin-bottom:8px}
-.rewardPopup .rpTitle{font-size:13.5px;font-weight:900;color:#FFB800;text-transform:uppercase;margin-bottom:6px}
-.rewardPopup .rpAmount{font-size:38px;font-weight:900;color:#fff}
-.rewardPopup .rpSub{font-size:11px;color:#8a8a95;margin-top:8px;text-transform:uppercase}
+  /* ─── Typography ─── */
+  .title {
+    font-size: 30px;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+    margin-bottom: 6px;
+    background: linear-gradient(135deg, #fff 0%, #FFB800 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.3;
+  }
 
-.loadingOverlay{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:12000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;opacity:0;visibility:hidden;transition:.3s}
-.loadingOverlay.show{opacity:1;visibility:visible}
-.loadingSpinner{width:48px;height:48px;border:4px solid rgba(255,184,0,.2);border-top-color:#FFB800;border-radius:50%;animation:spin .8s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-.loadingText{font-size:13px;font-weight:800;color:#FFB800;text-transform:uppercase;letter-spacing:2px}
+  .subtitle {
+    font-size: 15px;
+    font-weight: 500;
+    color: #8a8a95;
+    line-height: 1.8;
+    margin-bottom: 28px;
+    letter-spacing: 0.2px;
+  }
 
-/* ═══════════════════════════════════════════════════════════
-   BLOG POPUP
-   ═══════════════════════════════════════════════════════════ */
-#blogPopup{position:fixed;inset:0;z-index:11500;background:rgba(0,0,0,.85);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;visibility:hidden;transition:opacity .4s,visibility .4s}
-#blogPopup.show{opacity:1;visibility:visible}
-.blogCard{position:relative;width:100%;max-width:400px;background:linear-gradient(160deg,rgba(30,30,40,.98),rgba(12,12,20,.99));border:1px solid rgba(255,184,0,.4);border-radius:24px;padding:32px 26px 26px;box-shadow:0 30px 100px rgba(0,0,0,.95),0 0 60px rgba(255,184,0,.25);transform:translateY(30px) scale(.95);transition:.5s cubic-bezier(.2,.9,.3,1);text-align:center;overflow:hidden}
-#blogPopup.show .blogCard{transform:translateY(0) scale(1)}
-.blogCard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,#FFB800,#E62429,#FFB800,transparent);box-shadow:0 0 20px rgba(255,184,0,.8)}
-.blogIcon{width:80px;height:80px;margin:0 auto 18px;background:linear-gradient(135deg,#E62429,#8B0F14);border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:40px;box-shadow:0 0 40px rgba(230,36,41,.8),inset 0 2px 0 rgba(255,255,255,.25);position:relative;overflow:hidden}
-.blogIcon::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:linear-gradient(45deg,transparent,rgba(255,255,255,.35),transparent);animation:updIconShine 3s ease-in-out infinite}
-.blogTitle{font-size:22px;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:#fff;margin-bottom:10px;text-shadow:0 0 25px rgba(255,184,0,.5);line-height:1.3}
-.blogTitle .accent{color:#FFB800;text-shadow:0 0 25px rgba(255,184,0,.9)}
-.blogDesc{font-size:13px;color:#c8c8d0;line-height:1.7;margin-bottom:24px;font-weight:500}
-.blogBtnPrimary{display:block;width:100%;padding:16px;border:none;background:linear-gradient(135deg,#FFB800,#E62429);color:#fff;font-weight:900;font-size:14px;letter-spacing:2px;text-transform:uppercase;border-radius:14px;cursor:pointer;box-shadow:0 4px 0 rgba(139,15,20,.7),0 6px 25px rgba(255,184,0,.5);transition:.15s;font-family:inherit;text-decoration:none;text-align:center}
-.blogBtnPrimary:active{transform:translateY(2px);box-shadow:0 2px 0 rgba(139,15,20,.7),0 3px 15px rgba(255,184,0,.5)}
-.blogBtnGhost{display:block;width:100%;padding:13px;margin-top:10px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);color:#c8c8d0;font-weight:800;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;border-radius:14px;cursor:pointer;transition:.15s;font-family:inherit}
-.blogBtnGhost:hover,.blogBtnGhost:active{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.25);color:#fff}
+  .subtitle b {
+    color: #FFB800;
+    font-weight: 700;
+  }
 
-@media (max-width: 600px), (hover: none) {
-  #coin{filter:drop-shadow(0 15px 30px rgba(0,0,0,.8)) drop-shadow(0 0 40px rgba(255,184,0,.5)) !important}
-  .hexRing.r1{animation-duration:50s !important}
-  .hexRing.r2{animation-duration:80s !important}
-  .hexRing.r3{display:none}
-  .coinGlow{animation-duration:5.5s !important;filter:blur(20px) !important}
-}
+  /* ─── Divider ─── */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 24px 0;
+    color: #5a5a65;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+  }
+
+  .divider::before,
+  .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  }
+
+  /* ─── Status Badge ─── */
+  .status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(230, 36, 41, 0.12);
+    border: 1px solid rgba(230, 36, 41, 0.4);
+    padding: 10px 20px;
+    border-radius: 99px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #FF4B52;
+    margin-bottom: 24px;
+  }
+
+  .status .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #FF4B52;
+    box-shadow: 0 0 12px #FF4B52;
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.85); }
+  }
+
+  /* ─── Info Grid ─── */
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+
+  .info-item {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 14px;
+    padding: 14px 10px;
+    text-align: center;
+    transition: 0.2s;
+  }
+
+  .info-item:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 184, 0, 0.3);
+    transform: translateY(-2px);
+  }
+
+  .info-item .icon {
+    font-size: 20px;
+    margin-bottom: 6px;
+  }
+
+  .info-item .label {
+    font-size: 10.5px;
+    color: #8a8a95;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  /* ─── Progress Bar ─── */
+  .progress-wrap {
+    margin-bottom: 28px;
+  }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    font-weight: 700;
+    color: #8a8a95;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+  }
+
+  .progress-label span:last-child {
+    color: #FFB800;
+  }
+
+  .progress-bar {
+    height: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 99px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 184, 0, 0.2);
+  }
+
+  .progress-fill {
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, #8B0F14, #E62429, #FFB800);
+    border-radius: 99px;
+    box-shadow: 0 0 20px rgba(255, 184, 0, 0.6);
+    animation: fillProgress 3s cubic-bezier(0.4, 0.2, 0.2, 1) 0.5s forwards;
+  }
+
+  @keyframes fillProgress {
+    to { width: 68%; }
+  }
+
+  /* ─── Footer ─── */
+  .footer {
+    font-size: 11px;
+    color: #5a5a65;
+    letter-spacing: 2px;
+    font-weight: 600;
+    margin-top: 8px;
+  }
+
+  .footer b {
+    color: #E62429;
+  }
+
+  /* ─── Responsive ─── */
+  @media (max-width: 420px) {
+    .card {
+      padding: 36px 22px 30px;
+    }
+    .title {
+      font-size: 25px;
+    }
+    .logo {
+      width: 68px;
+      height: 68px;
+      font-size: 34px;
+    }
+  }
 </style>
 </head>
 <body>
 
-<div class="authOverlay" id="authOverlay">
-  <div class="authBg"></div>
-  <div class="authCard">
-    <div class="authLogo">M</div>
-    <h1>MARVELS HC</h1>
-    <div class="authSub">Login with email or play as guest.</div>
-    <div class="authTabs">
-      <div class="authTab active" data-atab="login">LOGIN</div>
-      <div class="authTab" data-atab="register">REGISTER</div>
+<!-- Background -->
+<div class="bg bg-base"></div>
+<div class="bg bg-grid"></div>
+<div class="bg bg-vignette"></div>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+
+<!-- Card -->
+<div class="card">
+  <div class="logo">M</div>
+
+  <h1 class="title">سایت بسته شد</h1>
+  <p class="subtitle">
+    Marvels HC فعلاً در دسترس نیست.<br>
+    تا زمان <b>اطلاعات ثانوی</b>، سرویس غیرفعال خواهد بود.
+  </p>
+
+  <div class="status">
+    <span class="dot"></span>
+    OFFLINE
+  </div>
+
+  <div class="info-grid">
+    <div class="info-item">
+      <div class="icon">🔒</div>
+      <div class="label">دسترسی بسته</div>
     </div>
-    <div class="authForm">
-      <input class="authInput" id="authEmail" type="email" placeholder="EMAIL" autocomplete="email">
-      <input class="authInput" id="authPass" type="password" placeholder="PASSWORD (6+ chars)" autocomplete="current-password">
-      <input class="authInput" id="authUsername" type="text" placeholder="USERNAME (3+ chars)" maxlength="20" style="display:none">
-      <button class="authBtn" id="authSubmit">LOGIN</button>
-      <div class="authMsg" id="authMsg"></div>
-      <div class="authHint">Data stored on cloud. Login from any device.</div>
+    <div class="info-item">
+      <div class="icon">⏳</div>
+      <div class="label">در انتظار</div>
     </div>
-    <div class="authSkip">or <span id="authGuest">PLAY AS GUEST</span></div>
+    <div class="info-item">
+      <div class="icon">📡</div>
+      <div class="label">آفلاین</div>
+    </div>
+    <div class="info-item">
+      <div class="icon">🛠️</div>
+      <div class="label">در حال بررسی</div>
+    </div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-label">
+      <span>وضعیت بازگشایی</span>
+      <span>68%</span>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill"></div>
+    </div>
+  </div>
+
+  <div class="divider">MARVELS HC</div>
+
+  <div class="footer">
+    BUILT BY <b>PARHAM.KH</b>
   </div>
 </div>
 
-<div id="intro" style="display:none">
-  <div class="marvel-bg"></div>
-  <div class="marvel-box"><span>MARVEL</span></div>
-  <div class="marvel-credit">A Game By <b>PARHAM.KH</b></div>
-  <div class="intro-loading"><div class="fill"></div></div>
-  <div class="intro-skip" id="introSkip">SKIP →</div>
-</div>
-
-<!-- BLOG POPUP -->
-<div id="blogPopup">
-  <div class="blogCard">
-    <div class="blogIcon">📰</div>
-    <div class="blogTitle">سایت <span class="accent">بلاگ</span>مون رو<br>سر زدی...؟</div>
-    <div class="blogDesc">جدیدترین اخبار، آموزش‌ها و محتوای اختصاصی<br>منتظرتونه!</div>
-    <a href="https://progarts.github.io/Blog/" target="_blank" rel="noopener" class="blogBtnPrimary">🚀 VISIT BLOG</a>
-    <button class="blogBtnGhost" id="blogClose">✕ MAYBE LATER</button>
-  </div>
-</div>
-
-<div id="bgStage">
-  <div class="bg-layer bg-base"></div>
-  <div class="bg-layer bg-grid"></div>
-  <div class="bg-layer bg-vignette"></div>
-</div>
-
-<div id="app">
-  <header>
-    <div class="logo">
-      <div class="logoBox" id="headerAvatar">M</div>
-      <div class="name">
-        <div class="n1">MARVEL<b>·</b>HC</div>
-        <div class="n2" id="headerPlayerName"></div>
-      </div>
-    </div>
-    <div class="headerRight">
-      <div class="rankBadge"><span class="dot"></span><span id="rankTxt">RECRUIT</span></div>
-      <div class="hIconBtn goldBtn" id="goldBtn" title="Gold">
-        💰
-        <span class="syncDot" id="syncDot"></span>
-      </div>
-      <div class="hIconBtn" id="settingsBtn" title="Settings">⚙️</div>
-    </div>
-  </header>
-
-  <div class="scoreBox">
-    <div class="scoreLabel">COMBAT CREDITS</div>
-    <div class="balance">
-      <svg class="coinMini" viewBox="0 0 40 40"><defs><radialGradient id="miniCoinGrad" cx="35%" cy="30%" r="75%"><stop offset="0%" stop-color="#FFF8D0"/><stop offset="35%" stop-color="#FFB800"/><stop offset="75%" stop-color="#B88000"/><stop offset="100%" stop-color="#6A4800"/></radialGradient></defs><circle cx="20" cy="20" r="19" fill="url(#miniCoinGrad)"/><path d="M20 8 l3 8 h8 l-6.5 5 2.5 8 -7-5 -7 5 2.5-8 -6.5-5 h8 z" fill="#4A3000" opacity=".8"/></svg>
-      <span class="amount" id="score">0</span>
-    </div>
-    <div class="miniStats">
-      <div class="miniStat gold">💰 <b id="goldDisplay">0</b></div>
-      <div class="miniStat miner">⛏️ <b id="minerDisplay">+1</b>/strike</div>
-    </div>
-  </div>
-
-  <div class="coinArea" id="coinArea">
-    <div class="coinGlow"></div>
-    <div class="hexGrid">
-      <div class="hexRing r1"></div>
-      <div class="hexRing r2"></div>
-      <div class="hexRing r3"></div>
-    </div>
-    <div class="bracket tl"></div>
-    <div class="bracket tr"></div>
-    <div class="bracket bl"></div>
-    <div class="bracket br"></div>
-    <div class="comboBadge" id="comboBadge">COMBO</div>
-    <div id="coin">
-      <div class="orbit">
-        <div class="orbitDot" style="animation-delay:0s"></div>
-        <div class="orbitDot" style="animation-delay:-4s;background:#E62429;box-shadow:0 0 14px #E62429"></div>
-      </div>
-      <svg viewBox="0 0 240 240">
-        <defs>
-          <radialGradient id="coinGrad" cx="35%" cy="30%" r="80%"><stop offset="0%" stop-color="#FFF8D0"/><stop offset="18%" stop-color="#FFE27A"/><stop offset="45%" stop-color="#FFB800"/><stop offset="75%" stop-color="#B88000"/><stop offset="100%" stop-color="#5A3800"/></radialGradient>
-          <linearGradient id="rimGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FFF8D0"/><stop offset="30%" stop-color="#FFB800"/><stop offset="70%" stop-color="#8B5A00"/><stop offset="100%" stop-color="#3A2000"/></linearGradient>
-          <radialGradient id="starGrad" cx="50%" cy="50%" r="60%"><stop offset="0%" stop-color="#8B0F14"/><stop offset="100%" stop-color="#4A0508"/></radialGradient>
-        </defs>
-        <circle cx="120" cy="120" r="118" fill="url(#rimGrad)"/>
-        <circle cx="120" cy="120" r="114" fill="none" stroke="#3A2000" stroke-width="1.5" opacity=".6"/>
-        <g opacity=".6"><g id="notches"></g></g>
-        <circle cx="120" cy="120" r="106" fill="url(#coinGrad)"/>
-        <circle cx="120" cy="120" r="102" fill="none" stroke="#fff" stroke-width="1" opacity=".3"/>
-        <circle cx="120" cy="120" r="90" fill="none" stroke="#5A3800" stroke-width="2" opacity=".4"/>
-        <g transform="translate(120 122)"><path d="M 0 -68 L 18 -20 L 68 -20 L 28 10 L 44 58 L 0 30 L -44 58 L -28 10 L -68 -20 L -18 -20 Z" fill="url(#starGrad)" stroke="#2A0003" stroke-width="2" stroke-linejoin="round"/></g>
-        <ellipse cx="82" cy="62" rx="40" ry="17" fill="#fff" opacity=".22" transform="rotate(-28 82 62)"/>
-      </svg>
-    </div>
-    <div class="hint">TAP TO STRIKE</div>
-  </div>
-
-  <div class="energyBox">
-    <div class="energyRow">
-      <span class="energyIcon">⚡</span>
-      <span class="energyText"><b id="energyTxt">1000</b> / <b id="energyMaxTxt">1000</b></span>
-      <div class="energyBar"><div class="energyFill" id="energyFill"></div></div>
-    </div>
-  </div>
-
-  <nav class="bottomNav">
-    <div class="navItem active" data-view="heroes"><div class="navIcon">⚡</div><div>Heroes</div></div>
-    <div class="navItem" data-view="missions"><div class="navIcon">🎯<span class="navBadge hidden" id="missionBadge">0</span></div><div>Missions</div></div>
-    <div class="navItem" data-view="achievements"><div class="navIcon">🏆</div><div>Achieve</div></div>
-    <div class="navItem" data-view="minigames"><div class="navIcon">🎮</div><div>Games</div></div>
-  </nav>
-
-  <div class="sheetOverlay" id="sheetOverlay"></div>
-  <div class="sheet" id="sheet">
-    <div class="sheetHeader">
-      <div class="dragHandle"></div>
-      <div class="sheetTitle" id="sheetTitle"><span class="accent">⚡</span> HEROES</div>
-      <div class="sheetClose" id="sheetClose">✕</div>
-    </div>
-    <div class="sheetBody" id="sheetBody"></div>
-  </div>
-
-  <div class="rewardPopup" id="rewardPopup">
-    <div class="rpIcon" id="rpIcon">🎁</div>
-    <div class="rpTitle" id="rpTitle">REWARD</div>
-    <div class="rpAmount" id="rpAmount">+0</div>
-    <div class="rpSub" id="rpSub"></div>
-  </div>
-
-  <div id="toast"></div>
-</div>
-
-<div class="loadingOverlay" id="loadingOverlay">
-  <div class="loadingSpinner"></div>
-  <div class="loadingText" id="loadingText">LOADING...</div>
-</div>
-
-<input type="file" id="avatarInputGlobal" accept="image/*" style="display:none">
-
-<script>
-// ═══════════════════════════════════════════════════════════
-// SUPABASE CONFIG
-// ═══════════════════════════════════════════════════════════
-const SUPABASE_URL = 'https://zrjgknagwhgbhzsnvdvk.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_2ScJc7_7nBoETJGmpCr19w_m8erpN00';
-const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-let currentUser = null;
-let isGuest = false;
-let state = null;
-let syncInterval = null;
-const ENERGY_COST = 5;
-const GOLD_UNLOCK_COST = 50000;
-const GOLD_PER_SECOND = 0.002;
-const TICKET_PRICE = 10000;
-const DICE_TICKET_COST = 1;
-const CHECKERS_TICKET_COST = 1;
-const PONG_TICKET_COST = 2;
-const CHECKERS_REWARDS = { easy:{coin:2000,gold:0}, medium:{coin:5000,gold:0}, hard:{coin:10000,gold:5} };
-const PONG_REWARDS = { amateur:{coin:2500,gold:0}, hard:{coin:4500,gold:0}, insane:{coin:0,gold:10} };
-const isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) || window.innerWidth < 600;
-const isLowEnd = isMobile;
-const GOLD_THRESHOLD = { reactor:8, vibranium:6, legion:5, infinity:4, mjolnir:3 };
-const GOLD_BASE = 5;
-const GOLD_STEP = 1;
-
-const $ = s => document.querySelector(s);
-const $$ = s => document.querySelectorAll(s);
-
-const ICONS = {
-  miner: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M14.5 3.5 L20.5 9.5"/><path d="M3.5 20.5 L14.5 9.5 L15.5 10.5 L4.5 21.5 Z"/><path d="M20.5 3.5 C 15 1, 10 1.5, 6 4.5" stroke-width="2"/><circle cx="20.5" cy="9.5" r="1.6" fill="currentColor"/></svg>`,
-  reactor: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg>`,
-  vibranium: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2 L20 5 V12 C20 17 16 21 12 22 C8 21 4 17 4 12 V5 Z"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg>`,
-  legion: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="6" width="16" height="12" rx="2"/><circle cx="9" cy="12" r="1.5" fill="currentColor"/><circle cx="15" cy="12" r="1.5" fill="currentColor"/></svg>`,
-  infinity: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2 L20 8 L12 22 L4 8 Z"/></svg>`,
-  mjolnir: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="3" width="14" height="9" rx="1.5"/><rect x="10" y="12" width="4" height="9"/></svg>`,
-};
-
-const HEROES = [
-  { key:'miner', icon:ICONS.miner, name:'Miner', desc: l => `+${l+1} profit per strike`, baseCost: 50, growth: 1.5, max: 200, accent:'#4CDC6E' },
-  { key:'reactor', icon:ICONS.reactor, name:'Arc Reactor', desc: l => `+${(l+1)*500} energy cap`, baseCost: 250, growth: 1.5, max: 30, accent:'#4DA6FF' },
-  { key:'vibranium', icon:ICONS.vibranium, name:'Vibranium', desc: l => `+${(l+1)*2} regen/sec`, baseCost: 400, growth: 1.5, max: 20, accent:'#B080FF' },
-  { key:'legion', icon:ICONS.legion, name:'Iron Legion', desc: l => `${(l+1)*2} credits/sec`, baseCost: 1500, growth: 1.5, max: 20, accent:'#E62429' },
-  { key:'infinity', icon:ICONS.infinity, name:'Infinity Stone', desc: l => `${(l+1)*2}% crit chance`, baseCost: 3000, growth: 1.5, max: 15, accent:'#FFB800' },
-  { key:'mjolnir', icon:ICONS.mjolnir, name:'Mjolnir', desc: l => `${(l+1)*1}% ×3 damage`, baseCost: 8000, growth: 1.5, max: 10, accent:'#FFB800' },
-];
-
-const RANKS = [
-  { name:'RECRUIT', min:0 }, { name:'AGENT', min:2500 }, { name:'SPECIALIST', min:15000 },
-  { name:'COMMANDER', min:75000 }, { name:'DIRECTOR', min:350000 }, { name:'LEGEND', min:1500000 },
-  { name:'AVENGER', min:6000000 }, { name:'INFINITY', min:25000000 }, { name:'COSMIC', min:100000000 },
-];
-
-const DAILY_MISSIONS = [
-  { id:'d1', icon:'👊', title:'Warm Up', desc:'Land 50 strikes', need:50, reward:180, goldReward:0, ticketReward:0, prog:s=>s.stats.todayClicks||0 },
-  { id:'d2', icon:'🔥', title:'Combo Rush', desc:'Reach ×2 combo', need:200, reward:270, goldReward:0, ticketReward:0, prog:s=>(s.stats.todayMaxCombo||0)*100 },
-  { id:'d3', icon:'💥', title:'Critical Eye', desc:'10 critical hits', need:10, reward:330, goldReward:0, ticketReward:1, prog:s=>s.stats.todayCrits||0 },
-  { id:'d4', icon:'⛏️', title:'Miner Day', desc:'Upgrade Miner once', need:1, reward:225, goldReward:1, ticketReward:0, prog:s=>s.stats.todayUpgrades||0 },
-];
-const WEEKLY_MISSIONS = [
-  { id:'w1', icon:'🏆', title:'Weekly Grind', desc:'1,000 strikes', need:1000, reward:1200, goldReward:1, ticketReward:2, prog:s=>s.stats.weekClicks||0 },
-  { id:'w2', icon:'💎', title:'Credit Hunter', desc:'Earn 5,000 credits', need:5000, reward:1600, goldReward:1, ticketReward:2, prog:s=>s.stats.weekEarned||0 },
-];
-
-let actx = null;
-function ensureAudio(){ if(!actx){ try{ actx = new (window.AudioContext||window.webkitAudioContext)(); }catch{} } if(actx && actx.state==='suspended') actx.resume(); }
-function tone(f, d=0.06, t='sine', v=0.05, delay=0){ if(!actx) return; try{ const s = actx.currentTime + delay; const o = actx.createOscillator(); const g = actx.createGain(); o.type=t; o.frequency.setValueAtTime(f, s); g.gain.setValueAtTime(v, s); g.gain.exponentialRampToValueAtTime(0.0001, s+d); o.connect(g); g.connect(actx.destination); o.start(s); o.stop(s+d); }catch{} }
-const SFX = {
-  tap(c){ tone(700 + Math.min(c*30, 600), .06, 'triangle', .06); },
-  crit(){ tone(400,.12,'triangle',.12); tone(1200,.1,'sawtooth',.05); },
-  mega(){ tone(300,.15,'triangle',.14); tone(880,.12,'sawtooth',.06); },
-  err(){ tone(160,.15,'sawtooth',.05); },
-  buy(){ tone(880,.06,'sine',.06); tone(1320,.08,'sine',.05,.06); },
-  claim(){ tone(1046,.08,'sine',.06); tone(1568,.1,'sine',.05,.08); },
-  win(){ [880,1100,1320,1540].forEach((f,i)=>tone(f,.14,'triangle',.07,i*.1)); },
-  lose(){ tone(400,.2,'sawtooth',.05); },
-  dice(){ [600,700,800,900].forEach((f,i)=>tone(f,.08,'square',.05,i*.06)); },
-  jackpot(){ [880,1100,1320,1540,1760].forEach((f,i)=>tone(f,.15,'triangle',.08,i*.08)); },
-  login(){ [659,880,1046].forEach((f,i)=>tone(f,.15,'sine',.06,i*.08)); },
-};
-
-function defaultState(){
-  const now = Date.now();
-  return {
-    score:0, gold:0, tickets:0,
-    totalClicks:0, perClick:1, energy:1000, energyMax:1000, regen:10,
-    combo:1, maxCombo:1,
-    upgrades:{ miner:0, reactor:0, vibranium:0, legion:0, infinity:0, mjolnir:0 },
-    achv:{}, daily:{}, weekly:{},
-    lastDailyReset: now, lastWeeklyReset: now,
-    stats:{ todayClicks:0, todayCrits:0, todayMaxCombo:0, todayUpgrades:0, weekClicks:0, weekEarned:0, weekUpgrades:0, weekMaxCombo:0 },
-    streak:0, lastStreakClaim:0, lastSeen: now,
-    introSeen: false,
-    goldUnlocked: false, goldEnginePending: 0, goldEngineLastTick: 0,
-    goldLastConvert: 0, goldDailyConverts: 0, goldDailyResetAt: 0,
-    diceRolls: [], diceTicketsSpent: 0,
-    checkersWins: { easy:0, medium:0, hard:0 },
-    pongWins: { amateur:0, hard:0, insane:0 },
-    avatar: null,
-    customName: null,
-    blogPopupSeen: false,
-  };
-}
-
-function fmt(n){ n = Math.floor(n); if(n<1000) return n.toString(); if(n<1e6) return (n/1e3).toFixed(1).replace(/\.?0+$/,'')+'K'; if(n<1e9) return (n/1e6).toFixed(1).replace(/\.?0+$/,'')+'M'; if(n<1e12) return (n/1e9).toFixed(2)+'B'; return (n/1e12).toFixed(2)+'T'; }
-function rankOf(score){ let r = RANKS[0]; for(const x of RANKS) if(score>=x.min) r=x; return r.name; }
-function costOf(h){ const lv = state.upgrades[h.key]||0; return Math.floor(h.baseCost * Math.pow(h.growth, lv)); }
-function goldCostOf(h){ const lv = state.upgrades[h.key]||0; const th = GOLD_THRESHOLD[h.key]; if(!th || lv < th) return 0; return GOLD_BASE + (lv - th) * GOLD_STEP; }
-
-async function registerAccount(email, password, username){
-  try{
-    const { data, error } = await sb.auth.signUp({ email, password });
-    if(error) throw error;
-    if(!data.user) throw new Error('Registration failed');
-    const { error: pErr } = await sb.from('profiles').insert({
-      id: data.user.id,
-      username: username,
-      display_name: username,
-    });
-    if(pErr) throw pErr;
-    return { success:true, user: data.user };
-  }catch(err){ return { success:false, error: err.message }; }
-}
-
-async function loginAccount(email, password){
-  try{
-    const { data, error } = await sb.auth.signInWithPassword({ email, password });
-    if(error) throw error;
-    return { success:true, user: data.user };
-  }catch(err){ return { success:false, error: err.message }; }
-}
-
-async function logoutAccount(){
-  try{
-    await saveProgressToServer();
-    await sb.auth.signOut();
-    currentUser = null;
-    isGuest = false;
-    localStorage.removeItem('marvels_guest');
-  }catch(err){ console.error(err); }
-}
-
-async function checkSession(){
-  try{
-    const { data: { session } } = await sb.auth.getSession();
-    return session?.user || null;
-  }catch{ return null; }
-}
-
-function loginAsGuest(){
-  currentUser = null;
-  isGuest = true;
-  localStorage.setItem('marvels_guest', '1');
-}
-
-async function loadProgressFromServer(){
-  if(isGuest){
-    try{
-      const raw = localStorage.getItem('marvels_guest_save');
-      if(!raw) return defaultState();
-      return normalizeState({ ...defaultState(), ...JSON.parse(raw) });
-    }catch{ return defaultState(); }
-  }
-  if(!currentUser) return defaultState();
-  try{
-    setSyncStatus('syncing');
-    const { data, error } = await sb.from('profiles').select('*').eq('id', currentUser.id).single();
-    if(error) throw error;
-    const s = defaultState();
-    s.score = Number(data.score) || 0;
-    s.gold = Number(data.gold) || 0;
-    s.tickets = data.tickets || 0;
-    s.totalClicks = Number(data.total_clicks) || 0;
-    s.perClick = data.per_click || 1;
-    s.energy = data.energy || 1000;
-    s.energyMax = data.energy_max || 1000;
-    s.regen = data.regen || 10;
-    s.upgrades = { ...s.upgrades, ...(data.upgrades || {}) };
-    s.achv = data.achievements || {};
-    s.goldUnlocked = data.gold_unlocked || false;
-    s.goldEnginePending = Number(data.gold_engine_pending) || 0;
-    s.maxCombo = data.max_combo || 1;
-    s.streak = data.streak || 0;
-    s.checkersWins = { ...s.checkersWins, ...(data.checkers_wins || {}) };
-    s.pongWins = { ...s.pongWins, ...(data.pong_wins || {}) };
-    s.customName = data.custom_name || null;
-    s.avatar = data.avatar_url || null;
-    s.lastSeen = data.last_seen ? new Date(data.last_seen).getTime() : Date.now();
-    if(s.goldUnlocked){
-      const elapsed = Math.min((Date.now() - s.lastSeen)/1000, 86400);
-      s.goldEnginePending += elapsed * GOLD_PER_SECOND;
-    }
-    const elapsed2 = Math.min((Date.now() - s.lastSeen)/1000, 3600*4);
-    if(elapsed2 > 5){
-      const rate = (s.upgrades?.legion || 0) * 2;
-      if(rate > 0) s.score += Math.floor(rate * elapsed2 * 0.4);
-      s.energy = Math.min(s.energy + s.regen * elapsed2, s.energyMax);
-    }
-    setSyncStatus('synced');
-    setTimeout(()=>setSyncStatus('off'), 2000);
-    return s;
-  }catch(err){
-    console.error('Load error:', err);
-    setSyncStatus('offline');
-    return defaultState();
-  }
-}
-
-async function saveProgressToServer(){
-  if(!state) return;
-  if(isGuest){
-    try{ localStorage.setItem('marvels_guest_save', JSON.stringify(state)); }catch{}
-    return;
-  }
-  if(!currentUser) return;
-  try{
-    setSyncStatus('syncing');
-    const { error } = await sb.from('profiles').update({
-      score: Math.floor(state.score),
-      gold: Math.floor(state.gold || 0),
-      tickets: state.tickets || 0,
-      total_clicks: state.totalClicks || 0,
-      per_click: state.perClick || 1,
-      energy: Math.floor(state.energy || 0),
-      energy_max: state.energyMax || 1000,
-      regen: state.regen || 10,
-      upgrades: state.upgrades,
-      achievements: state.achv,
-      gold_unlocked: state.goldUnlocked || false,
-      gold_engine_pending: state.goldEnginePending || 0,
-      max_combo: state.maxCombo || 1,
-      streak: state.streak || 0,
-      checkers_wins: state.checkersWins,
-      pong_wins: state.pongWins,
-      custom_name: state.customName,
-      avatar_url: state.avatar,
-      last_seen: new Date().toISOString(),
-    }).eq('id', currentUser.id);
-    if(error) throw error;
-    setSyncStatus('synced');
-    setTimeout(()=>setSyncStatus('off'), 1500);
-  }catch(err){
-    console.error('Save error:', err);
-    setSyncStatus('offline');
-  }
-}
-
-async function resetServerProgress(){
-  if(!currentUser) return false;
-  try{
-    await sb.from('profiles').update({
-      score:0, gold:0, tickets:0, total_clicks:0, per_click:1,
-      energy:1000, energy_max:1000, regen:10,
-      upgrades: {"miner":0,"reactor":0,"vibranium":0,"legion":0,"infinity":0,"mjolnir":0},
-      achievements: {},
-      gold_unlocked: false, gold_engine_pending: 0,
-      max_combo: 1, streak: 0,
-      checkers_wins: {"easy":0,"medium":0,"hard":0},
-      pong_wins: {"amateur":0,"hard":0,"insane":0},
-      custom_name: null, avatar_url: null,
-      last_seen: new Date().toISOString(),
-    }).eq('id', currentUser.id);
-    return true;
-  }catch(err){ console.error(err); return false; }
-}
-
-async function uploadAvatarToStorage(file){
-  if(!currentUser || isGuest) return null;
-  try{
-    const ext = (file.name.split('.').pop() || 'jpg').toLowerCase();
-    const path = `${currentUser.id}/${Date.now()}.${ext}`;
-    const { error } = await sb.storage.from('avatars').upload(path, file, { upsert:true, contentType: file.type });
-    if(error) throw error;
-    const { data } = sb.storage.from('avatars').getPublicUrl(path);
-    return data.publicUrl;
-  }catch(err){ console.error(err); return null; }
-}
-
-function normalizeState(s){
-  s.upgrades = { ...defaultState().upgrades, ...(s.upgrades || {}) };
-  s.stats = { ...defaultState().stats, ...(s.stats || {}) };
-  s.checkersWins = { ...defaultState().checkersWins, ...(s.checkersWins || {}) };
-  s.pongWins = { ...defaultState().pongWins, ...(s.pongWins || {}) };
-  return s;
-}
-
-function setSyncStatus(status){
-  const dot = document.getElementById('syncDot');
-  if(!dot) return;
-  dot.className = 'syncDot';
-  if(status === 'syncing') dot.classList.add('syncing');
-  else if(status === 'synced') dot.classList.add('synced');
-  else if(status === 'offline') dot.classList.add('offline');
-}
-
-function startAutoSync(){
-  if(syncInterval) clearInterval(syncInterval);
-  syncInterval = setInterval(()=>{ if(state && !isGuest && currentUser) saveProgressToServer(); }, 15000);
-}
-
-let authTab = 'login';
-$$('.authTab').forEach(t=>{
-  t.onclick = ()=>{
-    authTab = t.dataset.atab;
-    $$('.authTab').forEach(x=>x.classList.remove('active'));
-    t.classList.add('active');
-    const msg = $('#authMsg');
-    msg.textContent = '';
-    msg.className = 'authMsg';
-    $('#authSubmit').textContent = authTab === 'login' ? 'LOGIN' : 'CREATE ACCOUNT';
-    $('#authUsername').style.display = authTab === 'register' ? 'block' : 'none';
-  };
-});
-
-function showAuthMsg(msg, type){
-  const el = $('#authMsg');
-  el.textContent = msg;
-  el.className = 'authMsg ' + type;
-}
-
-$('#authSubmit').onclick = async ()=>{
-  const email = $('#authEmail').value.trim();
-  const pass = $('#authPass').value;
-  const username = $('#authUsername').value.trim();
-  if(!email || !email.includes('@')){ showAuthMsg('ENTER VALID EMAIL', 'error'); SFX.err(); return; }
-  if(pass.length < 6){ showAuthMsg('PASSWORD 6+ CHARS', 'error'); SFX.err(); return; }
-  $('#authSubmit').disabled = true;
-  $('#authSubmit').textContent = '⏳ PLEASE WAIT...';
-  if(authTab === 'register'){
-    if(username.length < 3){ showAuthMsg('USERNAME 3+ CHARS', 'error'); SFX.err(); $('#authSubmit').disabled = false; $('#authSubmit').textContent = 'CREATE ACCOUNT'; return; }
-    const res = await registerAccount(email, pass, username);
-    if(!res.success){
-      showAuthMsg(res.error.toUpperCase(), 'error'); SFX.err();
-      $('#authSubmit').disabled = false; $('#authSubmit').textContent = 'CREATE ACCOUNT';
-      return;
-    }
-    showAuthMsg('✓ ACCOUNT CREATED!', 'success'); SFX.login();
-    setTimeout(()=>bootGame(true), 800);
-  } else {
-    const res = await loginAccount(email, pass);
-    if(!res.success){
-      showAuthMsg(res.error.toUpperCase(), 'error'); SFX.err();
-      $('#authSubmit').disabled = false; $('#authSubmit').textContent = 'LOGIN';
-      return;
-    }
-    showAuthMsg('✓ WELCOME BACK!', 'success'); SFX.login();
-    setTimeout(()=>bootGame(true), 800);
-  }
-};
-
-$('#authGuest').onclick = ()=>{ loginAsGuest(); bootGame(true); };
-
-async function bootGame(fromAuth = false){
-  const overlay = $('#loadingOverlay');
-  if(fromAuth){
-    overlay.classList.add('show');
-    $('#loadingText').textContent = 'LOADING PROFILE...';
-  }
-  if(fromAuth){
-    $('#authSubmit').disabled = false;
-    $('#authSubmit').textContent = authTab === 'login' ? 'LOGIN' : 'CREATE ACCOUNT';
-  }
-  if(!isGuest){
-    currentUser = await checkSession();
-    if(!currentUser && fromAuth){
-      const { data: { user } } = await sb.auth.getUser();
-      currentUser = user;
-    }
-  }
-  state = await loadProgressFromServer();
-  checkResets();
-  overlay.classList.remove('show');
-  $('#authOverlay').classList.remove('show');
-  render();
-  updatePlayerUI();
-  if(!isGuest && currentUser) startAutoSync();
-  const intro = document.getElementById('intro');
-  intro.style.display = 'flex';
-  const introTime = isLowEnd ? 2000 : 3500;
-  if(state.introSeen){ setTimeout(hideIntro, 200); }
-  else { setTimeout(hideIntro, introTime); }
-}
-
-function hideIntro(){
-  const intro = document.getElementById('intro');
-  if(!intro) return;
-  intro.classList.add('hide');
-  state.introSeen = true;
-  saveProgressToServer();
-  // Show blog popup once after intro
-  setTimeout(()=>{
-    if(state && !state.blogPopupSeen){
-      document.getElementById('blogPopup').classList.add('show');
-    }
-  }, 600);
-}
-
-$('#introSkip').onclick = hideIntro;
-
-// Blog popup close handler
-$('#blogClose').onclick = ()=>{
-  const popup = document.getElementById('blogPopup');
-  popup.classList.remove('show');
-  if(state){
-    state.blogPopupSeen = true;
-    saveProgressToServer();
-  }
-};
-
-// Close popup when clicking on overlay (outside card)
-document.getElementById('blogPopup').onclick = (e)=>{
-  if(e.target.id === 'blogPopup'){
-    const popup = document.getElementById('blogPopup');
-    popup.classList.remove('show');
-    if(state){
-      state.blogPopupSeen = true;
-      saveProgressToServer();
-    }
-  }
-};
-
-function checkResets(){
-  const now = Date.now();
-  if(now - state.lastDailyReset > 24*3600*1000){
-    state.lastDailyReset = now;
-    state.daily = {};
-    state.stats.todayClicks = 0;
-    state.stats.todayCrits = 0;
-    state.stats.todayMaxCombo = 0;
-    state.stats.todayUpgrades = 0;
-    if(now - state.lastStreakClaim > 48*3600*1000) state.streak = 0;
-  }
-  if(now - state.lastWeeklyReset > 7*24*3600*1000){
-    state.lastWeeklyReset = now;
-    state.weekly = {};
-    state.stats.weekClicks = 0;
-    state.stats.weekEarned = 0;
-    state.stats.weekUpgrades = 0;
-    state.stats.weekMaxCombo = 0;
-  }
-}
-
-const _cache = { score:'', gold:'', miner:'', energy:'', energyMax:'', rank:'' };
-
-function updatePlayerUI(){
-  if(!state) return;
-  const headerAvatar = $('#headerAvatar');
-  if(headerAvatar){
-    if(state.avatar){
-      headerAvatar.style.backgroundImage = `url('${state.avatar}')`;
-      headerAvatar.textContent = '';
-    } else {
-      headerAvatar.style.backgroundImage = '';
-      headerAvatar.textContent = 'M';
-    }
-  }
-  const headerPlayerName = $('#headerPlayerName');
-  if(headerPlayerName && !isGuest && currentUser){
-    const name = state.customName || currentUser.email?.split('@')[0] || 'Player';
-    headerPlayerName.innerHTML = 'by <b>' + name.replace(/[<>&]/g, '') + '</b>';
-  }
-}
-
-function render(){
-  if(!state) return;
-  const s = fmt(state.score);
-  if(s !== _cache.score){ $('#score').textContent = s; _cache.score = s; }
-  const g = fmt(state.gold||0);
-  if(g !== _cache.gold){ $('#goldDisplay').textContent = g; _cache.gold = g; }
-  const m = '+'+state.perClick;
-  if(m !== _cache.miner){ $('#minerDisplay').textContent = m; _cache.miner = m; }
-  const e = Math.floor(state.energy);
-  if(e !== _cache.energy){ $('#energyTxt').textContent = e; _cache.energy = e; }
-  if(state.energyMax !== _cache.energyMax){ $('#energyMaxTxt').textContent = state.energyMax; _cache.energyMax = state.energyMax; }
-  const pct = Math.max(0, state.energy/state.energyMax*100);
-  $('#energyFill').style.width = pct+'%';
-  const r = rankOf(state.score);
-  if(r !== _cache.rank){ $('#rankTxt').textContent = r; _cache.rank = r; }
-  updateBadges();
-}
-
-function renderFast(){
-  if(!state) return;
-  const s = fmt(state.score);
-  if(s !== _cache.score){ $('#score').textContent = s; _cache.score = s; }
-  const e = Math.floor(state.energy);
-  if(e !== _cache.energy){ $('#energyTxt').textContent = e; _cache.energy = e; }
-  $('#energyFill').style.width = Math.max(0, state.energy/state.energyMax*100)+'%';
-  const g = fmt(state.gold||0);
-  if(g !== _cache.gold){ $('#goldDisplay').textContent = g; _cache.gold = g; }
-  if($('#sheet').classList.contains('show') && $('#sheetTitle').textContent.includes('GOLD')){
-    updateGoldPageLive();
-  }
-}
-
-function updateBadges(){
-  const dd = DAILY_MISSIONS.filter(m => Math.min(m.prog(state), m.need) >= m.need && state.daily[m.id] !== 'claimed').length;
-  const wd = WEEKLY_MISSIONS.filter(m => Math.min(m.prog(state), m.need) >= m.need && state.weekly[m.id] !== 'claimed').length;
-  const total = dd + wd;
-  const badge = $('#missionBadge');
-  if(total > 0){ badge.classList.remove('hidden'); badge.textContent = total; }
-  else badge.classList.add('hidden');
-}
-
-let comboCount = 0, lastTapTime = 0, comboResetTimer = null;
-
-function strike(e){
-  ensureAudio();
-  if(!state) return;
-  if(state.energy < ENERGY_COST){ showToast('NOT ENOUGH ENERGY'); SFX.err(); return; }
-  const now = performance.now();
-  if(now - lastTapTime < 800) comboCount++; else comboCount = 1;
-  lastTapTime = now;
-  if(comboCount > state.maxCombo) state.maxCombo = comboCount;
-  if(comboCount > (state.stats.todayMaxCombo||0)) state.stats.todayMaxCombo = comboCount;
-  const comboMult = Math.min(1 + comboCount*0.04, 5);
-  let dmg = state.perClick;
-  let fx = 'normal';
-  const critC = (state.upgrades.infinity||0)*2;
-  const megaC = (state.upgrades.mjolnir||0)*1;
-  if(Math.random()*100 < megaC){ dmg *= 3; fx='mega'; state.stats.todayCrits = (state.stats.todayCrits||0)+1; }
-  else if(Math.random()*100 < critC){ dmg *= 2; fx='crit'; state.stats.todayCrits = (state.stats.todayCrits||0)+1; }
-  dmg = Math.floor(dmg * comboMult);
-  state.energy = Math.max(0, state.energy - ENERGY_COST);
-  state.score += dmg;
-  state.totalClicks++;
-  state.stats.todayClicks = (state.stats.todayClicks||0) + 1;
-  state.stats.weekClicks = (state.stats.weekClicks||0) + 1;
-  state.stats.weekEarned = (state.stats.weekEarned||0) + dmg;
-  const rect = $('#coinArea').getBoundingClientRect();
-  const x = (e.clientX ?? rect.left+rect.width/2) - rect.left;
-  const y = (e.clientY ?? rect.top+rect.height/2) - rect.top;
-  spawnFloaty(x, y, '+'+fmt(dmg), fx);
-  spawnParticles(x, y, fx);
-  const scoreEl = $('#score');
-  scoreEl.classList.add('pop');
-  setTimeout(()=>scoreEl.classList.remove('pop'), 100);
-  if(comboCount >= 5){
-    const tier = comboCount >= 30 ? 'x3' : '';
-    const cb = $('#comboBadge');
-    cb.textContent = 'COMBO ×'+comboCount;
-    cb.className = 'comboBadge show ' + tier;
-    clearTimeout(comboResetTimer);
-    comboResetTimer = setTimeout(()=>cb.classList.remove('show'), 800);
-  }
-  if(fx==='mega') SFX.mega();
-  else if(fx==='crit') SFX.crit();
-  else SFX.tap(comboCount);
-  if(navigator.vibrate && !isLowEnd && comboCount%5===0) navigator.vibrate(6);
-  renderFast();
-  checkAchievements();
-}
-
-function spawnFloaty(x, y, txt, type){
-  const el = document.createElement('div');
-  el.className = 'floaty';
-  el.textContent = txt;
-  el.style.left = x+'px';
-  el.style.top = y+'px';
-  if(type==='crit') el.style.color = '#4DA6FF';
-  if(type==='mega') el.style.color = '#E62429';
-  $('#coinArea').appendChild(el);
-  setTimeout(()=>el.remove(), 1000);
-}
-
-function spawnParticles(x, y, type){
-  const palettes = { normal:['#FFB800','#FFE27A','#fff'], crit:['#4DA6FF','#9DC8FF','#fff'], mega:['#E62429','#FF4B52','#FFB800'] };
-  const colors = palettes[type] || palettes.normal;
-  const count = isLowEnd ? 3 : 6;
-  for(let i=0;i<count;i++){
-    const p = document.createElement('div');
-    p.className = 'pt';
-    const ang = Math.random()*Math.PI*2;
-    const d = 40+Math.random()*100;
-    p.style.setProperty('--dx', Math.cos(ang)*d+'px');
-    p.style.setProperty('--dy', Math.sin(ang)*d+'px');
-    p.style.left = x+'px';
-    p.style.top = y+'px';
-    const c = colors[i%colors.length];
-    const size = 4+Math.random()*5;
-    p.style.width = p.style.height = size+'px';
-    p.style.background = c;
-    $('#coinArea').appendChild(p);
-    setTimeout(()=>p.remove(), 900);
-  }
-}
-
-function renderHeroes(){
-  let html = '<div class="heroGrid">';
-  for(const h of HEROES){
-    const lv = state.upgrades[h.key] || 0;
-    const maxed = lv >= h.max;
-    const goldCost = goldCostOf(h);
-    const coinCost = costOf(h);
-    const isGoldTier = goldCost > 0;
-    let can, priceHtml;
-    if(maxed){ can = false; priceHtml = '✓ MAX'; }
-    else if(isGoldTier){ can = (state.gold||0) >= goldCost; priceHtml = goldCost + ' 💰'; }
-    else { can = state.score >= coinCost; priceHtml = fmt(coinCost); }
-    const cls = ['heroCard'];
-    if(!can && !maxed) cls.push('disabled');
-    if(maxed) cls.push('maxed');
-    html += `
-      <div class="${cls.join(' ')}" data-buy="${h.key}" style="--accent:${h.accent}">
-        <div class="hIcon">${h.icon}</div>
-        <div class="hName">${h.name}</div>
-        <div class="hDesc">${h.desc(lv)}</div>
-        <div class="hFooter"><span class="hLvl">LV ${lv}</span><span class="hPrice">${priceHtml}</span></div>
-      </div>`;
-  }
-  html += '</div>';
-  $('#sheetBody').innerHTML = html;
-  $$('#sheetBody [data-buy]').forEach(c=>{ c.onclick = ()=> buyHero(c.dataset.buy); });
-}
-
-function buyHero(key){
-  const h = HEROES.find(x=>x.key===key);
-  const lv = state.upgrades[key] || 0;
-  if(lv >= h.max){ showToast('MAX LEVEL'); SFX.err(); return; }
-  const goldCost = goldCostOf(h);
-  if(goldCost > 0){
-    if((state.gold||0) < goldCost){ showToast('NOT ENOUGH GOLD'); SFX.err(); return; }
-    state.gold -= goldCost;
-    SFX.buy();
-    showToast('◆ '+h.name.toUpperCase()+' (GOLD)', true);
-  } else {
-    const cost = costOf(h);
-    if(state.score < cost){ showToast('NOT ENOUGH CREDITS'); SFX.err(); return; }
-    state.score -= cost;
-    SFX.buy();
-    showToast('◆ '+h.name.toUpperCase()+' UPGRADED', true);
-  }
-  state.upgrades[key] = lv+1;
-  state.stats.todayUpgrades = (state.stats.todayUpgrades||0) + 1;
-  state.stats.weekUpgrades = (state.stats.weekUpgrades||0) + 1;
-  if(key==='miner') state.perClick += 1;
-  if(key==='reactor') state.energyMax += 500;
-  if(key==='vibranium') state.regen += 2;
-  render();
-  renderHeroes();
-  saveProgressToServer();
-}
-
-let currentMissionTab = 'daily';
-function renderMissions(){
-  const tabs = `
-    <div style="display:flex;gap:6px;margin-bottom:14px;background:rgba(255,255,255,.04);padding:4px;border-radius:12px">
-      <div data-mtab="daily" style="flex:1;padding:8px;text-align:center;border-radius:9px;font-size:11px;font-weight:800;cursor:pointer;${currentMissionTab==='daily'?'background:linear-gradient(135deg,rgba(230,36,41,.3),rgba(230,36,41,.1));color:#fff;':''}text-transform:uppercase">Daily</div>
-      <div data-mtab="weekly" style="flex:1;padding:8px;text-align:center;border-radius:9px;font-size:11px;font-weight:800;cursor:pointer;${currentMissionTab==='weekly'?'background:linear-gradient(135deg,rgba(230,36,41,.3),rgba(230,36,41,.1));color:#fff;':''}text-transform:uppercase">Weekly</div>
-      <div data-mtab="streak" style="flex:1;padding:8px;text-align:center;border-radius:9px;font-size:11px;font-weight:800;cursor:pointer;${currentMissionTab==='streak'?'background:linear-gradient(135deg,rgba(230,36,41,.3),rgba(230,36,41,.1));color:#fff;':''}text-transform:uppercase">Streak</div>
-    </div>`;
-  let content = '';
-  if(currentMissionTab === 'streak'){ content = renderStreakView(); }
-  else {
-    const list = currentMissionTab === 'daily' ? DAILY_MISSIONS : WEEKLY_MISSIONS;
-    const storage = currentMissionTab === 'daily' ? state.daily : state.weekly;
-    for(const m of list){
-      const p = Math.min(m.prog(state), m.need);
-      const done = p >= m.need;
-      const claimed = storage[m.id] === 'claimed';
-      const pct = (p/m.need)*100;
-      content += `
-        <div class="missionCard ${done?'done':''}">
-          <div class="mIcon">${m.icon}</div>
-          <div class="mBody">
-            <div class="mTitle">${m.title}</div>
-            <div class="mDesc">${m.desc} — ${fmt(p)} / ${fmt(m.need)}</div>
-            <div class="mBar"><div class="mFill" style="width:${pct}%"></div></div>
-          </div>
-          ${done && !claimed ? `<button class="mClaim" data-claim="${m.id}" data-type="${currentMissionTab}">${fmt(m.reward)}🪙</button>` : ''}
-          ${claimed ? '<div style="color:#4CDC6E;font-size:14px">✓</div>' : ''}
-        </div>`;
-    }
-  }
-  $('#sheetBody').innerHTML = tabs + content;
-  $$('#sheetBody [data-mtab]').forEach(t=>{ t.onclick = ()=>{ currentMissionTab = t.dataset.mtab; renderMissions(); }; });
-  $$('#sheetBody [data-claim]').forEach(b=>{ b.onclick = ()=> claimMission(b.dataset.claim, b.dataset.type); });
-  const sbEl = document.getElementById('streakBtn'); if(sbEl) sbEl.onclick = claimStreak;
-}
-
-function claimMission(id, type){
-  const list = type === 'daily' ? DAILY_MISSIONS : WEEKLY_MISSIONS;
-  const storage = type === 'daily' ? state.daily : state.weekly;
-  const m = list.find(x=>x.id===id);
-  if(!m || storage[id] === 'claimed') return;
-  state.score += m.reward;
-  if(m.goldReward) state.gold = (state.gold||0) + m.goldReward;
-  if(m.ticketReward) state.tickets = (state.tickets||0) + m.ticketReward;
-  storage[id] = 'claimed';
-  SFX.claim();
-  showToast('REWARD CLAIMED', true);
-  render();
-  renderMissions();
-  saveProgressToServer();
-}
-
-function renderStreakView(){
-  const claimed = (Date.now() - state.lastStreakClaim) < 24*3600*1000;
-  const streak = state.streak || 0;
-  const mult = 1 + Math.min(streak, 7) * 0.15;
-  const todayReward = Math.floor(150 * mult);
-  return `
-    <div style="background:linear-gradient(160deg,rgba(42,21,16,.5),rgba(26,10,8,.7));border:1px solid rgba(255,184,0,.4);border-radius:16px;padding:16px;text-align:center">
-      <div style="font-size:11.5px;font-weight:800;color:#FFB800;text-transform:uppercase;margin-bottom:4px">🔥 Daily Streak</div>
-      <div style="font-size:48px;font-weight:900;color:#fff;letter-spacing:-2px">${streak}</div>
-      <div style="font-size:10.5px;color:#8a8a95;text-transform:uppercase;font-weight:700">consecutive days</div>
-      <div style="display:inline-block;margin-top:8px;padding:5px 12px;border-radius:99px;background:rgba(255,184,0,.18);border:1px solid rgba(255,184,0,.5);font-size:11.5px;font-weight:900;color:#FFB800">×${mult.toFixed(2)}</div>
-      <button id="streakBtn" style="width:100%;margin-top:12px;padding:13px;border:none;border-radius:12px;background:linear-gradient(135deg,#FFB800,#E62429);color:#fff;font-weight:900;font-size:12.5px;text-transform:uppercase;cursor:pointer;font-family:inherit" ${claimed?'disabled':''}>${claimed?'COME BACK TOMORROW':'CLAIM +'+fmt(todayReward)+'🪙'}</button>
-    </div>`;
-}
-
-function claimStreak(){
-  const now = Date.now();
-  if(now - state.lastStreakClaim < 24*3600*1000) return;
-  if(now - state.lastStreakClaim > 48*3600*1000) state.streak = 0;
-  state.streak = (state.streak||0) + 1;
-  const mult = 1 + Math.min(state.streak-1, 7) * 0.15;
-  const reward = Math.floor(150 * mult);
-  state.score += reward;
-  state.lastStreakClaim = now;
-  SFX.claim();
-  popReward('🔥', 'STREAK DAY ' + state.streak, '+' + fmt(reward), '');
-  render();
-  renderMissions();
-  saveProgressToServer();
-}
-
-function renderAchievements(){
-  const ACHV = [
-    { id:'a1', icon:'🥇', name:'First Contact', check:s=>s.totalClicks>=1 },
-    { id:'a2', icon:'🔥', name:'Century', check:s=>s.totalClicks>=100 },
-    { id:'a3', icon:'💠', name:'Thousand Cuts', check:s=>s.totalClicks>=1000 },
-    { id:'a4', icon:'👑', name:'Ten Thousand', check:s=>s.totalClicks>=10000 },
-    { id:'a5', icon:'💰', name:'First Million', check:s=>s.score>=1_000_000 },
-    { id:'a6', icon:'⚡', name:'Combo Elite', check:s=>(s.maxCombo||0)>=300 },
-    { id:'a7', icon:'🎯', name:'Dedicated', check:s=>(s.streak||0)>=7 },
-    { id:'a8', icon:'⛏️', name:'Miner Master', check:s=>(s.upgrades?.miner||0)>=25 },
-    { id:'a9', icon:'💎', name:'Gold Collector', check:s=>(s.gold||0)>=10 },
-    { id:'a10', icon:'⚙️', name:'Engine Owner', check:s=>!!s.goldUnlocked },
-    { id:'a11', icon:'🎲', name:'Lucky Roller', check:s=>(s.diceTicketsSpent||0)>=5 },
-    { id:'a12', icon:'📸', name:'Face Reveal', check:s=>!!s.avatar },
-  ];
-  let html = '';
-  for(const a of ACHV){
-    const un = !!state.achv[a.id];
-    html += `<div class="missionCard ${un?'done':''}">
-      <div class="mIcon">${un?a.icon:'🔒'}</div>
-      <div class="mBody"><div class="mTitle">${a.name}</div><div class="mDesc">${un?'UNLOCKED':'LOCKED'}</div></div>
-    </div>`;
-  }
-  $('#sheetBody').innerHTML = html;
-}
-
-const ACHV_CHECK = [
-  { id:'a1', check:s=>s.totalClicks>=1 }, { id:'a2', check:s=>s.totalClicks>=100 },
-  { id:'a3', check:s=>s.totalClicks>=1000 }, { id:'a4', check:s=>s.totalClicks>=10000 },
-  { id:'a5', check:s=>s.score>=1_000_000 }, { id:'a6', check:s=>(s.maxCombo||0)>=300 },
-  { id:'a7', check:s=>(s.streak||0)>=7 }, { id:'a8', check:s=>(s.upgrades?.miner||0)>=25 },
-  { id:'a9', check:s=>(s.gold||0)>=10 }, { id:'a10', check:s=>!!s.goldUnlocked },
-  { id:'a11', check:s=>(s.diceTicketsSpent||0)>=5 }, { id:'a12', check:s=>!!s.avatar },
-];
-
-function checkAchievements(){
-  for(const a of ACHV_CHECK){
-    if(!state.achv[a.id] && a.check(state)){
-      state.achv[a.id] = true;
-      showToast('🏆 ACHIEVEMENT UNLOCKED', true);
-    }
-  }
-}
-
-function renderMiniGames(){
-  const tickets = state.tickets || 0;
-  $('#sheetBody').innerHTML = `
-    <div class="ticketBar">
-      <div class="tbLabel">🎫 TICKETS</div>
-      <div class="tbCount">${tickets}<span>🎫</span></div>
-    </div>
-    <div class="gamesMenu">
-      <div class="gameCardMenu" id="openDice">
-        <div class="gmIcon">🎲</div>
-        <div class="gmBody"><div class="gmName">Dice Roll</div><div class="gmDesc">Roll 3 times — total × 100</div><div class="gmCost">🎫 1 ticket</div></div>
-      </div>
-      <div class="gameCardMenu" id="openCheckers">
-        <div class="gmIcon">♟️</div>
-        <div class="gmBody"><div class="gmName">Checkers</div><div class="gmDesc">Beat the AI</div><div class="gmCost">🎫 1 ticket</div></div>
-      </div>
-      <div class="gameCardMenu" id="openPong">
-        <div class="gmIcon">🏓</div>
-        <div class="gmBody"><div class="gmName">Ping Pong 2D</div><div class="gmDesc">First to 11</div><div class="gmCost">🎫 2 tickets</div></div>
-      </div>
-    </div>
-    <div class="buyTicketCard" id="buyTicket">
-      <div class="btTitle">🎫 BUY TICKETS</div>
-      <div class="btPrice">${fmt(TICKET_PRICE)}🪙 <span>= 1 Ticket</span></div>
-    </div>
-  `;
-  document.getElementById('openDice').onclick = openDiceGame;
-  document.getElementById('openCheckers').onclick = openCheckersLobby;
-  document.getElementById('openPong').onclick = openPongLobby;
-  document.getElementById('buyTicket').onclick = buyTicket;
-}
-
-function buyTicket(){
-  if(state.score < TICKET_PRICE){ showToast('NOT ENOUGH CREDITS'); SFX.err(); return; }
-  state.score -= TICKET_PRICE;
-  state.tickets = (state.tickets||0) + 1;
-  SFX.buy();
-  showToast('🎫 +1 TICKET', true);
-  render();
-  renderMiniGames();
-  saveProgressToServer();
-}
-
-function renderDiceFace(el, val){
-  const layouts = { 1:[0,0,0,0,1,0,0,0,0], 2:[1,0,0,0,0,0,0,0,1], 3:[1,0,0,0,1,0,0,0,1], 4:[1,0,1,0,0,0,1,0,1], 5:[1,0,1,0,1,0,1,0,1], 6:[1,0,1,1,0,1,1,0,1] };
-  const p = layouts[val];
-  el.innerHTML = '';
-  for(let i=0;i<9;i++){ const d = document.createElement('div'); d.className = 'pip' + (p[i]?'':' empty'); el.appendChild(d); }
-}
-
-function renderDiceHistory(){
-  const el = document.getElementById('diceHistory');
-  if(!el) return;
-  let html = '';
-  for(let i=0;i<3;i++){ const v = state.diceRolls[i]; html += `<div class="dh ${v?'active':''}">${v ? '🎲 '+v : 'Roll '+(i+1)}</div>`; }
-  el.innerHTML = html;
-}
-
-function openDiceGame(){
-  const tickets = state.tickets || 0;
-  $('#sheetBody').innerHTML = `
-    <div style="text-align:center;margin-bottom:16px"><div style="font-size:26px;font-weight:900">🎲 DICE ROLL</div></div>
-    <div class="ticketBar"><div class="tbLabel">🎫 TICKETS</div><div class="tbCount">${tickets}<span>🎫</span></div></div>
-    <div class="diceWrap"><div class="die" id="die1"></div><div class="die" id="die2"></div><div class="die" id="die3"></div></div>
-    <div class="diceStatus" id="diceStatus">TAP ROLL</div>
-    <div class="diceHistory" id="diceHistory"></div>
-    <button class="diceRollBtn" id="diceRollBtn" ${tickets<1?'disabled':''}>${tickets<1?'🎫 NO TICKETS':'🎲 ROLL (1 🎫)'}</button>
-  `;
-  renderDiceFace(document.getElementById('die1'), 1);
-  renderDiceFace(document.getElementById('die2'), 1);
-  renderDiceFace(document.getElementById('die3'), 1);
-  state.diceRolls = [];
-  renderDiceHistory();
-  document.getElementById('diceRollBtn').onclick = rollDice;
-}
-
-let dicePlaying = false;
-function rollDice(){
-  if(dicePlaying) return;
-  if(state.diceRolls.length >= 3) return;
-  if(state.diceRolls.length === 0){
-    if((state.tickets||0) < DICE_TICKET_COST){ showToast('NOT ENOUGH TICKETS'); SFX.err(); return; }
-    state.tickets -= DICE_TICKET_COST;
-    state.diceTicketsSpent = (state.diceTicketsSpent||0) + 1;
-  }
-  dicePlaying = true;
-  const btn = document.getElementById('diceRollBtn');
-  btn.disabled = true;
-  const diceEls = [document.getElementById('die1'), document.getElementById('die2'), document.getElementById('die3')];
-  diceEls.forEach(el=>{ if(el) el.classList.add('rolling'); });
-  SFX.dice();
-  let count = 0;
-  const interval = setInterval(()=>{
-    diceEls.forEach(el=>{ if(el) renderDiceFace(el, Math.ceil(Math.random()*6)); });
-    count++;
-    if(count >= 5){
-      clearInterval(interval);
-      state.diceRolls.push(Math.ceil(Math.random()*6));
-      diceEls.forEach(el=>{ if(el) el.classList.remove('rolling'); });
-      diceEls.forEach((el, i)=>{ if(el) renderDiceFace(el, state.diceRolls[i] || 1); });
-      renderDiceHistory();
-      const total = state.diceRolls.length;
-      const statusEl = document.getElementById('diceStatus');
-      if(total < 3){
-        statusEl.textContent = `ROLL ${total+1} TO CONTINUE`;
-        dicePlaying = false;
-        btn.disabled = false;
-        btn.textContent = '🎲 ROLL DICE (FREE)';
-      } else {
-        const sum = state.diceRolls.reduce((a,b)=>a+b, 0);
-        const reward = sum * 100;
-        state.score += reward;
-        dicePlaying = false;
-        statusEl.textContent = `🎉 TOTAL ${sum} × 100 = +${fmt(reward)} 🪙`;
-        SFX.jackpot();
-        popReward('🎲', 'DICE WIN', '+' + fmt(reward), 'total ' + sum);
-        showToast('+' + fmt(reward) + ' CREDITS', true);
-        render();
-        saveProgressToServer();
-        btn.disabled = (state.tickets||0) < 1;
-        btn.textContent = btn.disabled ? '🎫 NO TICKETS' : '🎲 PLAY AGAIN (1 🎫)';
-        setTimeout(()=>{
-          state.diceRolls = [];
-          if(document.getElementById('diceHistory')) renderDiceHistory();
-          diceEls.forEach(el=>{ if(el) renderDiceFace(el, 1); });
-          const s = document.getElementById('diceStatus');
-          if(s) s.textContent = 'TAP ROLL';
-        }, 2500);
-      }
-    }
-  }, 90);
-}
-
-let checkersState = null;
-function openCheckersLobby(){
-  $('#sheetBody').innerHTML = `
-    <div style="text-align:center;margin-bottom:16px"><div style="font-size:26px;font-weight:900">♟️ CHECKERS</div></div>
-    <div class="ticketBar"><div class="tbLabel">🎫 TICKETS</div><div class="tbCount">${state.tickets||0}<span>🎫</span></div></div>
-    <div class="checkersLobby">
-      <div class="difficultyCard" data-diff="easy" style="--c:#4CDC6E"><div class="dcIcon">🟢</div><div class="dcName">Easy</div><div class="dcDesc">Random moves</div><div class="dcReward">🪙 2,000</div></div>
-      <div class="difficultyCard" data-diff="medium" style="--c:#FFB800"><div class="dcIcon">🟡</div><div class="dcName">Medium</div><div class="dcDesc">Basic strategy</div><div class="dcReward">🪙 5,000</div></div>
-      <div class="difficultyCard" data-diff="hard" style="--c:#E62429"><div class="dcIcon">🔴</div><div class="dcName">Hard</div><div class="dcDesc">Captures all</div><div class="dcReward">🪙 10,000 + 5💰</div></div>
-    </div>`;
-  $$('#sheetBody [data-diff]').forEach(c=>{ c.onclick = ()=> startCheckersMatch(c.dataset.diff); });
-}
-
-function startCheckersMatch(difficulty){
-  if((state.tickets||0) < CHECKERS_TICKET_COST){ showToast('NOT ENOUGH TICKETS'); SFX.err(); return; }
-  state.tickets -= CHECKERS_TICKET_COST;
-  saveProgressToServer();
-  checkersState = { board: makeInitialBoard(), turn: 1, selected: null, validMoves: [], difficulty, locked: false, finished: false };
-  renderCheckersBoard();
-}
-
-function makeInitialBoard(){
-  const b = Array.from({length:8}, ()=> new Array(8).fill(0));
-  for(let r=0;r<3;r++) for(let c=0;c<8;c++) if((r+c)%2 === 1) b[r][c] = 2;
-  for(let r=5;r<8;r++) for(let c=0;c<8;c++) if((r+c)%2 === 1) b[r][c] = 1;
-  return b;
-}
-
-function renderCheckersBoard(){
-  const cs = checkersState;
-  if(!cs) return;
-  const p1Count = countPieces(cs.board, 1);
-  const p2Count = countPieces(cs.board, 2);
-  $('#sheetBody').innerHTML = `
-    <div class="boardWrap">
-      <div class="checkersHeader">
-        <div class="chPlayer ${cs.turn===2?'turn':''}"><div class="chIcon">⚫</div><div class="chLabel">AI</div><div class="chCount">${p2Count}</div></div>
-        <div style="font-size:11px;color:#8a8a95;text-transform:uppercase;font-weight:800">VS</div>
-        <div class="chPlayer ${cs.turn===1?'turn':''}"><div class="chIcon">🔴</div><div class="chLabel">YOU</div><div class="chCount">${p1Count}</div></div>
-      </div>
-      <div class="checkersBoard" id="checkersBoard"></div>
-      <div class="checkersStatus" id="checkersStatus">${cs.turn===1?'YOUR TURN':'AI THINKING'}</div>
-      <button class="checkersBtn" id="checkersBack">← BACK</button>
-    </div>`;
-  const boardEl = document.getElementById('checkersBoard');
-  const frag = document.createDocumentFragment();
-  for(let r=0;r<8;r++){
-    for(let c=0;c<8;c++){
-      const sq = document.createElement('div');
-      sq.className = 'sq ' + (((r+c)%2===0) ? 'light' : 'dark');
-      const v = cs.board[r][c];
-      if(v !== 0){
-        const piece = document.createElement('div');
-        piece.className = 'piece ' + (isP1(v) ? 'p1' : 'p2');
-        if(isKing(v)) piece.classList.add('king');
-        sq.appendChild(piece);
-      }
-      if(cs.selected && cs.selected.r===r && cs.selected.c===c) sq.classList.add('selected');
-      if(cs.validMoves.some(m => m.r===r && m.c===c)){
-        sq.classList.add(cs.validMoves.find(m => m.r===r && m.c===c).cap ? 'capture-move' : 'valid-move');
-      }
-      sq.onclick = ()=> onSquareClick(r, c);
-      frag.appendChild(sq);
-    }
-  }
-  boardEl.appendChild(frag);
-  document.getElementById('checkersBack').onclick = ()=>{ checkersState = null; openCheckersLobby(); };
-}
-
-function isP1(v){ return v === 1 || v === 11; }
-function isP2(v){ return v === 2 || v === 22; }
-function isKing(v){ return v === 11 || v === 22; }
-function pieceOwner(v){ return isP1(v) ? 1 : 2; }
-function countPieces(b, owner){ let n = 0; for(let r=0;r<8;r++) for(let c=0;c<8;c++) if(b[r][c] && pieceOwner(b[r][c]) === owner) n++; return n; }
-
-function getMovesForPiece(board, r, c){
-  const v = board[r][c];
-  if(!v) return [];
-  const owner = pieceOwner(v);
-  const king = isKing(v);
-  const moves = [];
-  const dirs = [];
-  if(owner === 1){ dirs.push([-1,-1],[-1,1]); if(king) dirs.push([1,-1],[1,1]); }
-  else { dirs.push([1,-1],[1,1]); if(king) dirs.push([-1,-1],[-1,1]); }
-  for(const [dr,dc] of dirs){
-    const mr = r+dr, mc = c+dc;
-    const tr = r+2*dr, tc = c+2*dc;
-    if(tr>=0 && tr<8 && tc>=0 && tc<8){
-      const mid = board[mr][mc];
-      if(mid && pieceOwner(mid) !== owner && board[tr][tc] === 0) moves.push({ r: tr, c: tc, cap: { r: mr, c: mc } });
-    }
-  }
-  if(moves.length === 0){
-    for(const [dr,dc] of dirs){
-      const nr = r+dr, nc = c+dc;
-      if(nr>=0 && nr<8 && nc>=0 && nc<8 && board[nr][nc] === 0) moves.push({ r: nr, c: nc, cap: null });
-    }
-  }
-  return moves;
-}
-
-function getAllMoves(board, owner){
-  const all = [];
-  let anyCap = false;
-  for(let r=0;r<8;r++) for(let c=0;c<8;c++){
-    if(board[r][c] && pieceOwner(board[r][c]) === owner){
-      const mvs = getMovesForPiece(board, r, c);
-      for(const m of mvs){ if(m.cap) anyCap = true; all.push({ from: {r, c}, ...m }); }
-    }
-  }
-  return anyCap ? all.filter(m => m.cap) : all;
-}
-
-function onSquareClick(r, c){
-  const cs = checkersState;
-  if(!cs || cs.locked || cs.finished || cs.turn !== 1) return;
-  const v = cs.board[r][c];
-  if(v && pieceOwner(v) === 1){
-    cs.selected = { r, c };
-    cs.validMoves = getMovesForPiece(cs.board, r, c);
-    SFX.tap(1);
-    renderCheckersBoard();
-    return;
-  }
-  if(cs.selected && cs.validMoves.some(m => m.r===r && m.c===c)){
-    const move = cs.validMoves.find(m => m.r===r && m.c===c);
-    const from = cs.selected;
-    executeMove(from, move);
-    cs.selected = null;
-    cs.validMoves = [];
-    SFX.tap(2);
-    renderCheckersBoard();
-    if(checkGameOver()) return;
-    cs.turn = 2;
-    cs.locked = true;
-    renderCheckersBoard();
-    setTimeout(aiMove, 500);
-    return;
-  }
-  cs.selected = null;
-  cs.validMoves = [];
-  renderCheckersBoard();
-}
-
-function executeMove(from, move){
-  const b = checkersState.board;
-  const v = b[from.r][from.c];
-  b[from.r][from.c] = 0;
-  let nv = v;
-  if(isP1(v) && move.r === 0) nv = 11;
-  if(isP2(v) && move.r === 7) nv = 22;
-  b[move.r][move.c] = nv;
-  if(move.cap) b[move.cap.r][move.cap.c] = 0;
-}
-
-function aiMove(){
-  const cs = checkersState;
-  if(!cs || cs.finished) return;
-  const all = getAllMoves(cs.board, 2);
-  if(all.length === 0){ cs.locked = false; checkGameOver(); return; }
-  let chosen;
-  const diff = cs.difficulty;
-  if(diff === 'easy'){ chosen = all[Math.floor(Math.random()*all.length)]; }
-  else if(diff === 'medium'){
-    const caps = all.filter(m => m.cap);
-    chosen = (caps.length > 0 && Math.random() < 0.7) ? caps[Math.floor(Math.random()*caps.length)] : all[Math.floor(Math.random()*all.length)];
-  } else {
-    const caps = all.filter(m => m.cap);
-    if(caps.length > 0){ chosen = caps[Math.floor(Math.random()*caps.length)]; }
-    else {
-      let best = all[0], bs = -Infinity;
-      for(const m of all){ const s = m.r + Math.random(); if(s > bs){ bs = s; best = m; } }
-      chosen = best;
-    }
-  }
-  executeMove(chosen.from, chosen);
-  SFX.tap(1);
-  cs.turn = 1;
-  cs.locked = false;
-  renderCheckersBoard();
-  checkGameOver();
-}
-
-function checkGameOver(){
-  const cs = checkersState;
-  if(!cs || cs.finished) return false;
-  const p1Moves = getAllMoves(cs.board, 1);
-  const p2Moves = getAllMoves(cs.board, 2);
-  const p1Count = countPieces(cs.board, 1);
-  const p2Count = countPieces(cs.board, 2);
-  let winner = null;
-  if(p1Count === 0) winner = 2;
-  else if(p2Count === 0) winner = 1;
-  else if(p1Moves.length === 0 && cs.turn === 1) winner = 2;
-  else if(p2Moves.length === 0 && cs.turn === 2) winner = 1;
-  if(winner){
-    cs.finished = true;
-    cs.locked = true;
-    const statusEl = document.getElementById('checkersStatus');
-    if(winner === 1){
-      if(statusEl){ statusEl.textContent = '🎉 YOU WIN!'; statusEl.style.color = '#4CDC6E'; }
-      SFX.win();
-      const reward = CHECKERS_REWARDS[cs.difficulty];
-      state.score += reward.coin;
-      if(reward.gold) state.gold = (state.gold||0) + reward.gold;
-      state.checkersWins[cs.difficulty] = (state.checkersWins[cs.difficulty]||0) + 1;
-      render();
-      saveProgressToServer();
-      popReward('♟️', 'VICTORY', '+' + fmt(reward.coin), '');
-      setTimeout(()=>{ if(checkersState){ checkersState = null; openCheckersLobby(); } }, 3000);
-    } else {
-      if(statusEl){ statusEl.textContent = '😢 YOU LOSE'; statusEl.style.color = '#FF3B42'; }
-      SFX.lose();
-      setTimeout(()=>{ if(checkersState){ checkersState = null; openCheckersLobby(); } }, 3000);
-    }
-    return true;
-  }
-  return false;
-}
-
-let pongState = null, pongRafId = null, pongHandlers = null;
-
-function openPongLobby(){
-  $('#sheetBody').innerHTML = `
-    <div style="text-align:center;margin-bottom:16px"><div style="font-size:26px;font-weight:900">🏓 PING PONG 2D</div></div>
-    <div class="ticketBar"><div class="tbLabel">🎫 TICKETS</div><div class="tbCount">${state.tickets||0}<span>🎫</span></div></div>
-    <div class="pongLobby">
-      <div class="difficultyCard" data-pong="amateur" style="--c:#4CDC6E"><div class="dcIcon">🟢</div><div class="dcName">Amateur</div><div class="dcDesc">Slow AI</div><div class="dcReward">🪙 2,500</div></div>
-      <div class="difficultyCard" data-pong="hard" style="--c:#FFB800"><div class="dcIcon">🟡</div><div class="dcName">Hard</div><div class="dcDesc">Fast AI</div><div class="dcReward">🪙 4,500</div></div>
-      <div class="difficultyCard" data-pong="insane" style="--c:#E62429"><div class="dcIcon">🔴</div><div class="dcName">Insane</div><div class="dcDesc">Nearly unbeatable</div><div class="dcReward">💰 10 gold</div></div>
-    </div>`;
-  $$('#sheetBody [data-pong]').forEach(c=>{ c.onclick = ()=> startPongMatch(c.dataset.pong); });
-}
-
-function startPongMatch(difficulty){
-  if((state.tickets||0) < PONG_TICKET_COST){ showToast('NEED 2 TICKETS'); SFX.err(); return; }
-  state.tickets -= PONG_TICKET_COST;
-  saveProgressToServer();
-  $('#sheetBody').innerHTML = `
-    <div class="pongCanvasWrap" id="pongWrap">
-      <canvas id="pongCanvas"></canvas>
-      <div class="pongScores"><span id="pongScoreAI">0</span><span id="pongScoreYou">0</span></div>
-      <div id="pongWinnerBox"></div>
-    </div>
-    <button class="pongBtn" id="pongBack">← BACK</button>
-  `;
-  const canvas = document.getElementById('pongCanvas');
-  const wrap = document.getElementById('pongWrap');
-  setupPong(canvas, wrap, difficulty);
-  document.getElementById('pongBack').onclick = ()=>{ stopPong(); openPongLobby(); };
-}
-
-function setupPong(canvas, wrap, difficulty){
-  const ctx = canvas.getContext('2d');
-  const rect = wrap.getBoundingClientRect();
-  const dpr = Math.min(window.devicePixelRatio || 1, 2);
-  canvas.width = rect.width * dpr;
-  canvas.height = rect.height * dpr;
-  ctx.scale(dpr, dpr);
-  const W = rect.width, H = rect.height;
-  const cfg = {
-    amateur: { ballSpeed: 4.2, aiError: 40, aiSpeed: 3.0 },
-    hard: { ballSpeed: 5.5, aiError: 15, aiSpeed: 4.2 },
-    insane: { ballSpeed: 7.0, aiError: 5, aiSpeed: 5.6 },
-  }[difficulty] || { ballSpeed: 4.5, aiError: 30, aiSpeed: 3.5 };
-  pongState = {
-    W, H, ctx, difficulty,
-    playerY: H/2 - 40, playerH: 80, playerW: 10,
-    aiY: H/2 - 40, aiH: 80, aiW: 10,
-    ballX: W/2, ballY: H/2, ballR: 6,
-    ballVX: (Math.random() > 0.5 ? 1 : -1) * cfg.ballSpeed,
-    ballVY: (Math.random()*2-1) * cfg.ballSpeed * 0.6,
-    playerScore: 0, aiScore: 0, cfg,
-    playerTarget: H/2 - 40,
-    running: true, lastTime: 0,
-  };
-  const handleMove = (e)=>{
-    if(!pongState || !pongState.running) return;
-    const r = wrap.getBoundingClientRect();
-    const y = e.touches && e.touches[0] ? e.touches[0].clientY - r.top : e.clientY - r.top;
-    pongState.playerTarget = y - pongState.playerH/2;
-  };
-  pongHandlers = { handleMove, wrap };
-  wrap.addEventListener('mousemove', handleMove);
-  wrap.addEventListener('touchstart', (e)=>{ e.preventDefault(); handleMove(e); }, { passive:false });
-  wrap.addEventListener('touchmove', (e)=>{ e.preventDefault(); handleMove(e); }, { passive:false });
-  pongState.lastTime = performance.now();
-  pongRafId = requestAnimationFrame(pongLoop);
-}
-
-function pongLoop(now){
-  if(!pongState || !pongState.running){ pongRafId = null; return; }
-  const dt = Math.min((now - pongState.lastTime)/16.67, 2);
-  pongState.lastTime = now;
-  updatePong(dt);
-  drawPong();
-  pongRafId = requestAnimationFrame(pongLoop);
-}
-
-function updatePong(dt){
-  const s = pongState;
-  if(!s) return;
-  const targetY = Math.max(0, Math.min(s.H - s.playerH, s.playerTarget));
-  s.playerY += (targetY - s.playerY) * 0.35 * dt;
-  const aiCenter = s.aiY + s.aiH/2;
-  const diff = s.ballY - aiCenter - (Math.random()*2-1) * s.cfg.aiError;
-  s.aiY = Math.max(0, Math.min(s.H - s.aiH, s.aiY + Math.max(-s.cfg.aiSpeed*dt, Math.min(s.cfg.aiSpeed*dt, diff * 0.15))));
-  s.ballX += s.ballVX * dt;
-  s.ballY += s.ballVY * dt;
-  if(s.ballY - s.ballR < 0){ s.ballY = s.ballR; s.ballVY = Math.abs(s.ballVY); }
-  if(s.ballY + s.ballR > s.H){ s.ballY = s.H - s.ballR; s.ballVY = -Math.abs(s.ballVY); }
-  const pX = 20;
-  if(s.ballX - s.ballR < pX + s.playerW && s.ballX + s.ballR > pX && s.ballY + s.ballR > s.playerY && s.ballY - s.ballR < s.playerY + s.playerH && s.ballVX < 0){
-    s.ballX = pX + s.playerW + s.ballR;
-    const rel = (s.ballY - (s.playerY + s.playerH/2)) / (s.playerH/2);
-    const angle = rel * 0.9;
-    const spd = Math.sqrt(s.ballVX*s.ballVX + s.ballVY*s.ballVY);
-    s.ballVX = Math.abs(spd * Math.cos(angle));
-    s.ballVY = spd * Math.sin(angle);
-  }
-  const aX = s.W - 20 - s.aiW;
-  if(s.ballX + s.ballR > aX && s.ballX - s.ballR < aX + s.aiW && s.ballY + s.ballR > s.aiY && s.ballY - s.ballR < s.aiY + s.aiH && s.ballVX > 0){
-    s.ballX = aX - s.ballR;
-    const rel = (s.ballY - (s.aiY + s.aiH/2)) / (s.aiH/2);
-    const angle = rel * 0.9;
-    const spd = Math.sqrt(s.ballVX*s.ballVX + s.ballVY*s.ballVY);
-    s.ballVX = -Math.abs(spd * Math.cos(angle));
-    s.ballVY = spd * Math.sin(angle);
-  }
-  if(s.ballX + s.ballR < 0){ s.aiScore++; updatePongScoreUI(); resetPongBall(-1); }
-  else if(s.ballX - s.ballR > s.W){ s.playerScore++; updatePongScoreUI(); resetPongBall(1); }
-  if(s.playerScore >= 11 || s.aiScore >= 11){ s.running = false; setTimeout(()=> endPongMatch(), 400); }
-}
-
-function resetPongBall(dir){
-  const s = pongState;
-  if(!s) return;
-  s.ballX = s.W/2; s.ballY = s.H/2;
-  s.ballVX = dir * s.cfg.ballSpeed;
-  s.ballVY = (Math.random()*2-1) * s.cfg.ballSpeed * 0.6;
-}
-
-function updatePongScoreUI(){
-  const s = pongState;
-  if(!s) return;
-  const you = document.getElementById('pongScoreYou');
-  const ai = document.getElementById('pongScoreAI');
-  if(you) you.textContent = s.playerScore;
-  if(ai) ai.textContent = s.aiScore;
-}
-
-function drawPong(){
-  const s = pongState;
-  if(!s) return;
-  const { ctx, W, H } = s;
-  ctx.fillStyle = '#05050a';
-  ctx.fillRect(0, 0, W, H);
-  ctx.strokeStyle = 'rgba(255,255,255,.15)';
-  ctx.setLineDash([8,8]);
-  ctx.beginPath(); ctx.moveTo(W/2, 0); ctx.lineTo(W/2, H); ctx.stroke();
-  ctx.setLineDash([]);
-  const pX = 20;
-  ctx.fillStyle = '#E62429';
-  ctx.fillRect(pX, s.playerY, s.playerW, s.playerH);
-  const aX = W - 20 - s.aiW;
-  ctx.fillStyle = '#FFFFFF';
-  ctx.fillRect(aX, s.aiY, s.aiW, s.aiH);
-  ctx.fillStyle = '#FFB800';
-  ctx.beginPath(); ctx.arc(s.ballX, s.ballY, s.ballR, 0, Math.PI*2); ctx.fill();
-}
-
-function stopPong(){
-  if(pongHandlers){ try{ pongHandlers.wrap.removeEventListener('mousemove', pongHandlers.handleMove); }catch{} pongHandlers = null; }
-  pongState = null;
-  if(pongRafId){ cancelAnimationFrame(pongRafId); pongRafId = null; }
-}
-
-function endPongMatch(){
-  const s = pongState;
-  if(!s) return;
-  const playerWon = s.playerScore > s.aiScore;
-  const box = document.getElementById('pongWinnerBox');
-  if(!box) return;
-  if(playerWon){
-    const reward = PONG_REWARDS[s.difficulty];
-    state.score += reward.coin;
-    if(reward.gold) state.gold = (state.gold||0) + reward.gold;
-    state.pongWins[s.difficulty] = (state.pongWins[s.difficulty]||0) + 1;
-    render();
-    saveProgressToServer();
-    SFX.win();
-    box.innerHTML = `<div class="pongWinner"><div class="pwTitle win">🎉 YOU WIN!</div><div class="pwSub">${s.playerScore} — ${s.aiScore}</div></div>`;
-    popReward('🏓', 'PONG VICTORY', reward.coin ? '+' + fmt(reward.coin) : '+' + reward.gold + '💰', '');
-  } else {
-    SFX.lose();
-    box.innerHTML = `<div class="pongWinner"><div class="pwTitle lose">😢 YOU LOSE</div><div class="pwSub">${s.playerScore} — ${s.aiScore}</div></div>`;
-  }
-  stopPong();
-}
-
-function updateGoldPageLive(){
-  if(!state.goldUnlocked) return;
-  const pending = state.goldEnginePending || 0;
-  const pendingEl = document.getElementById('goldPendingDisplay');
-  const statusEl = document.getElementById('goldPendingStatus');
-  const btn = document.getElementById('goldCollectBtn');
-  if(pendingEl) pendingEl.textContent = pending.toFixed(2);
-  if(statusEl){
-    if(pending >= 1){ statusEl.textContent = '🎉 READY'; statusEl.style.color = '#4CDC6E'; }
-    else { statusEl.textContent = 'FILLING'; statusEl.style.color = '#8a8a95'; }
-  }
-  if(btn){
-    const full = Math.floor(pending);
-    if(pending >= 1){
-      btn.disabled = false;
-      btn.textContent = '💰 COLLECT ' + full + ' GOLD';
-    } else {
-      btn.disabled = true;
-      btn.textContent = '⏳ FILLING...';
-    }
-  }
-}
-
-function renderGold(){
-  if(!state.goldUnlocked){
-    const canAfford = state.score >= GOLD_UNLOCK_COST;
-    $('#sheetBody').innerHTML = `
-      <div style="text-align:center;padding:20px">
-        <div style="font-size:56px;margin-bottom:12px">💰</div>
-        <div style="font-weight:900;font-size:22px;color:#FFB800;margin-bottom:8px">GOLD ENGINE</div>
-        <div style="font-size:12.5px;color:#c8c8d0;line-height:1.7;margin-bottom:16px">Unlock passive gold generation forever.</div>
-        <div style="font-size:28px;font-weight:900;color:${canAfford?'#4CDC6E':'#FF3B42'}">${fmt(GOLD_UNLOCK_COST)} 🪙</div>
-      </div>
-      <button id="goldUnlockBtn" style="width:100%;padding:16px;border:none;border-radius:14px;background:${canAfford?'linear-gradient(135deg,#FFB800,#B88000)':'rgba(255,255,255,.08)'};color:${canAfford?'#0a0500':'#5a5a65'};font-weight:900;font-size:14px;text-transform:uppercase;cursor:${canAfford?'pointer':'not-allowed'};font-family:inherit" ${canAfford?'':'disabled'}>${canAfford?'🔓 UNLOCK':'🔒 NOT ENOUGH'}</button>
-    `;
-    document.getElementById('goldUnlockBtn').onclick = unlockGoldEngine;
-    return;
-  }
-  const pending = state.goldEnginePending || 0;
-  const ready = pending >= 1;
-  const full = Math.floor(pending);
-  $('#sheetBody').innerHTML = `
-    <div style="text-align:center;padding:14px;background:linear-gradient(160deg,rgba(255,184,0,.15),rgba(255,184,0,.03));border-radius:16px;margin-bottom:14px">
-      <div style="font-size:11px;color:#FFB800;font-weight:800">YOUR GOLD</div>
-      <div style="font-size:36px;font-weight:900;color:#FFE27A">${fmt(state.gold||0)} 💰</div>
-    </div>
-    <div style="text-align:center;margin-bottom:14px">
-      <div style="font-size:32px;font-weight:900;color:${ready?'#4CDC6E':'#fff'}"><span id="goldPendingDisplay">${pending.toFixed(2)}</span> / 1.00</div>
-      <div id="goldPendingStatus" style="font-size:11px;color:#8a8a95;font-weight:700">${ready?'🎉 READY':'FILLING'}</div>
-    </div>
-    <button id="goldCollectBtn" style="width:100%;padding:15px;border:none;border-radius:14px;background:${ready?'linear-gradient(135deg,#4CDC6E,#2A8A42)':'rgba(255,255,255,.08)'};color:${ready?'#fff':'#5a5a65'};font-weight:900;font-size:13.5px;text-transform:uppercase;cursor:${ready?'pointer':'not-allowed'};font-family:inherit" ${ready?'':'disabled'}>${ready?'💰 COLLECT '+full+' GOLD':'⏳ FILLING...'}</button>
-  `;
-  document.getElementById('goldCollectBtn').onclick = collectGold;
-}
-
-function unlockGoldEngine(){
-  if(state.score < GOLD_UNLOCK_COST){ showToast('NOT ENOUGH CREDITS'); SFX.err(); return; }
-  if(!confirm('Unlock Gold Engine?')) return;
-  state.score -= GOLD_UNLOCK_COST;
-  state.goldUnlocked = true;
-  state.goldEnginePending = 0;
-  SFX.buy();
-  showToast('⚙️ UNLOCKED!', true);
-  render();
-  renderGold();
-  saveProgressToServer();
-}
-
-function collectGold(){
-  const pending = state.goldEnginePending || 0;
-  const full = Math.floor(pending);
-  if(full < 1){ showToast('NEED 1 GOLD'); SFX.err(); return; }
-  state.gold = (state.gold || 0) + full;
-  state.goldEnginePending = pending - full;
-  SFX.buy();
-  showToast('+' + full + ' GOLD', true);
-  render();
-  renderGold();
-  saveProgressToServer();
-}
-
-function renderSettings(){
-  const displayName = state.customName || (currentUser ? currentUser.email?.split('@')[0] : 'Guest');
-  const initial = displayName.substring(0,2).toUpperCase();
-  const since = currentUser?.created_at ? new Date(currentUser.created_at).toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' }) : 'Today';
-  const avatarStyle = state.avatar ? `background-image:url('${state.avatar}');background-size:cover;background-position:center;` : '';
-  $('#sheetBody').innerHTML = `
-    <div class="settingsHero">
-      <div class="settingsAvatarWrap">
-        <div class="settingsAvatar" id="settingsAvatar" style="${avatarStyle}">${state.avatar ? '' : initial}</div>
-        <div class="avatarEditBadge" id="avatarEditBadge">📷</div>
-        <div class="avatarMenu" id="avatarMenu">
-          <button class="avatarMenuBtn" id="avatarUploadBtn">📸 ${state.avatar ? 'CHANGE' : 'UPLOAD'}</button>
-          ${state.avatar ? '<button class="avatarMenuBtn danger" id="avatarRemoveBtn">🗑 REMOVE</button>' : ''}
-        </div>
-      </div>
-      <div class="settingsNameRow">
-        <div class="settingsName">${displayName}</div>
-        <div class="editNameBtn" id="editNameBtn">✏️</div>
-      </div>
-      <div class="settingsRank">🎖️ ${rankOf(state.score)}</div>
-      <div class="settingsSince">${isGuest ? 'Playing as guest' : 'Member since ' + since}</div>
-    </div>
-    <div class="statsGrid" style="margin-bottom:16px">
-      <div class="statCard"><div class="stIcon">🪙</div><div class="stValue">${fmt(state.score)}</div><div class="stLabel">Credits</div></div>
-      <div class="statCard"><div class="stIcon">💰</div><div class="stValue">${fmt(state.gold||0)}</div><div class="stLabel">Gold</div></div>
-      <div class="statCard"><div class="stIcon">🎫</div><div class="stValue">${fmt(state.tickets||0)}</div><div class="stLabel">Tickets</div></div>
-      <div class="statCard"><div class="stIcon">👊</div><div class="stValue">${fmt(state.totalClicks)}</div><div class="stLabel">Strikes</div></div>
-    </div>
-    <div class="settingsSection">
-      <h3>Account</h3>
-      ${isGuest ? `
-        <div class="settingsItem" id="setRegister"><div class="siIcon">✨</div><div class="siBody"><div class="siTitle">Create Account</div><div class="siDesc">Save progress to cloud</div></div><div class="siArrow">›</div></div>
-      ` : `
-        <div class="settingsItem" id="setSync"><div class="siIcon">☁️</div><div class="siBody"><div class="siTitle">Cloud Sync</div><div class="siDesc">${currentUser?.email || ''}</div></div><div class="siArrow">✓</div></div>
-        <div class="settingsItem danger" id="setLogout"><div class="siIcon">🚪</div><div class="siBody"><div class="siTitle">Logout</div><div class="siDesc">Sign out</div></div><div class="siArrow">›</div></div>
-      `}
-    </div>
-    <div class="settingsSection">
-      <h3>Support</h3>
-      <a href="https://progarts.github.io/Blog/" target="_blank" rel="noopener" class="settingsItem" style="text-decoration:none">
-        <div class="siIcon">📰</div>
-        <div class="siBody"><div class="siTitle">Our Blog</div><div class="siDesc">Visit our blog site</div></div>
-        <div class="siArrow">›</div>
-      </a>
-    </div>
-    <div class="settingsSection">
-      <h3>Tutorial</h3>
-      <div class="tutorialBox">
-        <div class="tutorialStep"><div class="tsNum">1</div><div class="tsBody">Tap the <b>golden coin</b> to earn credits.</div></div>
-        <div class="tutorialStep"><div class="tsNum">2</div><div class="tsBody">Tap <b>rapidly</b> to build combo — up to <b>×5</b>.</div></div>
-        <div class="tutorialStep"><div class="tsNum">3</div><div class="tsBody">Buy <b>Tickets</b> or earn from missions.</div></div>
-        <div class="tutorialStep"><div class="tsNum">4</div><div class="tsBody">Play mini games for big rewards.</div></div>
-        <div class="tutorialStep"><div class="tsNum">5</div><div class="tsBody">Upgrade <b>Heroes</b> to boost stats.</div></div>
-        <div class="tutorialStep"><div class="tsNum">6</div><div class="tsBody">Progress auto-saves to cloud ${isGuest?'(guest: local only)':''}.</div></div>
-      </div>
-    </div>
-    <div class="settingsSection">
-      <h3>Danger Zone</h3>
-      <div class="settingsItem danger" id="setReset"><div class="siIcon">⚠️</div><div class="siBody"><div class="siTitle">Reset Progress</div><div class="siDesc">${isGuest ? 'Delete local data' : 'Delete cloud data'}</div></div><div class="siArrow">›</div></div>
-    </div>
-    <div style="text-align:center;margin-top:20px;font-size:10.5px;color:#5a5a65;letter-spacing:2px">BUILT BY PARHAM.KH</div>
-  `;
-  const avatarMenu = document.getElementById('avatarMenu');
-  const editBadge = document.getElementById('avatarEditBadge');
-  const uploadBtn = document.getElementById('avatarUploadBtn');
-  const removeBtn = document.getElementById('avatarRemoveBtn');
-  const editNameBtn = document.getElementById('editNameBtn');
-  if(editBadge) editBadge.onclick = (e)=>{ e.stopPropagation(); avatarMenu.classList.toggle('show'); };
-  if(uploadBtn) uploadBtn.onclick = (e)=>{ e.stopPropagation(); avatarMenu.classList.remove('show'); $('#avatarInputGlobal').click(); };
-  if(removeBtn) removeBtn.onclick = (e)=>{ e.stopPropagation(); avatarMenu.classList.remove('show'); removeAvatar(); };
-  if(editNameBtn) editNameBtn.onclick = (e)=>{ e.stopPropagation(); editPlayerName(); };
-  document.addEventListener('click', function closeMenu(e){
-    if(avatarMenu && avatarMenu.classList.contains('show')){
-      if(!avatarMenu.contains(e.target) && e.target !== editBadge){
-        avatarMenu.classList.remove('show');
-        document.removeEventListener('click', closeMenu);
-      }
-    }
-  });
-  const setLogout = document.getElementById('setLogout');
-  if(setLogout) setLogout.onclick = async ()=>{
-    if(!confirm('Logout?')) return;
-    await logoutAccount();
-    closeSheet();
-    setTimeout(()=>location.reload(), 300);
-  };
-  const setRegister = document.getElementById('setRegister');
-  if(setRegister) setRegister.onclick = ()=>{
-    closeSheet();
-    localStorage.removeItem('marvels_guest');
-    setTimeout(()=>location.reload(), 300);
-  };
-  const setReset = document.getElementById('setReset');
-  if(setReset) setReset.onclick = async ()=>{
-    if(!confirm('Reset all progress?')) return;
-    if(isGuest){
-      localStorage.removeItem('marvels_guest_save');
-    } else {
-      await resetServerProgress();
-    }
-    location.reload();
-  };
-}
-
-function editPlayerName(){
-  const current = state.customName || (currentUser ? currentUser.email?.split('@')[0] : 'Guest');
-  const newName = prompt('Enter your display name (max 20 chars):', current);
-  if(newName === null) return;
-  const trimmed = newName.trim();
-  if(!trimmed){
-    state.customName = null;
-    showToast('NAME RESET', true);
-  } else if(trimmed.length > 20){
-    showToast('NAME TOO LONG'); SFX.err(); return;
-  } else {
-    state.customName = trimmed.replace(/[<>]/g, '');
-    showToast('✏️ NAME UPDATED', true);
-    SFX.buy();
-  }
-  updatePlayerUI();
-  renderSettings();
-  saveProgressToServer();
-}
-
-async function handleAvatarFile(file){
-  if(!state) return;
-  if(!file.type.startsWith('image/')){ showToast('ONLY IMAGES'); SFX.err(); return; }
-  if(file.size > 5*1024*1024){ showToast('MAX 5MB'); SFX.err(); return; }
-  if(isGuest){
-    const reader = new FileReader();
-    reader.onload = (ev)=>{
-      const img = new Image();
-      img.onload = ()=>{
-        const canvas = document.createElement('canvas');
-        canvas.width = canvas.height = 200;
-        const ctx = canvas.getContext('2d');
-        const min = Math.min(img.width, img.height);
-        ctx.drawImage(img, (img.width-min)/2, (img.height-min)/2, min, min, 0, 0, 200, 200);
-        try{ state.avatar = canvas.toDataURL('image/jpeg', 0.75); }
-        catch{ showToast('FAILED'); return; }
-        saveProgressToServer();
-        updatePlayerUI();
-        renderSettings();
-        showToast('📸 AVATAR UPDATED', true);
-      };
-      img.src = ev.target.result;
-    };
-    reader.readAsDataURL(file);
-    return;
-  }
-  showToast('UPLOADING...');
-  const url = await uploadAvatarToStorage(file);
-  if(url){
-    state.avatar = url;
-    saveProgressToServer();
-    updatePlayerUI();
-    renderSettings();
-    showToast('📸 AVATAR UPLOADED', true);
-  } else {
-    showToast('UPLOAD FAILED'); SFX.err();
-  }
-}
-
-function removeAvatar(){
-  if(!state.avatar) return;
-  if(!confirm('Remove avatar?')) return;
-  state.avatar = null;
-  saveProgressToServer();
-  updatePlayerUI();
-  renderSettings();
-  showToast('✓ AVATAR REMOVED', true);
-}
-
-$('#avatarInputGlobal').onchange = (e)=>{
-  const file = e.target.files[0];
-  if(file) handleAvatarFile(file);
-  e.target.value = '';
-};
-
-function openSheet(view){
-  const titles = {
-    heroes:'<span class="accent">⚡</span> HEROES',
-    missions:'<span class="accent">🎯</span> MISSIONS',
-    achievements:'<span class="accent">🏆</span> ACHIEVEMENTS',
-    minigames:'<span class="accent">🎮</span> MINI GAMES',
-    gold:'<span class="accent">💰</span> GOLD',
-    settings:'<span class="accent">⚙️</span> SETTINGS',
-  };
-  $('#sheetTitle').innerHTML = titles[view] || '';
-  if(view==='heroes') renderHeroes();
-  if(view==='missions') renderMissions();
-  if(view==='achievements') renderAchievements();
-  if(view==='minigames') renderMiniGames();
-  if(view==='gold') renderGold();
-  if(view==='settings') renderSettings();
-  $('#sheetOverlay').classList.add('show');
-  $('#sheet').classList.add('show');
-}
-
-function closeSheet(){
-  $('#sheetOverlay').classList.remove('show');
-  $('#sheet').classList.remove('show');
-  stopPong();
-}
-
-let popupTimer;
-function popReward(icon, title, amount, sub){
-  $('#rpIcon').textContent = icon;
-  $('#rpTitle').textContent = title;
-  $('#rpAmount').textContent = amount;
-  $('#rpSub').textContent = sub || '';
-  $('#rewardPopup').classList.add('show');
-  clearTimeout(popupTimer);
-  popupTimer = setTimeout(()=>$('#rewardPopup').classList.remove('show'), 2400);
-}
-
-let toastTimer;
-function showToast(msg, ok=false){
-  const t = $('#toast');
-  t.textContent = msg;
-  t.className = ok === true ? 'ok' : '';
-  t.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(()=>t.classList.remove('show'), 1800);
-}
-
-let lastTick = performance.now();
-let tickCounter = 0;
-
-function tick(now){
-  const dt = Math.min((now - lastTick)/1000, 1);
-  lastTick = now;
-  if(!state){ requestAnimationFrame(tick); return; }
-  if(state.goldUnlocked){
-    state.goldEnginePending = (state.goldEnginePending || 0) + dt * GOLD_PER_SECOND;
-  }
-  if(state.energy < state.energyMax){
-    state.energy = Math.min(state.energy + state.regen*dt, state.energyMax);
-  }
-  const auto = (state.upgrades.legion||0)*2;
-  if(auto > 0) state.score += auto*dt;
-  tickCounter++;
-  const skip = isLowEnd ? 10 : 5;
-  if(tickCounter % skip === 0) renderFast();
-  if(tickCounter % 120 === 0) render();
-  requestAnimationFrame(tick);
-}
-
-$('#coin').addEventListener('pointerdown', (e)=>{ e.preventDefault(); strike(e); });
-$('#coin').addEventListener('touchstart', (e)=>{
-  e.preventDefault();
-  ensureAudio();
-  for(let i=0;i<e.touches.length;i++){
-    const t = e.touches[i];
-    strike({ clientX: t.clientX, clientY: t.clientY });
-  }
-}, { passive: false });
-
-document.addEventListener('touchend', (e)=>{
-  const now = Date.now();
-  if(now - (document._lastTouchEnd || 0) < 350) e.preventDefault();
-  document._lastTouchEnd = now;
-}, { passive: false });
-
-$$('.navItem').forEach(item=>{
-  item.onclick = ()=>{
-    $$('.navItem').forEach(x=>x.classList.remove('active'));
-    item.classList.add('active');
-    openSheet(item.dataset.view);
-    SFX.tap(1);
-  };
-});
-
-$('#sheetOverlay').onclick = closeSheet;
-$('#sheetClose').onclick = closeSheet;
-$('#settingsBtn').onclick = ()=>{ $$('.navItem').forEach(x=>x.classList.remove('active')); openSheet('settings'); };
-$('#goldBtn').onclick = ()=>{ $$('.navItem').forEach(x=>x.classList.remove('active')); openSheet('gold'); };
-
-(async function boot(){
-  const sessionUser = await checkSession();
-  const guestSaved = localStorage.getItem('marvels_guest') === '1';
-  if(sessionUser){
-    currentUser = sessionUser;
-    isGuest = false;
-    await bootGame(false);
-  } else if(guestSaved){
-    isGuest = true;
-    currentUser = null;
-    await bootGame(false);
-  } else {
-    $('#authOverlay').classList.add('show');
-    setTimeout(()=>$('#authEmail').focus(), 500);
-  }
-  lastTick = performance.now();
-  requestAnimationFrame(tick);
-  window.addEventListener('beforeunload', ()=>{ if(state && !isGuest) saveProgressToServer(); });
-  document.addEventListener('visibilitychange', ()=>{ if(document.hidden && state && !isGuest) saveProgressToServer(); });
-})();
-
-/* ═══════════════════════════════════════════════════════════
-   PWA — Service Worker Registration
-   ═══════════════════════════════════════════════════════════ */
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/Marvel-HC/sw.js')
-      .then((reg) => console.log('✓ SW registered:', reg.scope))
-      .catch((err) => console.warn('✗ SW failed:', err));
-  });
-}
-
-let deferredPrompt = null;
-
-window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-  showInstallBanner();
-});
-
-function showInstallBanner() {
-  if (sessionStorage.getItem('install_banner_shown') === '1') return;
-  sessionStorage.setItem('install_banner_shown', '1');
-
-  const banner = document.createElement('div');
-  banner.id = 'installBanner';
-  banner.style.cssText = `
-    position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(120%);
-    background:linear-gradient(135deg,rgba(30,30,40,.98),rgba(15,15,25,.99));
-    border:1px solid rgba(255,184,0,.5);border-radius:16px;padding:14px 18px;
-    box-shadow:0 20px 60px rgba(0,0,0,.9),0 0 30px rgba(255,184,0,.3);
-    z-index:9999;display:flex;align-items:center;gap:12px;
-    max-width:340px;width:calc(100% - 40px);
-    transition:transform .4s cubic-bezier(.2,.9,.3,1);
-    font-family:'Inter',sans-serif;
-  `;
-  banner.innerHTML = `
-    <div style="width:44px;height:44px;border-radius:11px;background:linear-gradient(135deg,#E62429,#8B0F14);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;box-shadow:0 0 20px rgba(230,36,41,.7)">📱</div>
-    <div style="flex:1;min-width:0">
-      <div style="font-size:12.5px;font-weight:800;color:#fff;margin-bottom:2px">INSTALL MARVELS HC</div>
-      <div style="font-size:10.5px;color:#8a8a95;font-weight:600">Add to home screen</div>
-    </div>
-    <button id="installBtn" style="padding:9px 16px;border:none;border-radius:10px;background:linear-gradient(135deg,#FFB800,#E62429);color:#fff;font-weight:900;font-size:11px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;font-family:inherit;flex-shrink:0">INSTALL</button>
-    <button id="installClose" style="background:transparent;border:none;color:#5a5a65;font-size:16px;cursor:pointer;padding:4px;flex-shrink:0">✕</button>
-  `;
-  document.body.appendChild(banner);
-
-  requestAnimationFrame(() => {
-    banner.style.transform = 'translateX(-50%) translateY(0)';
-  });
-
-  document.getElementById('installBtn').onclick = async () => {
-    if (!deferredPrompt) return;
-    deferredPrompt.prompt();
-    await deferredPrompt.userChoice;
-    deferredPrompt = null;
-    banner.style.transform = 'translateX(-50%) translateY(150%)';
-    setTimeout(() => banner.remove(), 400);
-  };
-
-  document.getElementById('installClose').onclick = () => {
-    banner.style.transform = 'translateX(-50%) translateY(150%)';
-    setTimeout(() => banner.remove(), 400);
-  };
-
-  setTimeout(() => {
-    if (document.getElementById('installBanner')) {
-      banner.style.transform = 'translateX(-50%) translateY(150%)';
-      setTimeout(() => banner.remove(), 400);
-    }
-  }, 15000);
-}
-
-window.addEventListener('appinstalled', () => {
-  console.log('✓ PWA installed');
-  deferredPrompt = null;
-});
-</script>
 </body>
 </html>
